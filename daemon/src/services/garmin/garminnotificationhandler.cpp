@@ -147,7 +147,7 @@ void GarminNotificationHandler::onSetCallState(const CallSpec& call)
 
         // add an empty bogus action to toggle the hasActions boolean. The actions are hardcoded on the watch in case of incoming calls.
         notif.attachedActions.empty();
-        notif.attachedActions.insert(0, QSharedPointer(new Action()));
+        notif.attachedActions.insert(0, QSharedPointer<Action>(new Action()));
 
 
         qDebug() << Q_FUNC_INFO << "Garmin: Sending incoming call notification";
