@@ -1,167 +1,13 @@
 #include "garmincalendarmessage.h"
 #include "libwatchfish/calendarsource.h"
+#include "protobuftools.h"
 
 #include <QtCore/QDebug>
-
-
-// -----------------------------------------------------------------------------
-// Helpers, might be transferred into seperate file later to be resued by other
-// -----------------------------------------------------------------------------
-static QString truncateByChars(const QString& s, quint32 maxLen)
-{
-    if (maxLen == 0 || s.size() <= int(maxLen)) {
-        return s;
-    }
-    return s.left(int(maxLen));
-}
-
-// -----------------------------------------------------------------------------
-// Decode protobuf varint
-// Returns: (value, bytesConsumed)
-// -----------------------------------------------------------------------------
-bool decodeVarint(const QByteArray& data, quint64& result, int& bytesRead)
-{
-    int shift = 0;
-    bytesRead = 0;
-    result = 0;
-
-    for (auto ch : data) {
-        const quint8 byte = quint8(ch);
-        ++bytesRead;
-
-        result |= (quint64(byte & 0x7F) << shift);
-
-        if ((byte & 0x80) == 0) {
-            return true;
-        }
-
-        shift += 7;
-        if (shift >= 64) {
-            return false; // Varint too long
-        }
-
-        if (bytesRead >= 10) {
-            break;
-        }
-    }
-
-    return false; // Incomplete varint
-}
-
-
-
-// -----------------------------------------------------------------------------
-// Encode protobuf varint
-// -----------------------------------------------------------------------------
-void encodeVarint(QByteArray& buffer, quint64 value)
-{
-    while (true) {
-        quint8 byte = quint8(value & 0x7F);
-        value >>= 7;
-
-        if (value != 0) {
-            byte |= 0x80;
-        }
-
-        buffer.append(char(byte));
-
-        if (value == 0) {
-            break;
-        }
-    }
-}
-
-// -----------------------------------------------------------------------------
-// Encode field key
-// -----------------------------------------------------------------------------
-void encodeFieldKey(QByteArray& buffer, quint32 fieldNum, quint8 wireType)
-{
-    const quint32 key = (fieldNum << 3) | quint32(wireType);
-    encodeVarint(buffer, key);
-}
-
-// -----------------------------------------------------------------------------
-// Parse one protobuf field from data[startOffset...]
-// Returns fieldNum, wireType, fieldData (payload only), nextCursor absolute offset
-// -----------------------------------------------------------------------------
-bool parseField(const QByteArray& data,
-                int startOffset,
-                quint32& fieldNum,
-                quint8& wireType,
-                QByteArray& fieldData,
-                int& nextCursor)
-{
-    if (startOffset >= data.size()) {
-        return false;
-    }
-
-    const QByteArray tail = data.mid(startOffset);
-
-    quint64 key;
-    int keyLen;
-    bool keyRes = decodeVarint(tail,key,keyLen);
-    if (!keyRes) {
-        return false;
-    }
-
-    fieldNum = quint32(key >> 3);
-    wireType = quint8(key & 0x07);
-
-    int cursor = startOffset + keyLen;
-
-    switch (wireType) {
-    case 0: {
-        // varint payload
-        int valueLen;
-        quint64 value;
-        bool valueRes = decodeVarint(data.mid(cursor),value,valueLen);
-        if (!valueRes) {
-            return false;
-        }
-
-
-        fieldData = data.mid(cursor, valueLen);
-        nextCursor = cursor + valueLen;
-        return true;
-    }
-
-    case 2: {
-        // length-delimited
-        quint64 length;
-        int lenLen;
-        bool  lenRes = decodeVarint(data.mid(cursor),length,lenLen);
-        if (!lenRes) {
-            return false;
-        }
-
-        cursor += lenLen;
-
-        const int endPos = cursor + int(length);
-        if (endPos > data.size()) {
-            qWarning().noquote()
-                << QStringLiteral("Length-delimited field claims %1 bytes but only %2 available (field %3, cursor %4)")
-                       .arg(length)
-                       .arg(data.size() - cursor)
-                       .arg(fieldNum)
-                       .arg(cursor);
-            return false;
-        }
-
-        fieldData = data.mid(cursor, int(length));
-        nextCursor = endPos;
-        return true;
-    }
-
-    default:
-        qWarning() << "Unknown wire type:" << wireType;
-        return false;
-    }
-}
 
 // -----------------------------------------------------------------------------
 // Parse GarminCalendarMessage from raw Smart protobuf payload
 // -----------------------------------------------------------------------------
-void GarminCalendarMessage::parse(const QByteArray& data, quint16 requestId, quint32 dataOffset)
+void GarminCalendarMessage::parse(const QByteArray& data, quint16 requestId)
 {
     qDebug() << Q_FUNC_INFO << "Parsing calendar request from" << data.size() << "bytes";
 
@@ -311,23 +157,6 @@ void GarminCalendarMessage::parse(const QByteArray& data, quint16 requestId, qui
                .arg(request.startDate)
                .arg(request.endDate)
                .arg(request.maxEvents);
-
-    // send Ack for the request
-    qDebug() << Q_FUNC_INFO << "Garmin: Sending ACK for calendar request...";
-
-    QByteArray ackPayload;
-    ackPayload.append(char(0xB3));
-    ackPayload.append(char(0x13));
-    ackPayload.append(char(0x00)); // ACK
-    writeU16le(ackPayload, requestId);
-    writeU32le(ackPayload, dataOffset);
-    ackPayload.append(char(0x00)); // ProtobufChunkStatus: KEPT
-    ackPayload.append(char(0x00)); // ProtobufStatusCode: NO_ERROR
-
-    const QByteArray ackResponse =
-        wrapInGfdiEnvelope(MessageId::Response, ackPayload);
-
-    if (mCommunicator) mCommunicator->sendMessage("CALENDER REQUEST ACK", ackResponse);
 
     //Get calendar items from watchfish
     auto calendarProto = handleCalendarRequest(request);

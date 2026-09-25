@@ -76,7 +76,7 @@ class  GarminCalendarMessage : public GarminGfdiMessage
     GarminCalendarMessage(CommunicatorV2 *parent) {
         mCommunicator = parent;
     }
-    void parse(const QByteArray& data, quint16 requestId, quint32 dataOffset);
+    void parse(const QByteArray& data, quint16 requestId);
 
     Result<QVector<CalendarEventProto>> handleCalendarRequest(
         const CalendarServiceRequest& request);

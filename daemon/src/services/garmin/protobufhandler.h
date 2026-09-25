@@ -36,11 +36,11 @@ public:
     ProtobufHandler(CommunicatorV2* com):mCommunicator(com){
     };
     int getNextProtobufRequestId();
-    QSharedPointer<GarminProtobufMessage> processIncoming(QSharedPointer<GarminProtobufMessage> message);
+    void processIncoming(QSharedPointer<GarminProtobufMessage> message);
     QSharedPointer<GarminProtobufMessage> processIncoming(QSharedPointer<GarminProtobufStatusMessage> message);
     QSharedPointer<ProtobufFragment> processChunkedMessage(QSharedPointer<GarminProtobufMessage> message);
     QSharedPointer<GarminProtobufMessage> prepareProtobufRequest(QByteArray protobufPayload);
-        QSharedPointer<GarminProtobufMessage> prepareProtobufResponse(QByteArray protobufPayload, int requestId);
+    QSharedPointer<GarminProtobufMessage> prepareProtobufResponse(QByteArray protobufPayload, int requestId);
     QSharedPointer<GarminProtobufMessage> prepareProtobufMessage(QByteArray bytes, MessageId type, int requestId);
 
 private:

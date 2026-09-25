@@ -117,6 +117,7 @@ set(SOURCES
 ./src/services/garmin/garminnotificationhandler.cpp
 ./src/services/garmin/cobscodec.cpp
 ./src/services/garmin/garmintypes.cpp
+./src/services/garmin/protobuftools.cpp
 ./src/services/garmin/garmingfdimessage.cpp
 ./src/services/garmin/garmindeviceinformationmessage.cpp
 ./src/services/garmin/garmincurrenttimemessage.cpp
@@ -138,6 +139,7 @@ set(SOURCES
 ./src/services/garmin/garminhrmmessage.cpp
 ./src/services/garmin/garminhrvmessage.cpp
 ./src/services/garmin/garminstepsmessage.cpp
+./src/services/garmin/garminhttpmessage.cpp
 ./src/services/garmin/garminmlr.cpp
 ./src/services/garmin/datatransferhandler.cpp
 ./src/services/pinetimemusicservice.cpp
@@ -270,6 +272,7 @@ set(HEADERS
 ./src/services/garmin/garminnotificationhandler.h
 ./src/services/garmin/cobscodec.h
 ./src/services/garmin/garmintypes.h
+./src/services/garmin/protobuftools.h
 ./src/services/garmin/garmingfdimessage.h
 ./src/services/garmin/garmindeviceinformationmessage.h
 ./src/services/garmin/garmincurrenttimemessage.h
@@ -291,6 +294,7 @@ set(HEADERS
 ./src/services/garmin/garminhrmmessage.h
 ./src/services/garmin/garminhrvmessage.h
 ./src/services/garmin/garminstepsmessage.h
+./src/services/garmin/garminhttpmessage.h
 ./src/services/garmin/garminmlr.h
 ./src/services/garmin/datatransferhandler.h
 ./src/services/pinetimemusicservice.h

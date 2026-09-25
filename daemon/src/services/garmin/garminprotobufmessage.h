@@ -24,11 +24,7 @@ enum ProtobufStatusCode {
 class GarminProtobufStatusMessage : public GarminGfdiMessage
 {
 public:
-    /*
-    GarminProtobufStatusMessage(CommunicatorV2 *parent) {
-        mCommunicator = parent;
-    }
-*/
+
     explicit GarminProtobufStatusMessage( QByteArray data=QByteArray(), CommunicatorV2* parent=nullptr)
     {
         mMessageBytes=data;
@@ -68,14 +64,9 @@ private:
 class GarminProtobufMessage : public GarminGfdiMessage
 {
 public:
-    /*
-    GarminProtobufMessage(CommunicatorV2 *parent) {
-        mCommunicator = parent;
-    };
-    */
-    explicit GarminProtobufMessage( QByteArray data=QByteArray(), CommunicatorV2* parent=nullptr)
+
+    explicit GarminProtobufMessage(CommunicatorV2* parent=nullptr)
     {
-        mMessageBytes=data;
         mCommunicator=parent;
         mMessageType=MessageId::ProtobufResponse;
 
@@ -83,7 +74,7 @@ public:
     GarminProtobufMessage(CommunicatorV2 *com, int requestId, int dataOffset, int totalProtobufLength, int protobufDataLength, QByteArray messageBytes, bool sendOutgoing=true);
     void setStatusMessage(QSharedPointer<GarminProtobufStatusMessage> protobufStatusMessage);
 
-    QSharedPointer<GarminProtobufMessage> parse();
+    void parse(const QByteArray& data);
 
     int getDataOffset() { return mDataOffset; };
     //QByteArray getMessageBytes() { return mMessageBytes; };
@@ -99,7 +90,7 @@ public:
 
 private:
     void handleAuthenticationRequest(quint16 requestId);
-    void handleCalendarRequest(const QByteArray& data, quint16 requestID, quint32 dataOffset);
+    void handleCalendarRequest(const QByteArray& data, quint16 requestID);
     void sendGenericAck(const QByteArray& data);
 
     int mRequestId;

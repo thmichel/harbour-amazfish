@@ -37,9 +37,9 @@ Amazfish::DataTypes EpixProDevice::supportedDataTypes() const
     return Amazfish::DataType::TYPE_SPO2
             | Amazfish::DataType::TYPE_HRV
             | Amazfish::DataType::TYPE_HEART_RATE
-            | Amazfish::DataType::TYPE_ACTIVITY
-            | Amazfish::DataType::TYPE_PAI
-            | Amazfish::DataType::TYPE_SLEEP
+            // Not yet implemented | Amazfish::DataType::TYPE_ACTIVITY
+            // Not yet implemented | Amazfish::DataType::TYPE_PAI
+            // Not yet implemented | Amazfish::DataType::TYPE_SLEEP
             ;
 
 }

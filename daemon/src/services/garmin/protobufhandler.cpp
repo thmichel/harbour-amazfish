@@ -2,6 +2,8 @@
 #include "garminprotobufmessage.h"
 #include "garmindevicestatusmessage.h"
 #include "garmincalendarmessage.h"
+#include "garminhttpmessage.h"
+#include "protobuftools.h"
 
 const int MAX_CHUNK_SIZE = 375;
 
@@ -60,22 +62,36 @@ int ProtobufHandler::getNextProtobufRequestId() {
         return mLastProtobufRequestId;
     }
 
-QSharedPointer<GarminProtobufMessage> ProtobufHandler::processIncoming(QSharedPointer<GarminProtobufMessage> message) {
+void ProtobufHandler::processIncoming(QSharedPointer<GarminProtobufMessage> message) {
     qDebug() << Q_FUNC_INFO;
     QSharedPointer<ProtobufFragment> fragment = processChunkedMessage(message);
     if (fragment.isNull()) {
         qDebug() << Q_FUNC_INFO << "Garmin: processChunkedMessage returned Null";
-        return  QSharedPointer<GarminProtobufMessage>();
+        return;
     }
     if (fragment->isComplete()) {
         qDebug() << Q_FUNC_INFO << "Garmin: Protobuf message is complete" << message->getMessageBytes().toHex();
+
+        QByteArray ackMessage;
+        writeU16le(ackMessage,(quint16)MessageId::ProtobufRequest);
+        ackMessage.append((char)Status::Ack);
+        writeU16le(ackMessage,message->getRequestId());
+        writeU32le(ackMessage,message->getDataOffset());
+        ackMessage.append(ProtobufChunkStatus::KEPT);
+        ackMessage.append(ProtobufStatusCode::NO_ERROR);
+        ackMessage=wrapInGfdiEnvelope(MessageId::Response,ackMessage);
+
         mChunkedFragmentsMap.remove(message->getRequestId());
         // Message is complet now, start parsing
         QByteArray protobufPayload = fragment->getFragmentBytes();
 
         const quint8 firstTag = (quint8)protobufPayload[0];
-        const quint8 fieldNumber = firstTag >> 3;
-        const quint8 wireType = firstTag & 0x07;
+        quint32 fieldNumber = firstTag >> 3;
+        quint8 wireType = firstTag & 0x07;
+        int nextCursor = 0;
+        int cursor = 0;
+        QByteArray fieldData;
+        parseField(protobufPayload, cursor, fieldNumber, wireType, fieldData, nextCursor);
 
         qDebug() << Q_FUNC_INFO << "Garmin: First protobuf field:" << fieldNumber
                 << "(wire type:" << wireType << ") Payload: " << protobufPayload.toHex();
@@ -84,9 +100,9 @@ QSharedPointer<GarminProtobufMessage> ProtobufHandler::processIncoming(QSharedPo
         if (fieldNumber==8 && wireType ==2) {
              // Device Status Message
              processed = true;
-             quint8  innerLength=protobufPayload[1];
+             if (mCommunicator) mCommunicator->sendMessage("PROTOBUF ACK",ackMessage);
              GarminDeviceStatusMessage* msg = new GarminDeviceStatusMessage(mCommunicator);
-             msg->parse(protobufPayload.mid(2,innerLength));
+             msg->parse(fieldData);
          }
          if (fieldNumber==49 && wireType ==2) {
              // Notification Service
@@ -95,23 +111,23 @@ QSharedPointer<GarminProtobufMessage> ProtobufHandler::processIncoming(QSharedPo
          if (fieldNumber==1 && wireType ==2) {
              // Calendar Service
              processed = true;
-             quint8  innerLength=protobufPayload[1];
+             if (mCommunicator) mCommunicator->sendMessage("PROTOBUF ACK",ackMessage);
              qDebug() << Q_FUNC_INFO << "Garmin: Got calendar service message";
              GarminCalendarMessage* msg = new GarminCalendarMessage(mCommunicator);
-             msg->parse(protobufPayload.mid(2,innerLength),message->getRequestId(),0);
+             msg->parse(fieldData,message->getRequestId());
          }
-         if (processed) {
-             qDebug() << Q_FUNC_INFO << "Garmin: Add ACK with No error";
+         if (fieldNumber==2&& wireType ==2) {
+             // HTTP Service
+             if (mCommunicator) mCommunicator->sendMessage("PROTOBUF ACK",ackMessage);
 
-             QSharedPointer<GarminProtobufStatusMessage> statusMessage = QSharedPointer<GarminProtobufStatusMessage>
-                     (new GarminProtobufStatusMessage( Status::Ack,
-                                                  message->getRequestId(),
-                                                  message->getDataOffset(),
-                                                  ProtobufChunkStatus::KEPT,
-                                                  ProtobufStatusCode::NO_ERROR,
-                                                  true));
-             message->setStatusMessage(statusMessage);
-            } else {
+             qDebug() << Q_FUNC_INFO << "Garmin: Got HTTP message";
+             processed = true;
+             GarminHttpMessage *msg = new GarminHttpMessage(mCommunicator);
+             msg->parse(fieldData);
+
+         }
+         if (!processed) {
+
              qDebug() << Q_FUNC_INFO << "Garmin: Add ACK with Unknown Request ID";
              QSharedPointer<GarminProtobufStatusMessage> statusMessage = QSharedPointer<GarminProtobufStatusMessage>
                      (new GarminProtobufStatusMessage(Status::Ack,
@@ -122,9 +138,7 @@ QSharedPointer<GarminProtobufMessage> ProtobufHandler::processIncoming(QSharedPo
                                                   true));
              message->setStatusMessage(statusMessage);
          }
-         return message;
       }
-    return QSharedPointer<GarminProtobufMessage>();
 }
 
 QSharedPointer<GarminProtobufMessage> ProtobufHandler::processIncoming(QSharedPointer<GarminProtobufStatusMessage> message) {

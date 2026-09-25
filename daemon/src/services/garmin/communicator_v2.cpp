@@ -401,22 +401,10 @@ void CommunicatorV2::onWeatherRequestReceived(const WeatherRequestMessage& msg) 
 void CommunicatorV2::onProtobufMessageReceived( const QByteArray& data)
 {
     qDebug() << Q_FUNC_INFO;
-    /*
-    the handler elaborates the followup message but might change the status message since it does
-    check the integrity of the incoming message payload. Hence we let the handlers elaborate the
-    incoming message, then we send the status message of the incoming message, then the response
-    and finally we send the followup.
-     */
-    QSharedPointer<GarminProtobufMessage> followup=QSharedPointer<GarminProtobufMessage>();
-    QSharedPointer<GarminProtobufMessage> message=QSharedPointer<GarminProtobufMessage>(new GarminProtobufMessage(data, this));
-    QSharedPointer<GarminProtobufMessage> parsed = message->parse();
-    followup = mProtobufHandler->processIncoming(parsed);
-    qDebug() << Q_FUNC_INFO << "Garmin: Sendig Ackbytestream " << parsed->getAckByteStream().toHex();
-    sendMessage("SEND STATUS", parsed->getAckByteStream()); //send status message
 
-    if (parsed->toSend()) sendMessage("SEND PROTOBUF REPLY", parsed->getMessageBytes()); //send reply if any
-
-    if (!followup.isNull()&& followup->toSend()) sendMessage("SEND PROTOBUF FOLWOW UP", followup->getMessageBytes()); //send followup message if any
+    QSharedPointer<GarminProtobufMessage> message=QSharedPointer<GarminProtobufMessage>(new GarminProtobufMessage( this));
+    message->parse(data);
+    mProtobufHandler->processIncoming(message);
 
 }
 

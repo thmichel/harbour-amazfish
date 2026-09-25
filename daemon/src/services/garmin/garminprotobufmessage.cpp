@@ -21,20 +21,16 @@ void GarminProtobufMessage::setStatusMessage(QSharedPointer<GarminProtobufStatus
     mStatusMessage=protobufStatusMessage;
 }
 
-
-QSharedPointer<GarminProtobufMessage> GarminProtobufMessage::parse()
+void GarminProtobufMessage::parse(const QByteArray& data)
 {
     qDebug() << Q_FUNC_INFO << "Garmin: Protobuf request " << mMessageBytes.toHex();
-    QByteArray data = mMessageBytes;
-    quint16 requestID = u16le(data,0);
-    quint32 dataOffset = u32le(data,2);
-    quint32 totalProtobufLength = u32le(data,6);
-    quint32 protobufDataLength = u32le(data,10);
-    QByteArray messageBytes = data.mid(14,protobufDataLength);
-
-    qDebug() << Q_FUNC_INFO << "Garmin: Protobuf request " << requestID << " total length " << totalProtobufLength << " << data " << messageBytes.toHex();
-    return QSharedPointer<GarminProtobufMessage>(new GarminProtobufMessage(mCommunicator, requestID, dataOffset, totalProtobufLength, protobufDataLength, messageBytes, false));
-
+    mRequestId = u16le(data,0);
+    mDataOffset = u32le(data,2);
+    mTotalProtobufLength = u32le(data,6);
+    mProtobufDataLength = u32le(data,10);
+    mMessageBytes = data.mid(14,mProtobufDataLength);
+    mSendOutgoing=false;
+    qDebug() << Q_FUNC_INFO << "Garmin: Protobuf request " << mRequestId << " total length " << mTotalProtobufLength << " << data " << mMessageBytes.toHex();
  }
 
 void GarminProtobufMessage::handleAuthenticationRequest(quint16 requestId) {
@@ -59,10 +55,10 @@ void GarminProtobufMessage::handleAuthenticationRequest(quint16 requestId) {
      }
 }
 
-void GarminProtobufMessage::handleCalendarRequest(const QByteArray& data, quint16 requestID, quint32 dataOffset)
+void GarminProtobufMessage::handleCalendarRequest(const QByteArray& data, quint16 requestID)
 {
     GarminCalendarMessage* calendarMsg = new GarminCalendarMessage(mCommunicator);
-    calendarMsg->parse(data, requestID, dataOffset);
+    calendarMsg->parse(data, requestID);
 }
 
 void GarminProtobufMessage::sendGenericAck(const QByteArray& data) {

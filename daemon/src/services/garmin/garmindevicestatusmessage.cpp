@@ -16,7 +16,7 @@ void GarminDeviceStatusMessage::parse(const QByteArray& data) {
             //OK
             // According to protobuf documentation, batterylevel should be int32 but seems to be uint8 in byte 5
             quint8 batteryLevel=data[5];
-            qDebug() << Q_FUNC_INFO << "Garmin: Battery Leves is " << batteryLevel << "%";
+            qDebug() << Q_FUNC_INFO << "Garmin: Battery Level is " << batteryLevel << "%";
             if (mCommunicator) mCommunicator->setBatteryLevel(batteryLevel);
             else qDebug() << Q_FUNC_INFO << "Garmin: No communicator found";
         }
