@@ -4,53 +4,85 @@
 #include <QDebug>
 
 
-enum HttpRequestType : quint32  {
-    webRequest =1,
-    webResponse =2,
-    rawRequest = 5,
-    rawResponst =  6,
-};
 
-enum ResponseType : quint32 {
-  JSON = 0,
-  URL_ENCODED = 1,
-  PLAIN_TEXT = 2,
-  XML = 3,
-};
-
-enum Version : quint32 {
-  VERSION_1 = 0,
-  VERSION_2 = 1,
-};
-
-enum Method :quint32 {
-  UNKNOWN_METHOD = 0,
-  GET = 1,
-  PUT = 2,
-  POST = 3,
-  DELETE = 4,
-  PATCH = 5,
-  HEAD = 6,
-};
-
-struct WebRequest {
-  QString url;
-  quint32 method;
-  QByteArray headers;
-  QByteArray body;
-  quint32 maxResponseLength;
-  bool httpHeadersInResponse = true;
-  bool compressResponseBody = false;
-  quint32 responseType;
-  quint32 version;
-};
-
-
-void getRequestData(QByteArray request) {
+bool GarminHttpMessage::getRequestData(QByteArray request) {
     // Parse request fields
     int cursor = 0;
     int loopCount = 0;
-    WebRequest r;
+
+    while (cursor < request.size()) {
+        ++loopCount;
+            if (loopCount > 100) {
+                break;
+            }
+
+        const int oldCursor = cursor;
+        quint32 fieldNum = 0;
+        quint8 wireType = 0;
+        QByteArray fieldData;
+        int nextCursor = 0;
+
+        if (parseField(request, cursor, fieldNum, wireType, fieldData, nextCursor)) {
+            quint64 value;
+            int valueLen;
+            auto varintRes = decodeVarint(fieldData,value,valueLen);
+            if (varintRes) {
+
+                switch (fieldNum) {
+                // URL
+                case 1:
+                    mRequest.url=fieldData;
+                    break;
+                case 2:
+                    mRequest.method=value;
+                    break;
+                case 3:
+                    mRequest.headers=fieldData;
+                    break;
+                case 4:
+                    mRequest.body=fieldData;
+                    break;
+                case 5:
+                    mRequest.maxResponseLength=value;
+                    break;
+                case 6:
+                    mRequest.httpHeadersInResponse=value;
+                    break;
+                case 7:
+                    mRequest.compressResponseBody=value;
+                    break;
+                case 8:
+                    mRequest.responseType=value;
+                    break;
+                case 9:
+                    mRequest.version=value;
+                    break;
+                default:
+                    qDebug() << Q_FUNC_INFO << "Unknown Garmin Http Message field:" << fieldNum;
+                    return false;
+                    break;
+                }
+            }
+            cursor = nextCursor;
+            if (cursor == oldCursor) {
+                qDebug() << Q_FUNC_INFO << "parse Http Request: cursor not advancing in request body";
+                return false;
+                break;
+            }
+        } else {
+            return false;
+            break;
+        }
+    }
+    qDebug() << Q_FUNC_INFO << "HTTP request for " << mRequest.url;
+    return true;
+}
+
+
+bool GarminHttpMessage::getResponseData(QByteArray request) {
+    // Parse request fields
+    int cursor = 0;
+    int loopCount = 0;
 
     while (cursor < request.size()) {
         ++loopCount;
@@ -73,33 +105,247 @@ void getRequestData(QByteArray request) {
                 switch (fieldNum) {
                 // URL
                 case 1:
-                    r.url=fieldData;
+                    mResponse.status=value;
                     break;
                 case 2:
-                    r.method=value;
+                    mResponse.httpStatus=value;
                     break;
                 case 3:
-                    r.headers=fieldData;
+                    mResponse.body=fieldData;
                     break;
                 case 4:
-                    r.body=fieldData;
+                    mResponse.headers=fieldData;
                     break;
                 case 5:
-                    r.maxResponseLength=value;
+                    mResponse.size=value;
                     break;
                 case 6:
-                    r.httpHeadersInResponse=value;
-                    break;
-                case 7:
-                    r.compressResponseBody=value;
-                    break;
-                case 8:
-                    r.responseType=value;
-                    break;
-                case 9:
-                    r.version=value;
+                    mResponse.responseType=value;
                     break;
                 default:
+                    qDebug() << Q_FUNC_INFO << "Unknown Garmin Http Message field:" << fieldNum;
+                    return false;
+                    break;
+                }
+            }
+            cursor = nextCursor;
+            if (cursor == oldCursor) {
+                qDebug() << Q_FUNC_INFO << "parse Http Request: cursor not advancing in request body";
+                return false;
+                break;
+            }
+        } else {
+            return false;
+            break;
+        }
+    }
+    return true;
+}
+
+bool GarminHttpMessage::getRawRequestData(QByteArray request) {
+    // Parse request fields
+    int cursor = 0;
+    int loopCount = 0;
+
+    while (cursor < request.size()) {
+        ++loopCount;
+        if (loopCount > 100) {
+            break;
+        }
+
+        const int oldCursor = cursor;
+        quint32 fieldNum = 0;
+        quint8 wireType = 0;
+        QByteArray fieldData;
+        int nextCursor = 0;
+
+        if (parseField(request, cursor, fieldNum, wireType, fieldData, nextCursor)) {
+            quint64 value;
+            int valueLen;
+            auto varintRes = decodeVarint(fieldData,value,valueLen);
+            if (varintRes) {
+
+                switch (fieldNum) {
+                // URL
+                case 1:
+                    mRawRequest.url=fieldData;
+                    break;
+                case 3:
+                    mRawRequest.method=value;
+                    break;
+                case 5:
+                    mRawRequest.header.append(getHeaderData(fieldData));
+                    break;
+                case 6:
+                    mRawRequest.useDataXfer=value;
+                    break;
+                case 7:
+                    mRawRequest.rawBody=value;
+                    break;
+               default:
+                    qDebug() << Q_FUNC_INFO << "Unknown Garmin Http Message field:" << fieldNum;
+                    return false;
+                    break;
+                }
+            }
+            cursor = nextCursor;
+            if (cursor == oldCursor) {
+                qDebug() << Q_FUNC_INFO << "parse Http Request: cursor not advancing in request body";
+                return false;
+                break;
+            }
+        } else {
+            return false;
+            break;
+        }
+    }
+    qDebug() << Q_FUNC_INFO << "Raw HTTP request for " << mRequest.url     ;
+    return true;
+}
+
+bool GarminHttpMessage::getRawResponseData(QByteArray request) {
+    // Parse request fields
+    int cursor = 0;
+    int loopCount = 0;
+
+    while (cursor < request.size()) {
+        ++loopCount;
+        if (loopCount > 100) {
+            break;
+        }
+
+        const int oldCursor = cursor;
+        quint32 fieldNum = 0;
+        quint8 wireType = 0;
+        QByteArray fieldData;
+        int nextCursor = 0;
+
+        if (parseField(request, cursor, fieldNum, wireType, fieldData, nextCursor)) {
+            quint64 value;
+            int valueLen;
+            auto varintRes = decodeVarint(fieldData,value,valueLen);
+            if (varintRes) {
+
+                switch (fieldNum) {
+                // URL
+                case 1:
+                    mRawResponse.status=value;
+                    break;
+                case 2:
+                    mRawResponse.httpStatus=value;
+                    break;
+                case 3:
+                    mRawResponse.body=fieldData;
+                    break;
+                case 4:
+                    getXferData(fieldData);
+                    break;
+                case 5:
+                    getHeaderData(fieldData);
+                    break;
+                default:
+                    qDebug() << Q_FUNC_INFO << "Unknown Garmin Http Message field:" << fieldNum;
+                    return false;
+                    break;
+                }
+            }
+            cursor = nextCursor;
+            if (cursor == oldCursor) {
+                qDebug() << Q_FUNC_INFO << "parse Http Request: cursor not advancing in request body";
+                return false;
+                break;
+            }
+        } else {
+            return false;
+            break;
+        }
+    }
+    return true;
+}
+
+bool GarminHttpMessage::getXferData(QByteArray request) {
+    // Parse request fields
+    int cursor = 0;
+    int loopCount = 0;
+
+    while (cursor < request.size()) {
+        ++loopCount;
+        if (loopCount > 100) {
+            break;
+        }
+
+        const int oldCursor = cursor;
+        quint32 fieldNum = 0;
+        quint8 wireType = 0;
+        QByteArray fieldData;
+        int nextCursor = 0;
+
+        if (parseField(request, cursor, fieldNum, wireType, fieldData, nextCursor)) {
+            quint64 value;
+            int valueLen;
+            auto varintRes = decodeVarint(fieldData,value,valueLen);
+            if (varintRes) {
+
+                switch (fieldNum) {
+                // URL
+                case 1:
+                    mRawResponse.xferData.id=value;
+                    break;
+                case 2:
+                    mRawResponse.xferData.size=value;
+                    break;
+                  default:
+                    qDebug() << Q_FUNC_INFO << "Unknown Garmin Http Message field:" << fieldNum;
+                    return false;
+                    break;
+                }
+            }
+            cursor = nextCursor;
+            if (cursor == oldCursor) {
+                qDebug() << Q_FUNC_INFO << "parse Http Request: cursor not advancing in request body";
+                return false;
+                break;
+            }
+        } else {
+            return false;
+            break;
+        }
+    }
+    return true;
+}
+
+HttpHeader GarminHttpMessage::getHeaderData(QByteArray request) {
+    // Parse request fields
+    int cursor = 0;
+    int loopCount = 0;
+    HttpHeader h;
+
+    while (cursor < request.size()) {
+        ++loopCount;
+        if (loopCount > 100) {
+            break;
+        }
+
+        const int oldCursor = cursor;
+        quint32 fieldNum = 0;
+        quint8 wireType = 0;
+        QByteArray fieldData;
+        int nextCursor = 0;
+        if (parseField(request, cursor, fieldNum, wireType, fieldData, nextCursor)) {
+            quint64 value;
+            int valueLen;
+            auto varintRes = decodeVarint(fieldData,value,valueLen);
+            if (varintRes) {
+
+                switch (fieldNum) {
+                // URL
+                case 1:
+                    h.key=value;
+                    break;
+                case 2:
+                    h.value=value;
+                    break;
+                  default:
                     qDebug() << Q_FUNC_INFO << "Unknown Garmin Http Message field:" << fieldNum;
                     break;
                 }
@@ -112,12 +358,12 @@ void getRequestData(QByteArray request) {
         } else {
             break;
         }
-    }
-    qDebug() << Q_FUNC_INFO << "HTTP request for " << r.url     ;
 
+    }
+    return h;
 }
 
-void getWebRequest(QByteArray data) {
+bool GarminHttpMessage::processWebRequest(QByteArray data) {
     // Parse request fields
     int cursor = 0;
     int loopCount = 0;
@@ -143,10 +389,22 @@ void getWebRequest(QByteArray data) {
 
                 switch (fieldNum) {
                 // HTTP Request
-                case 1:
-                    getRequestData(fieldData);
+                case HttpRequestType::webRequest:
+                    mType=HttpRequestType::webRequest;
+                    return getRequestData(fieldData);
+                   break;
+                case HttpRequestType::webResponse:
+                    mType=HttpRequestType::webResponse;
+                    return getResponseData(fieldData);
                     break;
-                default:
+                case HttpRequestType::rawRequest:
+                    mType=HttpRequestType::rawRequest;
+                    return getRawRequestData(fieldData);
+                   break;
+                case HttpRequestType::rawResponse:
+                    mType=HttpRequestType::rawResponse;
+                    return getRawResponseData(fieldData);
+                    break;                default:
                     qDebug() << Q_FUNC_INFO << "Unknown GarminHttpMessage field:" << fieldNum;
                     break;
                 }
@@ -154,17 +412,20 @@ void getWebRequest(QByteArray data) {
             cursor = nextCursor;
             if (cursor == oldCursor) {
                 qDebug() << Q_FUNC_INFO << "parseHttpRequest: cursor not advancing in request body";
+                return false;
                 break;
             }
         } else {
+            return false;
             break;
         }
     }
+    return false;
 }
 
 void GarminHttpMessage::parse(const QByteArray& data) {
     qDebug() << Q_FUNC_INFO << "Garmin: parsing http message";
-    getWebRequest(data);
+    processWebRequest(data);
 
 }
 

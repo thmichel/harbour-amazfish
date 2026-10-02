@@ -791,8 +791,8 @@ bool CommunicatorV2::completePairing() {
         qDebug()<< Q_FUNC_INFO << "Garmin: Doing first connection";
 
         QByteArray msg;
-        //msg = GfdiMessageGenerator::supportedFileTypesRequest();
-        //if (!sendMessage("SUPPORTED FILE TYPE REQUEST",msg)) return false;
+        msg = GfdiMessageGenerator::supportedFileTypesRequest();
+        if (!sendMessage("SUPPORTED FILE TYPE REQUEST",msg)) return false;
 
         msg = GfdiMessageGenerator::deviceSettings();
         if (!sendMessage("DEVICE_SETTINGS",msg)) return false;

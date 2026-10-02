@@ -55,7 +55,9 @@ QSharedPointer<GarminProtobufMessage> ProtobufFragment::getNextChunk(QSharedPoin
 }
 
 
-
+ProtobufHandler::ProtobufHandler(CommunicatorV2* com):mCommunicator(com){
+    mHttpHandler = new GarminHttpHandler(com);
+};
 
 int ProtobufHandler::getNextProtobufRequestId() {
         mLastProtobufRequestId = (mLastProtobufRequestId + 1) % 65536;
@@ -122,9 +124,7 @@ void ProtobufHandler::processIncoming(QSharedPointer<GarminProtobufMessage> mess
 
              qDebug() << Q_FUNC_INFO << "Garmin: Got HTTP message";
              processed = true;
-             GarminHttpMessage *msg = new GarminHttpMessage(mCommunicator);
-             msg->parse(fieldData);
-
+             if (mHttpHandler) mHttpHandler->parse(fieldData,message->getRequestId());
          }
          if (!processed) {
 

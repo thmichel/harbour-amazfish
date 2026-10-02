@@ -142,6 +142,9 @@ set(SOURCES
 ./src/services/garmin/garminhttpmessage.cpp
 ./src/services/garmin/garminmlr.cpp
 ./src/services/garmin/datatransferhandler.cpp
+./src/services/garmin/http/garminhttphandler.cpp
+./src/services/garmin/http/garminhttpresponse.cpp
+./src/services/garmin/http/garminjson.cpp
 ./src/services/pinetimemusicservice.cpp
 ./src/services/pinetimesimpleweatherservice.cpp
 ./src/services/uartservice.cpp
@@ -297,6 +300,9 @@ set(HEADERS
 ./src/services/garmin/garminhttpmessage.h
 ./src/services/garmin/garminmlr.h
 ./src/services/garmin/datatransferhandler.h
+./src/services/garmin/http/garminhttphandler.h
+./src/services/garmin/http/garminhttpresponse.h
+./src/services/garmin/http/garminjson.h
 ./src/services/pinetimemusicservice.h
 ./src/services/pinetimesimpleweatherservice.h
 ./src/services/uartservice.h

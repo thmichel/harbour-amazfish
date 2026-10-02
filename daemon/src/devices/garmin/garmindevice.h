@@ -12,6 +12,7 @@
 class NotificationSpec;
 class GarminNotificationHandler;
 class ProtobufHandler;
+class GarminHttpHandler;
 
 class GarminDevice : public AbstractDevice
 {

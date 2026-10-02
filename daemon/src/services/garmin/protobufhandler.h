@@ -4,6 +4,7 @@
 #include "../devices/garmin/garmindevice.h"
 #include "communicator_v2.h"
 #include "garmingfdimessage.h"
+#include "http/garminhttphandler.h"
 
 #include <QObject>
 #include <QMap>
@@ -12,6 +13,7 @@ class GarminProtobufMessage;
 class GarminProtobufStatusMessage;
 class CommunicatorV2;
 class GarminDevice;
+class GarminHttpHandler;
 
 
 
@@ -33,8 +35,7 @@ private:
 class ProtobufHandler
 {
 public:
-    ProtobufHandler(CommunicatorV2* com):mCommunicator(com){
-    };
+    explicit ProtobufHandler(CommunicatorV2* com);
     int getNextProtobufRequestId();
     void processIncoming(QSharedPointer<GarminProtobufMessage> message);
     QSharedPointer<GarminProtobufMessage> processIncoming(QSharedPointer<GarminProtobufStatusMessage> message);
@@ -51,7 +52,7 @@ private:
     CommunicatorV2* mCommunicator;
     void sendAck(QString taskName, QSharedPointer<GarminGfdiMessage> msg);
     //AppConfigHandler appConfigHandler;
-    //HttpHandler httpHandler;
+    GarminHttpHandler *mHttpHandler;
     //DataTransferHandler dataTransferHandler;
     //FileSyncServiceHandler fileSyncServiceHandler;
     //EcgServiceHandler ecgServiceHandler;
