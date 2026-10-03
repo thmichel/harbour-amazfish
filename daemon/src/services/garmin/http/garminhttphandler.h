@@ -22,9 +22,9 @@ public:
     void parse(const QByteArray& data, int msgId);
     void handle(GarminHttpMessage *msg, int msgId);
     QByteArray createWebResponse (GarminHttpMessage *req, GarminHttpResponse resp, int msgId);
-    std::optional<GarminHttpResponse>  handleWebRequest(GarminHttpMessage *msg, int msgId);
-    std::optional<GarminHttpResponse> handleWeatherRequest(WebRequest msg, int msgId);
-    std::optional<GarminHttpResponse> handleGenericRequest(WebRequest msg, int msgId);
+    void handleWebRequest(GarminHttpMessage* msg, int msgId);
+    void handleWeatherRequest(GarminHttpMessage* msg, int msgId);
+    void handleGenericRequest(GarminHttpMessage* msg, int msgId);
 
 signals:
 private:

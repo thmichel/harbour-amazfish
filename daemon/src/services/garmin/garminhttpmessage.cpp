@@ -24,6 +24,9 @@ bool GarminHttpMessage::getRequestData(QByteArray request) {
 
         if (parseField(request, cursor, fieldNum, wireType, fieldData, nextCursor)) {
             quint64 value;
+
+
+
             int valueLen;
             auto varintRes = decodeVarint(fieldData,value,valueLen);
             if (varintRes) {
@@ -180,7 +183,7 @@ bool GarminHttpMessage::getRawRequestData(QByteArray request) {
                     mRawRequest.useDataXfer=value;
                     break;
                 case 7:
-                    mRawRequest.rawBody=value;
+                    mRawRequest.rawBody=fieldData;
                     break;
                default:
                     qDebug() << Q_FUNC_INFO << "Unknown Garmin Http Message field:" << fieldNum;
@@ -199,7 +202,7 @@ bool GarminHttpMessage::getRawRequestData(QByteArray request) {
             break;
         }
     }
-    qDebug() << Q_FUNC_INFO << "Raw HTTP request for " << mRequest.url     ;
+    qDebug() << Q_FUNC_INFO << "Raw HTTP request for " << mRawRequest.url     ;
     return true;
 }
 

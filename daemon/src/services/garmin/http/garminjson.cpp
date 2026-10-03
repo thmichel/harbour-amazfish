@@ -229,7 +229,6 @@ QJsonValue jsonDecode(const QByteArray& bytes) {
        }
     }
 
-    qDebug() << Q_FUNC_INFO << "Decoded " << bytes << " as type " << queue.first().type;
     switch(queue.first().type) {
         case DecodedValue::Map:
             return queue.first().mapPlaceholder.object;

@@ -24,11 +24,10 @@ void GarminHttpHandler::parse(const QByteArray& data, int msgId) {
 
 void GarminHttpHandler::handle(GarminHttpMessage *msg, int msgId) {
     qDebug() << Q_FUNC_INFO;
-    std::optional<GarminHttpResponse> r;
     switch (msg->getType())
     {
         case HttpRequestType::webRequest:
-            r = handleWebRequest(msg,msgId);
+            handleWebRequest(msg,msgId);
             break;
         case HttpRequestType::webResponse:
             break;
@@ -37,14 +36,9 @@ void GarminHttpHandler::handle(GarminHttpMessage *msg, int msgId) {
         case HttpRequestType::rawResponse:
             break;
     }
-    if(r) {
-        QByteArray responseData = createWebResponse(msg,r.value(),msgId);
-        // now generate GFDI message
-        QByteArray response = wrapInGfdiEnvelope(MessageId::ProtobufResponse, responseData);
-        if (mCommunicator) mCommunicator->sendMessage("HTTP RESPONSE",response);
-    }
 }
-std::optional<GarminHttpResponse>  GarminHttpHandler::handleWebRequest(GarminHttpMessage *msg, int msgId) {
+
+void  GarminHttpHandler::handleWebRequest(GarminHttpMessage* msg, int msgId) {
     // handles the non-raw web requests, like weather requests.
     // for anything not handled, return null
     qDebug() << Q_FUNC_INFO;
@@ -52,17 +46,18 @@ std::optional<GarminHttpResponse>  GarminHttpHandler::handleWebRequest(GarminHtt
     QUrl url(r.url);
     if ((url.host()=="api.gcs.garmin.com") && (url.path().startsWith("/weather/v"))) {
         qDebug() << Q_FUNC_INFO<< "Found Weather request";
-        return handleWeatherRequest(r,msgId);
+        handleWeatherRequest(msg,msgId);
+        return;
     }
     // handle all other requests
     qDebug() << Q_FUNC_INFO << "Garmin: handling generic web request";
-    return handleGenericRequest(r, msgId);
-    return std::nullopt;
+    handleGenericRequest(msg, msgId);
 }
 
-std::optional<GarminHttpResponse> GarminHttpHandler::handleWeatherRequest(WebRequest msg, int msgId) {
+void GarminHttpHandler::handleWeatherRequest(GarminHttpMessage* msg, int msgId) {
     qDebug() << Q_FUNC_INFO;
-    QUrl url = msg.url;
+    WebRequest request = msg->getWebRequest();
+    QUrl url = request.url;
     QUrlQuery query(url.query());
     // Gadgetbridge handles weather requests based on versions and hour/day
     // For the moment, we ignore that and sned the forecast we get from anazfish library
@@ -89,30 +84,24 @@ std::optional<GarminHttpResponse> GarminHttpHandler::handleWeatherRequest(WebReq
     r.setBody(body);
     r.setStatus(200);
     r.addHeader("content-type", "application/json");
-    return r;
+    // now generate GFDI message
+    QByteArray responseData = createWebResponse(msg,r,msgId);
+    QByteArray response = wrapInGfdiEnvelope(MessageId::ProtobufResponse, responseData);
+    if (mCommunicator) mCommunicator->sendMessage("HTTP RESPONSE",response);
+
 }
 
 QByteArray GarminHttpHandler::createWebResponse (GarminHttpMessage *req, GarminHttpResponse resp, int msgId) {
     qDebug() << Q_FUNC_INFO;
 
-    QByteArray headers;
-    WebRequest r = req->getWebRequest();
-    if (r.httpHeadersInResponse) {
-        QMap<QString, QString> h = resp.getHeaders();
-        QJsonObject json;
-        for (auto it=h.begin();it != h.end();++it)
-        {
-            json[it.key()] = it.value();
-
-        }
-        headers = jsonEncode(json);
-    }
     if (resp.getBody().size() > int(req->getWebRequest().maxResponseLength)) {
+        qDebug() << Q_FUNC_INFO << "Garmin: HTTP Response too large.";
         //TODO: send back response too large
     }
 
     QJsonObject jsonObject;
-    if (resp.getHeaders().value("content-type")=="application/json") {
+
+    if (QString::compare(resp.getHeaders().value("content-type"),"application/json", Qt::CaseInsensitive)==0) {
         QString tmpBody = resp.getBody();
         QByteArray jsonData = tmpBody.toUtf8();
         QJsonDocument doc = QJsonDocument::fromJson(jsonData);
@@ -130,43 +119,48 @@ QByteArray GarminHttpHandler::createWebResponse (GarminHttpMessage *req, GarminH
         encodeFieldKey(proto,3,0);
         encodeVarint(proto,body.size());
         proto.append(body);
-        QMap<QString, QString> h = resp.getHeaders();
-        if (!h.isEmpty()) {
-            QJsonObject json;
-            encodeFieldKey(proto,4,0);
-            for (auto it=h.begin();it != h.end();++it)
-            {
-                json[it.key()] = it.value();
+       //Todo: Check if headers in response is set?
+//        if (req->getWebRequest().httpHeadersInResponse) {
+            QMap<QString, QString> h = resp.getHeaders();
+            if (!h.isEmpty()) {
+                QJsonObject json;
+                encodeFieldKey(proto,4,0);
+                for (auto it=h.begin();it != h.end();++it)
+                {
+                    json[it.key()] = it.value();
+                }
+                QByteArray encodedHeaders=jsonEncode(json);
+                encodeVarint(proto,encodedHeaders.size());
+                proto.append(encodedHeaders);
             }
-            QByteArray encodedHeaders=jsonEncode(json);
-            encodeVarint(proto,encodedHeaders.size());
-            proto.append(encodedHeaders);
-        }
+
+  //      }
         encodeFieldKey(proto,5,2);
         encodeVarint(proto,0); // 0 for uncompressed
-
         return proto;
-    }
+    } else qDebug() << Q_FUNC_INFO << "Garmin: No JSON content.";
     //Non-json not handled
     return QByteArray();
 }
 
 
-std::optional<GarminHttpResponse> GarminHttpHandler::handleGenericRequest(WebRequest msg, int msgId) {
+void GarminHttpHandler::handleGenericRequest(GarminHttpMessage*  msg, int msgId) {
     // handle non-raw Web Request
     qDebug() << Q_FUNC_INFO;
-    QUrl dest(msg.url);
+    WebRequest request = msg->getWebRequest();
+    QUrl dest(request.url);
     if ( dest.host().endsWith("garmin.com") || dest.host().endsWith("dciwx.com")) {
         // For now, we explicitly block all requests to Garmin domains, even if the user whitelists them.
         // Due to fake OAuth, most of these will include invalid authentication credentials, and needs
         // further investigation
         qDebug() << Q_FUNC_INFO <<"Garmin:Blocking request to Garmin url: " <<dest.host();
-        return std::nullopt;
+        return;
     }
     QNetworkAccessManager *manager = new QNetworkAccessManager();
     QNetworkRequest htmlRequest;
-    htmlRequest.setUrl(msg.url);
-    QJsonValue json = jsonDecode(msg.headers);
+    htmlRequest.setUrl(request.url);
+    htmlRequest.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+    QJsonValue json = jsonDecode(request.headers);
     if (json.isObject()) {
         QJsonObject obj = json.toObject();
 
@@ -180,25 +174,50 @@ std::optional<GarminHttpResponse> GarminHttpHandler::handleGenericRequest(WebReq
             }
         }
     }
-    qDebug() << Q_FUNC_INFO << "Garmin: Http URL is " << msg.url;
-    qDebug() << Q_FUNC_INFO << "Garmin: Http Method is " << msg.method;
-    switch (msg.method) {
+    switch (request.method) {
         case HttpMethod::PUT:
             qDebug() << Q_FUNC_INFO << "Garmin: HTTP Put not yet implemented";
-            break;
+        break;
         case HttpMethod::GET:
             {
-                QNetworkReply *reply = manager->get(htmlRequest);
-                QObject::connect(manager,&QNetworkAccessManager::finished, this, [=] () {
-                    if (reply->error())
+                QNetworkReply *htmlReply = manager->get(htmlRequest);
+                QObject::connect(htmlReply,&QNetworkReply::finished, this, [=]() {
+                    GarminHttpResponse response;
+                    if (htmlReply->error())
                     {
-                        qDebug() << Q_FUNC_INFO << "Garmin: HTTP Request error" << reply->errorString();
-                        return std::nullopt;
+                        qDebug() << Q_FUNC_INFO << "Garmin: HTTP Request error" << htmlReply->errorString();
                     }
-                    reply->deleteLater();
-                    return std::nullopt;
+                    else {
+                        QByteArray data = htmlReply->readAll();
+                        response.setBody(QString(data));
+                        QList<QNetworkReply::RawHeaderPair> headers = htmlReply->rawHeaderPairs();
+                        for (auto it : headers) {
+                            response.addHeader(QString(it.first).toLower(),QString(it.second));
+                        }
+                        response.setComplete(true);
+                        response.setStatus(htmlReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt());
+                        QByteArray responseData = createWebResponse(msg,response,msgId);
+                        // Generate protobuf payload
+                        QByteArray message;
+                        writeU16le(message,msgId);
+                        // dataOffset LE32 = 0
+                        for (int i = 0; i < 4; ++i) {
+                            message.append(char(0));
+                        }
+                        const quint32 protobufLength = quint32(responseData.size());
+                        // totalProtobufLength LE32
+                        writeU32le(message,protobufLength);
+                        // protobufDataLength LE32
+                        writeU32le(message,protobufLength);
+                        // protobuf bytes
+                        message.append(responseData);
+                        // now generate GFDI message
+                        QByteArray watchResponse = wrapInGfdiEnvelope(MessageId::ProtobufResponse, message);
+                        if (mCommunicator) mCommunicator->sendMessage("HTTP RESPONSE",watchResponse);
+                    }
+                    htmlReply->deleteLater();
                 });
             }
+        default: qDebug() << Q_FUNC_INFO << "Garmin: HTTP Method not yet implemented";
     }
-    return std::nullopt;
 }
