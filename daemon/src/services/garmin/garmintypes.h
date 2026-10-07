@@ -1,10 +1,11 @@
 #ifndef GARMINTYPES__H
 #define GARMINTYPES__H
 
-#include <QtCore/QString>
-#include <QtCore/QByteArray>
-#include <QtCore/QDebug>
-#include <QtCore/QtGlobal>
+#include <QString>
+#include <QByteArray>
+#include <QDebug>
+#include <QtGlobal>
+#include <QUrl>
 
 #include <optional>
 #include <utility>
@@ -14,7 +15,7 @@
 // This defines some selper classes and functions used by the Garmin communication
 
 // =============================================================================
-// GarminError (Rust: enum GarminError)
+// GarminError
 // =============================================================================
 
 class GarminError {
@@ -349,6 +350,88 @@ struct WeatherRequestMessage {
 };
 
 
+enum HttpResponseStatus : quint32  {
+    UNKNOWN_STATUS=0,
+    OK =100,
+    NETWORK_REQUEST_TIMEOUT =200,
+    FILE_TOO_LARGE = 300,
+    DATA_TRANSFER_ITEM_FAILURE =  400,
+};
+enum HttpRequestType : quint32  {
+    webRequest =1,
+    webResponse =2,
+    rawRequest = 5,
+    rawResponse =  6,
+};
+
+enum HttpResponseType : quint32 {
+  JSON = 0,
+  URL_ENCODED = 1,
+  PLAIN_TEXT = 2,
+  XML = 3,
+};
+
+enum HttpVersion : quint32 {
+  VERSION_1 = 0,
+  VERSION_2 = 1,
+};
+
+enum HttpMethod :quint32 {
+  UNKNOWN_METHOD = 0,
+  GET = 1,
+  PUT = 2,
+  POST = 3,
+  DELETE = 4,
+  PATCH = 5,
+  HEAD = 6,
+};
+
+struct HttpDataTransferItem {
+  qint32 id;
+  quint32 size;
+};
+
+struct HttpHeader {
+  QString key;
+  QString value;
+};
+
+struct WebRequest {
+  QString url;
+  HttpMethod method;
+  QByteArray headers;
+  QByteArray body;
+  quint32 maxResponseLength;
+  bool httpHeadersInResponse = true;
+  bool compressResponseBody = false;
+  quint32 responseType;
+  quint32 version;
+};
+
+struct WebResponse {
+  quint32 status;
+  quint32 httpStatus;
+  QByteArray body;
+  QByteArray headers;
+  quint32 size;
+  quint32 responseType;
+};
+
+struct RawRequest {
+   QUrl url;
+   HttpMethod method;
+   QList<HttpHeader> header;
+   bool useDataXfer=false;
+   QString rawBody;
+ };
+
+struct RawResponse {
+   quint32 status ;
+   quint32 httpStatus;
+   QByteArray body;
+   HttpDataTransferItem xferData;
+   QList<HttpHeader > header;
+ };
 
 struct UnknownMessage {
     quint16 messageId {0};

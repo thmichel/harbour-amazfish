@@ -5,12 +5,15 @@
 
 #include "../garmingfdimessage.h"
 #include "garminhttpresponse.h"
+#include "garminhttprequest.h"
 #include "../garminhttpmessage.h"
 #include "../communicator_v2.h"
 
 #include <QObject>
+#include <QNetworkReply>
 
 class GarminHttpMessage;
+class GarminHttpRequest;
 struct WebRequest;
 
 
@@ -21,13 +24,16 @@ public:
     explicit GarminHttpHandler(CommunicatorV2 *parent=0);
     void parse(const QByteArray& data, int msgId);
     void handle(GarminHttpMessage *msg, int msgId);
-    QByteArray createWebResponse (GarminHttpMessage *req, GarminHttpResponse resp, int msgId);
-    void handleWebRequest(GarminHttpMessage* msg, int msgId);
-    void handleWeatherRequest(GarminHttpMessage* msg, int msgId);
-    void handleGenericRequest(GarminHttpMessage* msg, int msgId);
+    QByteArray createSuccessResponse (GarminHttpRequest* req, GarminHttpResponse resp);
+    QByteArray createWebResponse (GarminHttpRequest* req, GarminHttpResponse resp);
+    QByteArray createRawResponse (GarminHttpRequest* req, GarminHttpResponse resp);
+    void handleWebRequest(GarminHttpRequest* msg, int msgId);
+    void handleWeatherRequest(GarminHttpRequest* msg, int msgId);
+    void handleGenericRequest(GarminHttpRequest* msg, int msgId);
 
-signals:
+
 private:
+    void sendProtobufMessage(QByteArray data, quint16 msgId);
     CommunicatorV2 *mCommunicator;
 
 };

@@ -24,9 +24,6 @@ bool GarminHttpMessage::getRequestData(QByteArray request) {
 
         if (parseField(request, cursor, fieldNum, wireType, fieldData, nextCursor)) {
             quint64 value;
-
-
-
             int valueLen;
             auto varintRes = decodeVarint(fieldData,value,valueLen);
             if (varintRes) {
@@ -37,7 +34,7 @@ bool GarminHttpMessage::getRequestData(QByteArray request) {
                     mRequest.url=fieldData;
                     break;
                 case 2:
-                    mRequest.method=value;
+                    mRequest.method=HttpMethod(value);
                     break;
                 case 3:
                     mRequest.headers=fieldData;
@@ -49,10 +46,10 @@ bool GarminHttpMessage::getRequestData(QByteArray request) {
                     mRequest.maxResponseLength=value;
                     break;
                 case 6:
-                    mRequest.httpHeadersInResponse=value;
+                    mRequest.httpHeadersInResponse= (value==0)? true:false;
                     break;
                 case 7:
-                    mRequest.compressResponseBody=value;
+                    mRequest.compressResponseBody= (value==0)? true:false;
                     break;
                 case 8:
                     mRequest.responseType=value;
@@ -174,7 +171,7 @@ bool GarminHttpMessage::getRawRequestData(QByteArray request) {
                     mRawRequest.url=fieldData;
                     break;
                 case 3:
-                    mRawRequest.method=value;
+                    mRawRequest.method=HttpMethod(value);
                     break;
                 case 5:
                     mRawRequest.header.append(getHeaderData(fieldData));
