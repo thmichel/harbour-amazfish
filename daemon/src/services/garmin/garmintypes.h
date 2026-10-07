@@ -14,6 +14,7 @@
 
 // This defines some selper classes and functions used by the Garmin communication
 
+const quint32 GARMIN_TIME_OFFSET=631065600;
 // =============================================================================
 // GarminError
 // =============================================================================

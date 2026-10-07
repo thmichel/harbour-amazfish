@@ -33,13 +33,9 @@ public:
     AbstractFirmwareInfo *firmwareInfo(const QByteArray &bytes, const QString &path) override;
     Q_SLOT void authenticated(bool ready);
 
-
     QString information(Amazfish::Info i) const override;
 
-
 public slots:
-
-    //void informationChanged(Amazfish::Info infoKey, const QString& infoValue);
 
     void onPropertiesChanged(QString interface, QVariantMap map, QStringList list);
     void onAnswerCallEvent();
@@ -51,17 +47,12 @@ signals:
 private:
     int mSteps = 0;
 
-
-    void parseServices();
     void initialise();
     virtual void pair() override;
+    virtual void refreshInformation() override;
+
     QSharedPointer<GarminNotificationHandler> mNotificationHandler;
     QSharedPointer<ProtobufHandler> mProtobufHandler;
-
-
-//    Q_SLOT void authenticated(bool ready);
-
-    virtual void refreshInformation() override;
     QSharedPointer<CommunicatorV2> mCommunicator;
 
 };
