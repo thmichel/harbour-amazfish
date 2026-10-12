@@ -8,7 +8,7 @@
 #include "garminnotificationsubscriptionmessage.h"
 #include "garminnotificationcontrolmessage.h"
 #include "garminsynchronizationmessage.h"
-#include "garminweathermessage.h"
+#include "fit/garminweathermessage.h"
 #include "garminfilterstatusmessage.h"
 #include "garmingfdistatusmessage.h"
 #include "garminprotobufmessage.h"
@@ -79,7 +79,6 @@ void GarminGfdiMessage::parse(const QByteArray& data) {
 
     qDebug() << Q_FUNC_INFO << "Garmin: recieved GFDI message " << messageIdToString(msgId)->data();
 
-
     const auto mid = messageIdFromU16(msgId);
     if (!mid.has_value()) {
         qDebug() << Q_FUNC_INFO << "Garmin: Unknown GFDI message: " << msgId;
@@ -100,7 +99,6 @@ void GarminGfdiMessage::parse(const QByteArray& data) {
                 return;
             }
         }
-
         parseResponse(data.mid(offset));
         return;
     }
@@ -129,11 +127,10 @@ void GarminGfdiMessage::parse(const QByteArray& data) {
     case MessageId::Synchronization:
         parseSynchronization(data.mid(offset));
         return;
+        */
     case MessageId::WeatherRequest:
         parseWeatherRequest(data.mid(offset));
         return;
-        */
-
     case  MessageId::ProtobufRequest:
         parseProtobufRequest(data.mid(offset));
         return;
@@ -199,6 +196,10 @@ void GarminGfdiMessage::parseSynchronization(const QByteArray& data)
 
 void GarminGfdiMessage::parseWeatherRequest(const QByteArray& data)
 {
+    Q_UNUSED(data);
+    qDebug() << Q_FUNC_INFO;
+    // we ignore the request data as we don't use the location data
+    // instead send Weather Definition directly
     GarminWeatherMessage* msg = new GarminWeatherMessage(mCommunicator);
     msg->parse(data);
 }
@@ -264,10 +265,8 @@ QByteArray GarminGfdiMessage::getAckByteStream() {
 }
 
 
-
 // MessageGenerator is used to generate messages for sending to the device
 // Most of them are moved to dedicated classes now
-
 
 QByteArray GfdiMessageGenerator::ackResponse(quint16 messageId)
 {

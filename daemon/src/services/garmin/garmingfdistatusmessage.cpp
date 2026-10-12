@@ -1,6 +1,7 @@
 #include "garmingfdistatusmessage.h"
 #include "garmindevicestatusmessage.h"
 #include "garminauthnegotiationmessage.h"
+#include "fit/garminfitdefinitionmessage.h"
 
 static inline QString transferStatusName(quint8 transferStatus)
 {
@@ -30,7 +31,7 @@ static inline QString responseMessageName(quint16 originalMsgId)
 void GarminGfdiStatusMessage::parse(const QByteArray& data)
 {
     qDebug() << Q_FUNC_INFO << "Garmin: GFDI Status content " << data.toHex();
-    // This handles Status / Response MEssages from teh watch.
+    // This handles Status / Response MEssages from the watch.
     // Not all below messages are expected, but for debugging we notify for all
     quint16 originalMessageType = u16le(data.constData(),0);
     QByteArray response_payload;
@@ -86,6 +87,8 @@ void GarminGfdiStatusMessage::parse(const QByteArray& data)
         break;
     case MessageId::FitDefinition:
         qDebug() << Q_FUNC_INFO << "Garmin: Detected " << messageIdToString(originalMessageType).value();
+        handled=true;
+        handleFitDefinition(data);
         break;
         /*
     case MessageId::MusicControl:
@@ -157,11 +160,11 @@ void GarminGfdiStatusMessage::parse(const QByteArray& data)
     case MessageId::UploadRequest:
         qDebug() << Q_FUNC_INFO << "Garmin: Detected " << messageIdToString(originalMessageType).value();
         break;
-        /*
+
     case MessageId::WeatherRequest:
         qDebug() << Q_FUNC_INFO << "Garmin: Detected " << messageIdToString(originalMessageType).value();
         break;
-        */
+
     default:
         //all message types not handled above should only be ACK requests and should not be Acked
         Status status= static_cast<Status>(data[2]);
@@ -200,6 +203,23 @@ void GarminGfdiStatusMessage::handleAuthNegotiation(const QByteArray &data) {
     msg->parse(data);
 }
 
+void GarminGfdiStatusMessage::handleFitDefinition(const QByteArray &data) {
+    qDebug() << Q_FUNC_INFO;
+    // Watch responded to Fit definition we sent
+    // FitDefinitionMEssage handles this and sends data
+    //QByteArray resp=GfdiMessageGenerator::ackResponse((quint16)MessageId::FitDefinition);
+    //mCommunicator->sendMessage("FIT DEFINITION ACK", resp);
+    GarminFitDefinitionMessage* msg = new GarminFitDefinitionMessage(mCommunicator);
+    msg->parse(data);
+}
+
+void GarminGfdiStatusMessage::handleFitData(const QByteArray &data) {
+    qDebug() << Q_FUNC_INFO;
+    // Watch replied to Fit data we sent
+    // Nothing else for us to do
+    QByteArray resp=GfdiMessageGenerator::ackResponse((quint16)MessageId::FitData);
+    mCommunicator->sendMessage("FIT DATA ACK", resp);
+}
 
 void GarminGfdiStatusMessage::handleNotificationData(const QByteArray &data) {
     //quint16 original_msg_id = u16le(data.constData(),0);

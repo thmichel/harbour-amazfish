@@ -148,7 +148,6 @@ public:
     void onNotificationPerformAction(const NotificationControlMessage& msg);
     void onSynchronizationReceived(const SynchronizationMessage& msg);
     void onFilterStatusReceived(const FilterStatusMessage& msg);
-    void onWeatherRequestReceived(const WeatherRequestMessage& msg);
     void onProtobufMessageReceived(const QByteArray& data);
     void onProtobufStatusMessageReceived(const QByteArray& data);
 

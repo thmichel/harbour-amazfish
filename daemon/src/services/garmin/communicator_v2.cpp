@@ -11,6 +11,7 @@
 #include "amazfishconfig.h"
 #include "garmindevicestatusmessage.h"
 #include "garminnotificationsubscriptionmessage.h"
+#include "fit/garminweathermessage.h"
 
 #include <QtCore/QStringList>
 #include <QtCore/QMetaObject>
@@ -355,12 +356,6 @@ void CommunicatorV2::onFilterStatusReceived(const FilterStatusMessage& msg) {
     qDebug() << Q_FUNC_INFO;
 
 }
-
-void CommunicatorV2::onWeatherRequestReceived(const WeatherRequestMessage& msg) {
-    qDebug() << Q_FUNC_INFO;
-
-}
-
 
 void CommunicatorV2::onProtobufMessageReceived( const QByteArray& data)
 {
@@ -777,6 +772,10 @@ bool CommunicatorV2::completePairing() {
 
             (qobject_cast<GarminDevice *>(m_device))->setPaired();
         }
+        // Send Weather definition pro-actively - testing
+        GarminWeatherMessage* weathermsg = new GarminWeatherMessage(this);
+        QByteArray msgData = weathermsg->generateRecordDefinitions();
+        sendMessage("WEATHER REQUEST DEFINITION", wrapInGfdiEnvelope(MessageId::FitDefinition,msgData));
 
         isFirstConnect=false;
     }

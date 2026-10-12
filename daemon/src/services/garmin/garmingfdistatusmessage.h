@@ -15,6 +15,8 @@ public:
 private:
     void handleSupportedFileTypesRequest(const QByteArray& data);
     void handleAuthNegotiation(const QByteArray& data);
+    void handleFitDefinition(const QByteArray& data);
+    void handleFitData(const QByteArray& data);
     void handleNotificationData(const QByteArray& data);
     void handleProtobufResponse(const QByteArray& data);
 

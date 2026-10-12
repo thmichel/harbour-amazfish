@@ -32,12 +32,7 @@ public:
     explicit GarminGfdiMessage(CommunicatorV2* parent=nullptr) : mCommunicator(parent)
     {
     }
-    /*
-    explicit GarminGfdiMessage(const QByteArray& data=QByteArray(), CommunicatorV2* parent=nullptr) : mMessageBytes(data), mCommunicator(parent)
-    {
 
-    }
-    */
     void setCommunicator(CommunicatorV2* comm);
     QByteArray getMessageBytes() { return mMessageBytes; };
     void onMessage(const QByteArray& data) override;
@@ -46,11 +41,6 @@ public:
     QByteArray getOutgoingMessage();
     MessageId getMessageType() {return mMessageType; };
     bool toSend() {return mSendOutgoing;};
-
-public slots:
-    // Convenience slot: parse and emit appropriate signal
-    //void parseAndEmit(const QByteArray& data);
-
 
 private:
     void parseCurrentTimeRequest(const QByteArray& data);

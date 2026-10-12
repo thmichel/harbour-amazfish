@@ -21,6 +21,7 @@ Amazfish::Features EpixProDevice::supportedFeatures() const
         | Amazfish::Feature::FEATURE_STEPS
         | Amazfish::Feature::FEATURE_ALERT
         | Amazfish::Feature::FEATURE_SPO2
+        | Amazfish::Feature::FEATURE_WEATHER
         ;
 }
 
