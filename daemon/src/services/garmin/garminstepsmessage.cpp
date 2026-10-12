@@ -15,8 +15,6 @@ void GarminStepsMessage::onMessage(const QByteArray& data) {
     {
         quint32 steps = le32(data.constData());
         quint32 stepsGoal = le32(data.constData()+4);
-        qDebug() << Q_FUNC_INFO << "Garmin: Realtime  Steps :  " << steps << ", goal = " << stepsGoal;
-
         mCommunicator->setStepsGoal(stepsGoal);
         mCommunicator->setSteps(steps);
     }

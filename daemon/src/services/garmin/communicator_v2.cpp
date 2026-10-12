@@ -278,8 +278,7 @@ bool CommunicatorV2::sendMessage(const QString& taskName, const QByteArray& mess
 void CommunicatorV2::onCharacteristicChanged(const QString &characteristic, const QByteArray& data) {
 
     //handles incoming messages for a characteristic
-    qDebug() <<Q_FUNC_INFO << "Garmin: Received Message " << data.toHex();
-
+    //qDebug() <<Q_FUNC_INFO << "Garmin: Received Message " << data.toHex();
 
     if (data.isEmpty()) return ;
 
@@ -371,7 +370,6 @@ void CommunicatorV2::onProtobufStatusMessageReceived(const QByteArray& data)
 {
     qDebug() << Q_FUNC_INFO << "Garmin: Received protobuf status message " << data.toHex();
     QSharedPointer<GarminProtobufMessage> followup=QSharedPointer<GarminProtobufMessage>();
-    //QByteArray statusData=data.mid(2); // Remove Response field
     QSharedPointer<GarminProtobufStatusMessage> message=QSharedPointer<GarminProtobufStatusMessage>(new GarminProtobufStatusMessage(data, this));
     QSharedPointer<GarminProtobufStatusMessage> parsed  =  message->parse();
     qDebug() << Q_FUNC_INFO << "Garmin: Parsed Protobuf Status is " << parsed->getMessageBytes().toHex();
@@ -408,32 +406,27 @@ void CommunicatorV2::handleNonMlrMessage(const QByteArray& data) {
 
     switch (service) {
     case Service::GFDI:
-        qDebug() << Q_FUNC_INFO << "Garmin: handle GFDI";
         mState->cobsCodec->feed(payload);
         return;
     case Service::RealtimeSpo2:
-        qDebug() << Q_FUNC_INFO << "Garmin: handle Realtime Spo2";
         if (mState->serviceCallbacks.contains(Service::RealtimeSpo2))
         {
             mState->serviceCallbacks.value(Service::RealtimeSpo2)->onMessage(payload);
         }
         return;
     case Service::RealtimeHr:
-        qDebug() << Q_FUNC_INFO  << "Garmin: handle Realtime HeartRate";
         if (mState->serviceCallbacks.contains(Service::RealtimeHr))
         {
             mState->serviceCallbacks.value(Service::RealtimeHr)->onMessage(payload);
         }
         return;
     case Service::RealtimeHrv:
-        qDebug() << Q_FUNC_INFO  << "Garmin: handle Realtime HRV";
         if (mState->serviceCallbacks.contains(Service::RealtimeHrv))
         {
             mState->serviceCallbacks.value(Service::RealtimeHrv)->onMessage(payload);
         }
         return;
     case Service::RealtimeSteps:
-        qDebug() << Q_FUNC_INFO  << "Garmin: handle Realtime Steps";
         if (mState->serviceCallbacks.contains(Service::RealtimeSteps))
         {
             mState->serviceCallbacks.value(Service::RealtimeSteps)->onMessage(payload);
@@ -476,8 +469,6 @@ void CommunicatorV2::handleIncomingGfdiMessage(const QByteArray& data)
 }
 void CommunicatorV2::handleDecodedMessage(const QByteArray& decodedWithHandle) {
     // This should be a GFDI message
-
-    qDebug() << Q_FUNC_INFO << "Garmin: handleDecodedMessage: " << decodedWithHandle.toHex();
     if (decodedWithHandle.isEmpty())
     {
         qDebug() << Q_FUNC_INFO << "Garmin: decoded with handle is empty!";
@@ -510,16 +501,15 @@ void CommunicatorV2::handleDecodedMessage(const QByteArray& decodedWithHandle) {
 }
 
 void CommunicatorV2::processHandleManagement(const QByteArray& message) {
-    qDebug() << Q_FUNC_INFO << "Garmin: processHandlemanagement called";
     if (message.isEmpty()) {
-        return;    }
+        return;
+    }
 
     auto requestType = requestTypeFromU8(quint8(message[0]));
     if (!requestType.ok) {
         qDebug() << Q_FUNC_INFO << "Garmin: no valid request type";
         return;
     }
-
 
     if (message.size() < 9) {
         qDebug() << Q_FUNC_INFO << "Garmin: message too small";
@@ -531,7 +521,6 @@ void CommunicatorV2::processHandleManagement(const QByteArray& message) {
         return;
     }
 
-    qDebug() << Q_FUNC_INFO << "Garmin: Processing handle management:" << requestTypeToString(requestType.value);
     const QByteArray payload = message.mid(9);
 
     switch (requestType.value) {
@@ -899,10 +888,7 @@ QByteArray CommunicatorV2::createCloseServiceMessage(Service service, quint8 han
 
 void CommunicatorV2::characteristicRead(const QString &c, const QByteArray &value)
 {
-
         qDebug() << Q_FUNC_INFO << c << "=================" << value;
-        qDebug() << "Garmin: Charateristics Read called";
-
 }
 
 void CommunicatorV2::setSteps(quint32 val)
@@ -914,7 +900,6 @@ void CommunicatorV2::setSteps(quint32 val)
 
 void CommunicatorV2::setStepsGoal(quint32 val)
 {
-    //qDebug() << Q_FUNC_INFO << "Garmin: setting steps goal to " << val;
     int configuredGoal=AmazfishConfig::instance()->profileFitnessGoal();
     if((val != mStepsGoal) || ((int)val != configuredGoal))
     {
@@ -927,14 +912,12 @@ void CommunicatorV2::setStepsGoal(quint32 val)
 
 void CommunicatorV2::setHeartRate(quint8 val)
 {
-    //qDebug() << Q_FUNC_INFO << "Garmin: setting Heart Rate to " << val;
     mHeartRate =val;
     emit informationChanged(Amazfish::Info::INFO_HEARTRATE, QString::number(val));
 }
 
 void CommunicatorV2::setHRV(quint16 val)
 {
-    //qDebug() << Q_FUNC_INFO << "Garmin: setting HRV to " << val;
     mHRV =val;
     // Future use if needed - saving HRV
     //saveHRVRecord();
@@ -943,7 +926,6 @@ void CommunicatorV2::setHRV(quint16 val)
 
 void CommunicatorV2::setSpo2(quint8 val)
 {
-    //qDebug() << Q_FUNC_INFO << "Garmin: setting Spo2 to " << val;
     mSpo2 =val;
     emit informationChanged(Amazfish::Info::INFO_SPO2, QString::number(val));
     // Future use if needed - save Spo2
@@ -952,7 +934,6 @@ void CommunicatorV2::setSpo2(quint8 val)
 
 void CommunicatorV2::setBatteryLevel(quint8 val)
 {
-    //qDebug() << Q_FUNC_INFO << "Garmin: setting Spo2 to " << val;
     if (mBatteryLevel != val)
     {
         mBatteryLevel =val;

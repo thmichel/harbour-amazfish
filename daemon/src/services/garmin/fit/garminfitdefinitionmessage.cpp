@@ -2,7 +2,8 @@
 #include "garminweathermessage.h"
 
 
-void parseIncoming(const QByteArray& data, int& pos, bool hasDeveloperData) {
+void GarminFitDefinitionMessage::parseHeaderRecords(const QByteArray& data, int& pos, bool hasDeveloperData) {
+    qDebug() << Q_FUNC_INFO;
     pos++; // ignore first byte
     bool isLittleEndian = (data[pos] == 0x01) ? false :true;
     pos++;
@@ -56,10 +57,12 @@ void GarminFitDefinitionMessage::parse(const QByteArray& data)
 
         if ((header & 0x80) == 0x80) { //compressed timestamp
              // This is not a definition, not yet handled
+            /*
             bool definition = false;
             hasDeveloperData = false;
             int localMessageType = (header >> 5) & 0x3;
             int timeOffset = header & 0x1f;
+            */
             break;
         } else if ((header & 0x40) == 0x40) {
              //it's a header - store local Message Type
@@ -67,7 +70,7 @@ void GarminFitDefinitionMessage::parse(const QByteArray& data)
              qDebug() << Q_FUNC_INFO << "Garmin: fit definition requested for " << quint16(header & 0xf);
              // Now we eed to parse the buffer
              hasDeveloperData = ((header & 0x20) == 0x20);
-             parseIncoming(data, pos,hasDeveloperData);
+             parseHeaderRecords(data, pos,hasDeveloperData);
         }
     }
     if (mCommunicator) mCommunicator->sendMessage("FIT DATA", generateOutgoing());
