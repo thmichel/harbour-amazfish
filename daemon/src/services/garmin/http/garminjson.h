@@ -42,14 +42,14 @@ struct DecodedValue {
     ArrayPlaceholder arrayPlaceholder;
 };
 
-QByteArray jsonEncode(QJsonObject object);
+QByteArray jsonEncode(QJsonValue object);
 
 void jsonEncodeValueBreadthFirst( const QJsonValue& root, QByteArray& out, const QMap<QString, quint32>& stringOffsets);
 
 QJsonValue jsonDecode(const QByteArray& bytes);
 DecodedValue jsonDecodeValue(const QByteArray& bytes, qptrdiff& pos,const QMap<quint32,QString> strings);
 
-void collectStrings(const QJsonObject rootObj, QList<QString> &strings);
+void collectStrings(const QJsonValue rootObj, QList<QString> &strings);
 
 void writeUint16BE(QByteArray &out, const quint16 value);
 void writeUint32BE(QByteArray &out, const quint32 value);

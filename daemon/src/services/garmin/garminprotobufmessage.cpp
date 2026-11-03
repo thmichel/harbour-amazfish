@@ -23,14 +23,12 @@ void GarminProtobufMessage::setStatusMessage(QSharedPointer<GarminProtobufStatus
 
 void GarminProtobufMessage::parse(const QByteArray& data)
 {
-    qDebug() << Q_FUNC_INFO << "Garmin: Protobuf request " << mMessageBytes.toHex();
     mRequestId = u16le(data,0);
     mDataOffset = u32le(data,2);
     mTotalProtobufLength = u32le(data,6);
     mProtobufDataLength = u32le(data,10);
     mMessageBytes = data.mid(14,mProtobufDataLength);
     mSendOutgoing=false;
-    qDebug() << Q_FUNC_INFO << "Garmin: Protobuf request " << mRequestId << " total length " << mTotalProtobufLength << " << data " << mMessageBytes.toHex();
  }
 
 void GarminProtobufMessage::handleAuthenticationRequest(quint16 requestId) {

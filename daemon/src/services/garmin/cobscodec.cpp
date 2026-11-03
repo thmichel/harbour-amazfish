@@ -6,7 +6,6 @@
 void CobsCoDec::reset()
 {
     mBuffer.clear();
-   // mDecodedMessage.reset();
 }
 
 void CobsCoDec::feed(const QByteArray &data)
@@ -70,7 +69,6 @@ QByteArray CobsCoDec::encode(const QByteArray &data)
 
 void CobsCoDec::decode()
 {
-
     // Need at least: leading 0x00 + one code byte + trailing 0x00
     if (mBuffer.size() < 4)
         return;

@@ -165,7 +165,8 @@ public:
     }
 
     void parseHeaderRecords(const QByteArray& data, int& pos, bool hasDeveloperData);
-    void parse(const QByteArray& data);
+    void parseIncoming(const QByteArray& data);
+    void sendData();
     QByteArray generateOutgoing();
 
 

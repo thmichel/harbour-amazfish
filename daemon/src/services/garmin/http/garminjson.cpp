@@ -19,7 +19,7 @@ static constexpr quint8 TYPE_MAP = 0x0b;
 static constexpr quint8 TYPE_SINT64 = 0x0e;
 static constexpr quint8 TYPE_DOUBLE = 0x0f;
 
-QByteArray jsonEncode(QJsonObject object) {
+QByteArray jsonEncode(QJsonValue object) {
     // First pass: collect all strings
     QStringList strings;
     collectStrings(object, strings);
@@ -56,7 +56,6 @@ QByteArray jsonEncode(QJsonObject object) {
     output.append(DATA_SECTION_MAGIC);
     writeUint32BE(output, dataSection.size());
     output.append(dataSection);
-
     return output;
   }
 
@@ -177,10 +176,9 @@ QJsonValue jsonDecode(const QByteArray& bytes) {
         return QJsonValue();
     }
 
-
     DecodedValue root = jsonDecodeValue(bytes, pos, strings);
 
-        // Process placeholders breadth-first using a queue
+    // Process placeholders breadth-first using a queue
     QList<DecodedValue> queue;
     queue.append(root);
 
@@ -193,10 +191,7 @@ QJsonValue jsonDecode(const QByteArray& bytes) {
             for (int i = 0; i <mp.size; i++) {
                 DecodedValue key = jsonDecodeValue(bytes, pos, strings);
                 DecodedValue val = jsonDecodeValue(bytes,pos, strings);
-
                 QString keyString = key.jsonValue.toString();
-
-
                 if (val.type==DecodedValue::Map) {
                     mp.object.insert(keyString,mp.object);
                     queue.append(val);
@@ -228,7 +223,6 @@ QJsonValue jsonDecode(const QByteArray& bytes) {
             }
        }
     }
-
     switch(queue.first().type) {
         case DecodedValue::Map:
             return queue.first().mapPlaceholder.object;
@@ -240,7 +234,7 @@ QJsonValue jsonDecode(const QByteArray& bytes) {
 
 }
 
-void collectStrings(const QJsonObject rootObj, QList<QString> &strings) {
+void collectStrings(const QJsonValue rootObj, QList<QString> &strings) {
     QQueue<QJsonValue> queue;
     queue.enqueue(rootObj);
     auto addUnique = [&] (const QString& s)

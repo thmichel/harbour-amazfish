@@ -43,49 +43,59 @@ void GarminFitDefinitionMessage::parseHeaderRecords(const QByteArray& data, int&
     }
 }
 
-void GarminFitDefinitionMessage::parse(const QByteArray& data)
+void GarminFitDefinitionMessage::parseIncoming(const QByteArray& data)
 {
-    qDebug() << Q_FUNC_INFO;
-    // Multiple Fit Types can be requested in one message
-    // Extract the types and handle them individually
-    int pos = 0;
+    // This is for incoming fit requests, e.g. the watch sends data to us
+    qDebug() << Q_FUNC_INFO << " data " << data.toHex();
+    int pos = 2; // first two bytes contain MessageType (FIT_DEFINITION)
     bool hasDeveloperData;
 
     while (pos < data.size()) {
         quint8 header = data[pos];
+        qDebug() << Q_FUNC_INFO << "Header is " << header << " at pos " << pos;
+        pos++;
         bool hasDeveloperData = true;
+        bool isDefinition = false;
 
         if ((header & 0x80) == 0x80) { //compressed timestamp
              // This is not a definition, not yet handled
-            /*
-            bool definition = false;
+
+            isDefinition = false;
             hasDeveloperData = false;
             int localMessageType = (header >> 5) & 0x3;
             int timeOffset = header & 0x1f;
-            */
-            break;
-        } else if ((header & 0x40) == 0x40) {
-             //it's a header - store local Message Type
+
+        } else  {
+             if ((header & 0x40) == 0x40)
+                 isDefinition = true;
+             //store local Message Type
              mDefinitionList.append(quint16(header & 0xf));
              qDebug() << Q_FUNC_INFO << "Garmin: fit definition requested for " << quint16(header & 0xf);
-             // Now we eed to parse the buffer
+             // Now we need to parse the buffer
              hasDeveloperData = ((header & 0x20) == 0x20);
-             parseHeaderRecords(data, pos,hasDeveloperData);
+             if (isDefinition) parseHeaderRecords(data, pos,hasDeveloperData);
         }
     }
-    if (mCommunicator) mCommunicator->sendMessage("FIT DATA", generateOutgoing());
+    //Once parsed, we need to trnasfer this to the handler
+    // Not implemented yet
 }
 
 QByteArray GarminFitDefinitionMessage::generateOutgoing() {
+    // This should check which FIT type needs to be sent
+    // For now we implemented only weather so just send weather data
     qDebug() << Q_FUNC_INFO;
     QByteArray data;
+
+    // For testing send weather unconditionally
+    GarminWeatherMessage *message = new GarminWeatherMessage(mCommunicator);
+    data = message->generateDataPayload(mCommunicator->weather());
+    return wrapInGfdiEnvelope(MessageId::FitData,data);;
+
     for (int i =0; i < mDefinitionList.size();++i) {
         switch (int(mDefinitionList[i])) {
             case FitDefinitions::WEATHER:
             {
-                GarminWeatherMessage *message = new GarminWeatherMessage(mCommunicator);
-                CurrentWeather* weather = new CurrentWeather();
-                data.append(message->generateDataPayload(weather));
+                data.append(message->generateDataPayload(mCommunicator->weather()));
                 break;
             }
             default:

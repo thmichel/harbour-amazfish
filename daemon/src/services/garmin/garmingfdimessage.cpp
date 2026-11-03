@@ -65,9 +65,6 @@ void GarminGfdiMessage::parse(const QByteArray& data) {
     quint16 rawId = le16(data.constData() + offset);
     offset += 2;
 
-    //qDebug() << Q_FUNC_INFO << "Garmin: raw msgid is " << rawId;
-
-
     // Check for sequence number (bit 15 set)
     // If bit 15 is set, the message ID is encoded with a sequence number
     // Format: [bit 15: 1] [bits 14-8: sequence] [bits 7-0: message_id - 5000]
@@ -102,8 +99,6 @@ void GarminGfdiMessage::parse(const QByteArray& data) {
         parseResponse(data.mid(offset));
         return;
     }
-
-
 
     // Now handle packet
     qDebug() << Q_FUNC_INFO << "Garmin:  Received GFDI message: " << messageIdToString(msgId).value();
@@ -198,10 +193,10 @@ void GarminGfdiMessage::parseWeatherRequest(const QByteArray& data)
 {
     Q_UNUSED(data);
     qDebug() << Q_FUNC_INFO;
-    // we ignore the request data as we don't use the location data
-    // instead send Weather Definition directly
-    GarminWeatherMessage* msg = new GarminWeatherMessage(mCommunicator);
-    msg->parse(data);
+    // Ask mCurrentWeather to refresh, this will trigger sending the weather
+    // In the future, we should handle the longitude/latitude from the watch to actually send
+    // the weather for the requested position
+    if (mCommunicator) mCommunicator->weather()->refresh();
 }
 
 void GarminGfdiMessage::parseFilterStatus(const QByteArray& data)
@@ -219,14 +214,12 @@ void GarminGfdiMessage::parseResponse(const QByteArray& data)
 
 void GarminGfdiMessage::parseProtobufResponse(const QByteArray& data)
 {
-    //GarminProtobufStatusMessage msg(data, mCommunicator);
     qDebug() << Q_FUNC_INFO << "Garmin: Received Protobuf response" << data.toHex();
     if (mCommunicator) mCommunicator->onProtobufMessageReceived(data);
 }
 
 void GarminGfdiMessage::parseProtobufRequest(const QByteArray &data)
 {
-    //GarminProtobufMessage msg(data,mCommunicator);
     qDebug() << Q_FUNC_INFO << "Garmin: Received Protobuf request" << data.toHex();
     if (mCommunicator) mCommunicator->onProtobufMessageReceived(data);
 }

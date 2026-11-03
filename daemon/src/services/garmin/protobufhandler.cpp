@@ -108,21 +108,18 @@ void ProtobufHandler::processIncoming(QSharedPointer<GarminProtobufMessage> mess
          }
          if (fieldNumber==49 && wireType ==2) {
              // Notification Service
-             qDebug() << Q_FUNC_INFO << "Garmin: Got notifiction service messge";
+             qDebug() << Q_FUNC_INFO << "Garmin: Got notifiction service message";
          }
          if (fieldNumber==1 && wireType ==2) {
              // Calendar Service
              processed = true;
              if (mCommunicator) mCommunicator->sendMessage("PROTOBUF ACK",ackMessage);
-             qDebug() << Q_FUNC_INFO << "Garmin: Got calendar service message";
              GarminCalendarMessage* msg = new GarminCalendarMessage(mCommunicator);
              msg->parse(fieldData,message->getRequestId());
          }
          if (fieldNumber==2&& wireType ==2) {
              // HTTP Service
              if (mCommunicator) mCommunicator->sendMessage("PROTOBUF ACK",ackMessage);
-
-             qDebug() << Q_FUNC_INFO << "Garmin: Got HTTP message";
              processed = true;
              if (mHttpHandler) mHttpHandler->parse(fieldData,message->getRequestId());
          }

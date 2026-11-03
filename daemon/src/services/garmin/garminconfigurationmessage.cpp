@@ -3,8 +3,8 @@
 
 
 void GarminConfigurationMessage::parse(const QByteArray& data) {
-    //QByteArray capabilities(15, char(0xFF));
-    QByteArray capabilities=generateCapabilities();
+    // Just send support for all capabilities - if we don't support one GFDI will send back unsopported anyway
+    QByteArray capabilities(15, char(0xFF));
     QByteArray payload;
     payload.append(char(capabilities.size()));
     payload.append(capabilities);
@@ -12,7 +12,7 @@ void GarminConfigurationMessage::parse(const QByteArray& data) {
     QByteArray resp = wrapInGfdiEnvelope(MessageId::Configuration, payload);
 
     if (mCommunicator) {
-        mCommunicator->sendMessage("CONFIGURATION RESPOSE",resp);
+        mCommunicator->sendMessage("CONFIGURATION RESPONSE",resp);
         mCommunicator->completePairing();
     }
 }
@@ -87,7 +87,7 @@ QByteArray GarminConfigurationMessage::setDeviceSettings(bool autoUpload, bool w
 
     // Each setting consists of an ordinal/index, data length and status byte
     // Setting 1: AUTO_UPLOAD_ENABLED (index 6)
-    m.append(char(6)); m.append(char(1)); m.append(char(autoUpload ? 1 : 0)); // GarminDeviceSetting.AUTO_UPLOAD_ENABLED ordinal
+    m.append(char(6)); m.append(char(1)); m.append(char(autoUpload ? 1 : 0));
     // Setting 2: WEATHER_CONDITIONS_ENABLED (index 7)
     m.append(char(7)); m.append(char(1)); m.append(char(weatherConditions ? 1 : 0));
     // Setting 3: WEATHER_ALERTS_ENABLED (index 8)

@@ -33,6 +33,7 @@ Amazfish::Features GarminDevice::supportedFeatures() const
         | Amazfish::Feature::FEATURE_HRM
         | Amazfish::Feature::FEATURE_STEPS
         | Amazfish::Feature::FEATURE_ALERT
+        | Amazfish::Feature::FEATURE_WEATHER
         ;
 }
 
@@ -40,9 +41,8 @@ Amazfish::Features GarminDevice::supportedFeatures() const
 Amazfish::DataTypes GarminDevice::supportedDataTypes() const
 {
     return Amazfish::DataType::TYPE_SPO2
-            | Amazfish::DataType::TYPE_HRV
-            | Amazfish::DataType::TYPE_HEART_RATE
-            ;
+        | Amazfish::DataType::TYPE_HEART_RATE
+        ;
 
 }
 
@@ -55,6 +55,11 @@ AbstractFirmwareInfo *GarminDevice::firmwareInfo(const QByteArray &bytes, const 
 {
     qDebug() << Q_FUNC_INFO;
     return nullptr;
+}
+
+void GarminDevice::sendWeather(CurrentWeather *weather)
+{
+    if (mCommunicator) mCommunicator->sendWeather(weather);
 }
 
 void GarminDevice::sendAlert(const Amazfish::WatchNotification &notification)

@@ -19,6 +19,7 @@
 #include "garminmlr.h"
 #include "weather/currentweather.h"
 #include "garminprotobufmessage.h"
+#include "lib/src/weather/citymanager.h"
 
 #include <qbledevice.h>
 #include <qbleservice.h>
@@ -106,9 +107,6 @@ public:
 
     static QString baseUuid(quint16 shortId); // helper for BASE_UUID_FORMAT
 
-    // set_message_callback
-    void setMessageCallback(QSharedPointer<GfdiMessageCallback> cb);
-
     // register_service_callback / unregister_service_callback
     void registerServiceCallback(Service service, QSharedPointer<ServiceCallback> cb);
     QSharedPointer<ServiceCallback> unregisterServiceCallback(Service service);
@@ -122,6 +120,7 @@ public:
 
     //  initialize_device
     bool initializeDevice();
+
 
     //  send_messages
     void sendRawBytes(const QString &label, const QByteArray &bytes);
@@ -161,6 +160,7 @@ public:
     quint8 batteryLevel() {return mBatteryLevel;};
     bool isConnected() {return mConnected;};
     bool handshakeComplete() {return !isFirstConnect;};
+    CurrentWeather* weather() {return mCurrentWeather;};
 
 signals:
     void logDebug(const QString& msg);
@@ -180,6 +180,8 @@ signals:
 public slots:
     void characteristicRead(const QString &c, const QByteArray &value);
     void onCharacteristicChanged(const QString &characteristic, const QByteArray& data);
+    void sendWeather(CurrentWeather *weather);
+    void onWeatherReady(    );
 
     void setSteps(quint32 val);
     void setStepsGoal(quint32);
@@ -229,8 +231,6 @@ private:
     struct deviceInfo mDeviceInfo;
 
     QSharedPointer<CommunicatorState> mState;
-
-    QSharedPointer<GfdiMessageCallback> mMessageCallback;
     QSharedPointer<ProtobufHandler> mProtobufHandler;
 
 
@@ -244,6 +244,9 @@ private:
     QTimer* mBatteryTimer;
     QQueue<QPair<QByteArray, QString>> mSendQueue;
     bool  mSendInProgress = false;
+    // We need our own city manager and weather as watch may request weather updates and we cannot access the global one.
+    CityManager mCityManager;
+    CurrentWeather *mCurrentWeather;
 };
 
 #endif //_COMMUNICATOR__H

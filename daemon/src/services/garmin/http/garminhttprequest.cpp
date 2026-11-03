@@ -60,6 +60,25 @@ QByteArray GarminHttpRequest::getBody() {
     return mIsRaw? mRawRequest.rawBody.toUtf8(): mWebRequest.body;
 }
 
+QByteArray GarminHttpRequest::getBodyToSend() {
+    if (mIsRaw) {
+        if (!mRawRequest.rawBody.isEmpty())
+            return mRawRequest.rawBody.toUtf8();
+    }
+    else {
+        QByteArray bodyBytes;
+        if (!mWebRequest.body.isEmpty())
+        {
+            QJsonValue json = jsonDecode(mWebRequest.body);
+            QJsonDocument doc;
+            doc.setObject(json.toObject());
+            return doc.toJson();
+        }
+    }
+    return QByteArray();
+}
+
+
 HttpMethod GarminHttpRequest::getMethod() {
     return mMethod;
 }

@@ -23,6 +23,7 @@ public:
     QString getDomain();
     QString getPath();
     QByteArray getBody();
+    QByteArray getBodyToSend();
     HttpMethod getMethod();
     QMap<QString,QString> getQuery();
     QMap<QString,QString> getHeaders();

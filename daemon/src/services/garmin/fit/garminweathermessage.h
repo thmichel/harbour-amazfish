@@ -33,10 +33,16 @@ const WeatherField CURRENT_FIELDS[] = {
     { 2, 1, FIT_BASE_ENUM },     // condition
     { 3, 2, FIT_BASE_UINT16 },   // wind_direction
     { 4, 2, FIT_BASE_UINT16 },   // wind_speed
+    { 5, 1, FIT_BASE_UINT8 },    // precipitation_probability
+    { 6, 1, FIT_BASE_SINT8 },    // temperature_feels_like
     { 7, 1, FIT_BASE_UINT8 },    // relative_humidity
     { 9, 4, FIT_BASE_UINT32 },   // observed_at_time
+    { 10, 4, FIT_BASE_SINT32 },  // observed_location_lat
+    { 11, 4, FIT_BASE_SINT32 },  // observed_location_long
     { 13, 1, FIT_BASE_SINT8 },   // high_temperature
     { 14, 1, FIT_BASE_SINT8 },   // low_temperature
+    { 15, 1, FIT_BASE_SINT8 },   // dew_point
+    { 18, 4, FIT_BASE_UINT32 },  // atmospheric_pressure
     { 253, 4, FIT_BASE_UINT32 }, // timestamp
 };
 
@@ -47,7 +53,12 @@ const WeatherField HOURLY_FIELDS[] = {
     { 2, 1, FIT_BASE_ENUM },     // condition
     { 3, 2, FIT_BASE_UINT16 },   // wind_direction
     { 4, 2, FIT_BASE_UINT16 },   // wind_speed
-    { 6, 1, FIT_BASE_SINT8 },    // temperature_feels_like
+    { 5, 1, FIT_BASE_UINT8 },    // precipitation_probability
+    { 6, 1, FIT_BASE_SINT8 },    // temperature_feels_like (Gadgetbridge reuses temperature here too)
+    { 7, 1, FIT_BASE_UINT8 },    // relative_humidity
+    { 15, 1, FIT_BASE_SINT8 },   // dew_point
+    { 16, 4, FIT_BASE_FLOAT32 }, // uv_index
+    { 18, 4, FIT_BASE_UINT32 },  // atmospheric_pressure
 };
 
 const WeatherField DAILY_FIELDS[] = {
@@ -56,9 +67,13 @@ const WeatherField DAILY_FIELDS[] = {
     { 14, 1, FIT_BASE_SINT8 },   // low_temperature
     { 13, 1, FIT_BASE_SINT8 },   // high_temperature
     { 2, 1, FIT_BASE_ENUM },     // condition
+    { 5, 1, FIT_BASE_UINT8 },    // precipitation_probability
     { 12, 1, FIT_BASE_ENUM },    // day_of_week
+    { 7, 1, FIT_BASE_UINT8 },    // relative_humidity
     { 4, 2, FIT_BASE_UINT16 },   // wind_speed
     { 3, 2, FIT_BASE_UINT16 },   // wind_direction
+    { 16, 4, FIT_BASE_FLOAT32 }, // uv_index
+    { 18, 4, FIT_BASE_UINT32 },  // atmospheric_pressure
 };
 
 class GarminWeatherMessage : public GarminGfdiMessage
@@ -69,7 +84,7 @@ public:
     }
     void parse(const QByteArray& data);
     QByteArray generateRecordDefinitions();
-    QByteArray generateRecordDefinition(quint8 localType, const WeatherField *fields);
+    QByteArray generateRecordDefinition(quint8 localType, const WeatherField* fields, int size);
     QByteArray encodeCurrentWeather(const CurrentWeather *weather);
     QByteArray encodeToday(const CurrentWeather *weather);
     QByteArray encodeForecast(const CurrentWeather::Forecast forecast);

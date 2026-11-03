@@ -6,6 +6,7 @@
 
 
 bool GarminHttpMessage::getRequestData(QByteArray request) {
+    qDebug() << Q_FUNC_INFO;
     // Parse request fields
     int cursor = 0;
     int loopCount = 0;
@@ -74,7 +75,6 @@ bool GarminHttpMessage::getRequestData(QByteArray request) {
             break;
         }
     }
-    qDebug() << Q_FUNC_INFO << "HTTP request for " << mRequest.url;
     return true;
 }
 
@@ -404,7 +404,8 @@ bool GarminHttpMessage::processWebRequest(QByteArray data) {
                 case HttpRequestType::rawResponse:
                     mType=HttpRequestType::rawResponse;
                     return getRawResponseData(fieldData);
-                    break;                default:
+                    break;
+                default:
                     qDebug() << Q_FUNC_INFO << "Unknown GarminHttpMessage field:" << fieldNum;
                     break;
                 }
@@ -424,7 +425,6 @@ bool GarminHttpMessage::processWebRequest(QByteArray data) {
 }
 
 void GarminHttpMessage::parse(const QByteArray& data) {
-    qDebug() << Q_FUNC_INFO << "Garmin: parsing http message";
     processWebRequest(data);
 
 }

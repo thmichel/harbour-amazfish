@@ -22,15 +22,17 @@ void GarminAuthNegotiationMessage::parse(const QByteArray& data)
 
     authFlags = u32le(data.constData(),1);
 
-    //first send status message as ack
+    //send status message as ack
+
     QByteArray statusMsg=generateStatusMessage();
     statusMsg=wrapInGfdiEnvelope(MessageId::Response,statusMsg);
     if (mCommunicator) mCommunicator->sendMessage("AUTH NEGOTIATION STATUS",statusMsg);
+
     //now send response
-    QByteArray respMsg=generateOutgoing();
+    //QByteArray respMsg=generateOutgoing();
     //respMsg=wrapInGfdiEnvelope(MessageId::AuthNegotiation,respMsg);
-    respMsg=wrapInGfdiEnvelope(MessageId::Response,respMsg);
-    if (mCommunicator) mCommunicator->sendMessage("AUTH NEGOTIATION RESPONSE",respMsg);
+    //respMsg=wrapInGfdiEnvelope(MessageId::Response,respMsg);
+    //if (mCommunicator) mCommunicator->sendMessage("AUTH NEGOTIATION RESPONSE",respMsg);
  }
 
 

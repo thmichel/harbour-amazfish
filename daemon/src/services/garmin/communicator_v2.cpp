@@ -43,19 +43,22 @@ CommunicatorV2::CommunicatorV2(const QString &path, QObject* parent)
 {
     qDebug() << "Garmin: Service created for " << path;
     connect(this, &QBLEService::characteristicRead, this, &CommunicatorV2::characteristicRead);
-    mMessageCallback =QSharedPointer<GfdiMessageCallback>::create();
     // add protobuf Handler
     mProtobufHandler = QSharedPointer<ProtobufHandler>(new ProtobufHandler(this));
 
     mState->cobsCodec=new CobsCoDec(this);
+    mCurrentWeather = new CurrentWeather();
+    //cityManager.loadCities();
+    if (mCityManager.cities().count() > 0) {
+        qDebug() << Q_FUNC_INFO << "Weather: City set to " << qobject_cast<City*>(mCityManager.cities().at(0))->name();
+        mCurrentWeather->setCity(qobject_cast<City*>(mCityManager.cities().at(0)));
+    }
+    connect(mCurrentWeather,&CurrentWeather::ready,this,&CommunicatorV2::onWeatherReady);
 
     initializeDevice();
 
 }
 
-void CommunicatorV2::setMessageCallback(QSharedPointer<GfdiMessageCallback> cb) {
-    mMessageCallback = std::move(cb);
-}
 
 void CommunicatorV2::registerServiceCallback(Service service, QSharedPointer<ServiceCallback> cb) {
     mState->serviceCallbacks.insert(service, std::move(cb));
@@ -189,19 +192,17 @@ bool CommunicatorV2::initializeDevice() {
 
 void CommunicatorV2::sendRawBytes(const QString &label,const QByteArray &bytes)
 {
-    qDebug() <<Q_FUNC_INFO << "Garmin: Send Message " << label << " Content " << bytes.toHex();
+    //qDebug() <<Q_FUNC_INFO << "Garmin: Send Message " << label << " Content " << bytes.toHex();
     mSendQueue.enqueue(qMakePair(bytes, label));
     processSendQueue();
 }
 
 void CommunicatorV2::processSendQueue()
 {
-
     if (mSendInProgress || mSendQueue.isEmpty())
     {
         return;
     }
-
     if (!mState->characteristicSend) {
         qWarning() << Q_FUNC_INFO <<"Garmin: DeviceConnection: no send characteristic, dropping" << mSendQueue.size() << "queued message(s)";
         mSendQueue.clear();
@@ -210,25 +211,18 @@ void CommunicatorV2::processSendQueue()
 
     mSendInProgress = true;
     const QPair<QByteArray, QString> item = mSendQueue.dequeue();
-
     QString errorMsg;
-
-    qDebug() <<Q_FUNC_INFO << "Garmin: Sending data to watch " <<item.second ;
-
     mState->characteristicSend->writeValue(item.first,&errorMsg);
-
-    qDebug() <<Q_FUNC_INFO << "Garmin: writing result:" << errorMsg;
     if (!errorMsg.isEmpty())
     {
         qWarning() << Q_FUNC_INFO <<"Garmin: Could not send message: " << errorMsg;
     }
     mSendInProgress = false;
     if (!mSendQueue.isEmpty()) processSendQueue();
-
 }
 
 bool CommunicatorV2::sendMessage(const QString& taskName, const QByteArray& message) {
-    qDebug() <<Q_FUNC_INFO << "Garmin: Send Message " << taskName << " Content " << message.toHex();
+    qDebug() <<Q_FUNC_INFO << "Garmin: Send Message " << taskName; // << " Content " << message.toHex();
 
     const QByteArray framed = CobsCoDec::encode(message);
 
@@ -247,9 +241,7 @@ bool CommunicatorV2::sendMessage(const QString& taskName, const QByteArray& mess
         qDebug() << Q_FUNC_INFO << "Garmin: No GFDI handle found";
         return false;
     }
-
     gfdiHandle = mState->handleByService.value(Service::GFDI);
-
     if (mIsReliable) {
         QSharedPointer<MlrCommunicator> mlr;
         const quint8 mlrHandle = (gfdiHandle & 0x0F);
@@ -259,9 +251,7 @@ bool CommunicatorV2::sendMessage(const QString& taskName, const QByteArray& mess
             mlr->sendMessage(taskName, framed);
             return true;
         }
-
     }
-
     int offset = 0;
     int fragmentNumber = 0;
     while (offset < framed.size()) {
@@ -280,7 +270,7 @@ void CommunicatorV2::onCharacteristicChanged(const QString &characteristic, cons
     //handles incoming messages for a characteristic
     //qDebug() <<Q_FUNC_INFO << "Garmin: Received Message " << data.toHex();
 
-    if (data.isEmpty()) return ;
+    if (data.size()<2) return ;
 
     // handle 0 => management
     const quint8 handle = quint8(data[0]);
@@ -290,7 +280,10 @@ void CommunicatorV2::onCharacteristicChanged(const QString &characteristic, cons
         return;
     }
 
-    if (mIsReliable) {
+    Service service;
+    service = mState->serviceByHandle.value(handle, Service::GFDI);
+
+    if (mIsReliable && (service==Service::GFDI)) {
         QSharedPointer<MlrCommunicator> mlr;
 
         if (data.size() >= 2 && (quint8(data[0]) & 0x80) != 0) {
@@ -300,18 +293,31 @@ void CommunicatorV2::onCharacteristicChanged(const QString &characteristic, cons
 
         if (mlr) {
             // Pass data to mlr, which will emit gfdiDecoded with the decoded data.
-            QByteArray rest = data.mid(1);
-            qDebug() << Q_FUNC_INFO << "Garmin: passing data to Mlr handler: " << rest.toHex();
             mlr->onPacketReceived(data); // data with handle
             return;
         }
     } else {
         // handle message directly if not mlr
-        qDebug() <<Q_FUNC_INFO << "Garmin: Not an MLR Message, handling directly ";
-
         handleNonMlrMessage(data);
         return;
     }
+}
+
+void CommunicatorV2::sendWeather(CurrentWeather *weather) {
+    // We need to store the weather in an own variable as the watch can actively request weather data
+    // Hence we just take the City and Language and send our own weather request
+    // This allows us later to take the location from the watch to dynamically get weather for current location
+    mCurrentWeather->setCity(weather->city());
+    mCurrentWeather->setLanguage(weather->language());
+    mCurrentWeather->refresh();
+}
+
+void CommunicatorV2::onWeatherReady()
+{
+    if (mCurrentWeather->city()==nullptr) return;
+    GarminWeatherMessage *weathermsg = new GarminWeatherMessage(this);
+    QByteArray msgData = weathermsg->generateRecordDefinitions();
+    sendMessage("WEATHER REQUEST DEFINITION", wrapInGfdiEnvelope(MessageId::FitDefinition,msgData));
 }
 
 void CommunicatorV2::onDeviceInformationReceived(DeviceInformationMessage &message)
@@ -321,7 +327,6 @@ void CommunicatorV2::onDeviceInformationReceived(DeviceInformationMessage &messa
     mDeviceInfo.serialNumber=QString::number(message.unitNumber);
     mDeviceInfo.softwareRevision=QString::number(message.softwareVersion);
     mDeviceInfo.deviceManufacturer="Garmin";
-
     //set max packet size
     onDeviceMaxPacketSize(message.maxPacketSize);
 
@@ -385,7 +390,6 @@ void CommunicatorV2::onProtobufStatusMessageReceived(const QByteArray& data)
 
 
 void CommunicatorV2::handleNonMlrMessage(const QByteArray& data) {
-    qDebug() << Q_FUNC_INFO << "Garmin: handle non MLR Message: " << data.toHex();
     if (data.size() < 2)
     {
         qDebug() << Q_FUNC_INFO << "Garmin: decoded with handle is too short!";
@@ -395,12 +399,8 @@ void CommunicatorV2::handleNonMlrMessage(const QByteArray& data) {
     const quint8 handle = quint8(data[0]);
     const QByteArray payload = data.mid(1);
 
-
     Service service;
-
     QSharedPointer<ServiceCallback> svcCb;
-
-    qDebug() << Q_FUNC_INFO << "Garmin: handle decoded message: Found handle " <<handle;
 
     service = mState->serviceByHandle.value(handle, Service::GFDI);
 
@@ -441,7 +441,8 @@ void CommunicatorV2::handleNonMlrMessage(const QByteArray& data) {
 
 void CommunicatorV2::handleIncomingGfdiMessage(const QByteArray& data)
 {
-    if (data.size()<8) {
+    qDebug() << Q_FUNC_INFO;
+    if (data.size()<6) {
         qDebug() << Q_FUNC_INFO << "Garmin: Incoming Gfdi Message is too small";
         return;
     }
@@ -468,6 +469,7 @@ void CommunicatorV2::handleIncomingGfdiMessage(const QByteArray& data)
 
 }
 void CommunicatorV2::handleDecodedMessage(const QByteArray& decodedWithHandle) {
+    qDebug() << Q_FUNC_INFO;
     // This should be a GFDI message
     if (decodedWithHandle.isEmpty())
     {
@@ -580,14 +582,17 @@ void CommunicatorV2::processRegisterMlResp(const QByteArray& payload) {
 
     const Service service = svc.value;
 
-    QSharedPointer<MlrCommunicator> createdMlr;
-
     qDebug() << Q_FUNC_INFO <<"Garmin: Inserting handle " << handle <<" for service " << serviceToString(service);
     mState->serviceByHandle.insert(handle, service);
     mState->handleByService.insert(service, handle);
 
-    // Create MLR communicator if reliable is enabled
-    if ((reliable != 0) && !mState->mlrCommunicators.contains(mlrHandle)) {
+    if (reliable != 0)  {
+        if (mState->mlrCommunicators.contains(mlrHandle))
+        {
+            QSharedPointer<MlrCommunicator> existingMlr = mState->mlrCommunicators[mlrHandle];
+            // TODO call close
+            mState->mlrCommunicators.remove(mlrHandle);
+        }
         QSharedPointer<QBLECharacteristic> sendChar = mState->characteristicSend;
         if (!sendChar) {
             qDebug() << Q_FUNC_INFO << "Garmin: No send characteristic found!";
@@ -595,18 +600,13 @@ void CommunicatorV2::processRegisterMlResp(const QByteArray& payload) {
         }
 
         qDebug() << Q_FUNC_INFO << "Garmin: Inserting reliable MLR communicator for " << serviceToString(service) << ", Handle " << mlrHandle;
-        auto sender = QSharedPointer<MlrMessageSender>::create(sendChar, this);
-        auto receiver = QSharedPointer<MlrMessageReceiver>::create(mMessageCallback, this);
-        auto mlr = QSharedPointer<MlrCommunicator>::create(mlrHandle, 20, sender, receiver);
-        //mlr->start();
+        auto mlr = QSharedPointer<MlrCommunicator>::create(mlrHandle, 20, sendChar, this);
         qDebug() << Q_FUNC_INFO << "Garmin: Reliable MLR communicator created";
 
         mState->mlrCommunicators.insert(mlrHandle, mlr);
 
         // Connect mlr gfdiDecoded to Message handling
-        connect(receiver.data(),&MlrMessageReceiver::gfdiDecoded,this,&CommunicatorV2::handleDecodedMessage);
-
-        createdMlr = mlr;
+        connect(mlr.data(),&MlrCommunicator::gfdiDecoded,this,&CommunicatorV2::handleIncomingGfdiMessage);
         mIsReliable = true;
      }
 
@@ -761,11 +761,6 @@ bool CommunicatorV2::completePairing() {
 
             (qobject_cast<GarminDevice *>(m_device))->setPaired();
         }
-        // Send Weather definition pro-actively - testing
-        GarminWeatherMessage* weathermsg = new GarminWeatherMessage(this);
-        QByteArray msgData = weathermsg->generateRecordDefinitions();
-        sendMessage("WEATHER REQUEST DEFINITION", wrapInGfdiEnvelope(MessageId::FitDefinition,msgData));
-
         isFirstConnect=false;
     }
     qDebug()<< Q_FUNC_INFO << "Garmin: First connection already done";
@@ -805,6 +800,8 @@ void CommunicatorV2::registerServices() {
     mBatteryTimer->start();
     connect(mBatteryTimer,&QTimer::timeout, this, &CommunicatorV2::getBatteryLevel);
     getBatteryLevel();
+    //Trigger weather update
+    mCurrentWeather->refresh();
     mServicesResolved=true;
 }
 

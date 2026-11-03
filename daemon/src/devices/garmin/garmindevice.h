@@ -29,8 +29,8 @@ public:
     void sendAlert(const Amazfish::WatchNotification &notification) override;
     void incomingCall(const QString &caller) override;
     void incomingCallEnded() override;
-
     AbstractFirmwareInfo *firmwareInfo(const QByteArray &bytes, const QString &path) override;
+    void sendWeather(CurrentWeather *weather);
     Q_SLOT void authenticated(bool ready);
 
     QString information(Amazfish::Info i) const override;

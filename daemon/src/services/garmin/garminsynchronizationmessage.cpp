@@ -4,13 +4,13 @@ void GarminSynchronizationMessage::parse(const QByteArray& data)
 {
     qDebug() << Q_FUNC_INFO << "Garmin: parsing synchronization";
     if (data.size() < 2) {
-        return; // Result<GfdiMessage>::err(GarminError(GarminError::Code::InvalidMessage, "Synchronization message too short"));
+        return;
     }
     const quint8 syncType = quint8(data[0]);
     const int size = quint8(data[1]);
 
     if (data.size() < 2 + size) {
-        return;// Result<GfdiMessage>::err(GarminError(GarminError::Code::InvalidMessage, "Synchronization message truncated"));
+        return;
     }
 
     quint64 bitmask = 0;
@@ -46,7 +46,7 @@ void GarminSynchronizationMessage::sendSynchronizationAck() {
     QByteArray r;
 
     // Original message ID: SYNCHRONIZATION (5037)
-    writeU16le(r, 5037);
+    writeU16le(r, quint16(MessageId::Synchronization));
     // Status: ACK
     r.append(char(quint8(Status::Ack)));
 

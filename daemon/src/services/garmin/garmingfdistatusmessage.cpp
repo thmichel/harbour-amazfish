@@ -84,6 +84,8 @@ void GarminGfdiStatusMessage::parse(const QByteArray& data)
         */
     case MessageId::FitData:
         qDebug() << Q_FUNC_INFO << "Garmin: Detected " << messageIdToString(originalMessageType).value();
+        handled = true;
+        handleFitData(data);
         break;
     case MessageId::FitDefinition:
         qDebug() << Q_FUNC_INFO << "Garmin: Detected " << messageIdToString(originalMessageType).value();
@@ -205,19 +207,25 @@ void GarminGfdiStatusMessage::handleAuthNegotiation(const QByteArray &data) {
 
 void GarminGfdiStatusMessage::handleFitDefinition(const QByteArray &data) {
     qDebug() << Q_FUNC_INFO;
+    Q_UNUSED(data);
     // Watch responded to Fit definition we sent
     // FitDefinitionMEssage handles this and sends data
     //QByteArray resp=GfdiMessageGenerator::ackResponse((quint16)MessageId::FitDefinition);
     //mCommunicator->sendMessage("FIT DEFINITION ACK", resp);
     GarminFitDefinitionMessage* msg = new GarminFitDefinitionMessage(mCommunicator);
-    msg->parse(data);
+    QByteArray resp = msg->generateOutgoing();
+    if (mCommunicator) mCommunicator->sendMessage("FIT DATA",resp);
 }
 
 void GarminGfdiStatusMessage::handleFitData(const QByteArray &data) {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << data.toHex();
     // Watch replied to Fit data we sent
-    // Nothing else for us to do
-    QByteArray resp=GfdiMessageGenerator::ackResponse((quint16)MessageId::FitData);
+    // Nothing else for us to do except sending special ack
+    QByteArray r;
+    writeU16le(r, quint16(MessageId::FitData));
+    r.append(char(quint8(Status::Ack)));
+    r.append(char(0));
+    QByteArray resp = wrapInGfdiEnvelope(MessageId::Response,r);
     mCommunicator->sendMessage("FIT DATA ACK", resp);
 }
 

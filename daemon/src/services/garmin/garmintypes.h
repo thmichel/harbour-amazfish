@@ -476,7 +476,7 @@ struct SynchronizationMessage {
         return (fileTypeBitmask & (WORKOUTS | ACTIVITIES | ACTIVITY_SUMMARY | SLEEP)) != 0;
     }
 };
-
+/*
 using GfdiMessage = std::variant<
     NotificationControlMessage,
     SynchronizationMessage,
@@ -484,7 +484,7 @@ using GfdiMessage = std::variant<
     WeatherRequestMessage,
     UnknownMessage
 >;
-
+*/
 // Helper functions
 quint16 computeCrc16(const QByteArray& data);
 QByteArray wrapInGfdiEnvelope(MessageId messageId, const QByteArray& payload);
