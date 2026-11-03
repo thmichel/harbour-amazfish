@@ -1,10 +1,14 @@
 #include "dfuoperation.h"
 #include "dfuservice.h"
 #include "typeconversion.h"
+
 #include <QApplication>
 #include <KArchive>
 #include <kzip.h>
 #include <KCompressionDevice>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QDataStream>
 
 namespace {
 QString getFirmwareFileName(QByteArray& manifestData) {
@@ -116,10 +120,9 @@ bool DfuOperation::probeArchive()
     return true;
 }
 
-void DfuOperation::start(QBLEService *service)
+void DfuOperation::start()
 {
     qDebug() << Q_FUNC_INFO;
-    m_service = service;
     bool probeOk = probeArchive();
 
     if (m_info->type() == AbstractFirmwareInfo::Firmware && probeOk && m_uncompressedFwBytes.size() > 0) {

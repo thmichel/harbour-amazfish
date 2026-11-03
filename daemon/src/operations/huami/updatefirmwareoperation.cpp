@@ -1,15 +1,15 @@
 #include "updatefirmwareoperation.h"
 #include "bipfirmwareservice.h"
 #include "typeconversion.h"
-#include <QApplication>
 
-UpdateFirmwareOperation::UpdateFirmwareOperation(const AbstractFirmwareInfo *info, QBLEService *service, AbstractDevice *device) : m_info(info), m_fwBytes(info->bytes()), m_device(device)
+#include <QThread>
+
+UpdateFirmwareOperation::UpdateFirmwareOperation(const AbstractFirmwareInfo *info, QBLEService *service, AbstractDevice *device) : m_info(info), m_fwBytes(info->bytes()), m_service(service), m_device(device)
 {
 }
 
-void UpdateFirmwareOperation::start(QBLEService *service)
+void UpdateFirmwareOperation::start()
 {
-    m_service = service;
     if (m_info->type() != AbstractFirmwareInfo::Invalid) {
         BipFirmwareService *serv = dynamic_cast<BipFirmwareService*>(m_service);
 
@@ -149,8 +149,6 @@ void UpdateFirmwareOperation::sendFirmwareData()
         if ((i > 0) && (i % 100 == 0)) {
             m_service->writeValue(BipFirmwareService::UUID_CHARACTERISTIC_FIRMWARE, QByteArray(1, BipFirmwareService::COMMAND_FIRMWARE_UPDATE_SYNC));
             m_device->downloadProgress(progressPercent);
-            //QApplication::processEvents();
-
         }
         QThread::msleep(2);
     }

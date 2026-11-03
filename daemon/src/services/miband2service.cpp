@@ -2,6 +2,8 @@
 #include "qaesencryption.h"
 #include "amazfishconfig.h"
 
+#include <QDebug>
+
 const char* MiBand2Service::UUID_SERVICE_MIBAND2  = "0000fee1-0000-1000-8000-00805f9b34fb";
 const char* MiBand2Service::UUID_CHARACTERISITIC_MIBAND2_AUTH = "00000009-0000-3512-2118-0009af100700";
 
@@ -19,7 +21,8 @@ MiBand2Service::MiBand2Service(const QString &path, char authByte, char cryptByt
 
 void MiBand2Service::initialise(bool firstTime)
 {
-    if (firstTime) {
+    bool authenticate = (firstTime && m_cryptByte == 0x00);
+    if (authenticate) {
         qDebug() << Q_FUNC_INFO << "Sending auth key";
         qDebug() << AUTH_SEND_KEY <<  sizeof(AUTH_SEND_KEY) << sizeof(&AUTH_SEND_KEY) << UCHAR_TO_BYTEARRAY(AUTH_SEND_KEY);
         writeValue(UUID_CHARACTERISITIC_MIBAND2_AUTH, UCHAR_TO_BYTEARRAY(AUTH_SEND_KEY) + UCHAR_TO_BYTEARRAY(m_authByte) + getSecretKey());

@@ -1,5 +1,3 @@
-#include <QtXml/QtXml>
-
 #include "deviceinfoservice.h"
 #include "pebbleservice.h"
 #include "pebbledevice.h"
@@ -25,20 +23,6 @@ QString PebbleDevice::deviceType() const
     return "pebble";
 }
 
-void PebbleDevice::pair()
-{
-    qDebug() << Q_FUNC_INFO;
-
-    m_needsAuth = true;
-    m_pairing = true;
-    //disconnectFromDevice();
-    setConnectionState("pairing");
-    emit connectionStateChanged();
-
-    QBLEDevice::pair();
-}
-
-
 void PebbleDevice::sendAlert(const Amazfish::WatchNotification &notification) {
     qDebug() << Q_FUNC_INFO;
 }
@@ -61,7 +45,7 @@ AbstractFirmwareInfo* PebbleDevice::firmwareInfo(const QByteArray &bytes, const 
 //    virtual void requestScreenshot() override;
 
 
-void PebbleDevice::onPropertiesChanged(QString interface, QVariantMap map, QStringList list)
+void PebbleDevice::onPropertiesChanged(const QString &interface, QVariantMap map, const QStringList &list)
 {
     qDebug() << Q_FUNC_INFO << interface << map << list;
 
