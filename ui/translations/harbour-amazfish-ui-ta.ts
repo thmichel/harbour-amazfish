@@ -27,7 +27,7 @@
         <location filename="../qml/components/Alarm.qml" line="92"/>
         <location filename="../qml/components/Alarm.qml" line="92"/>
         <source>Mon</source>
-        <translation>தி</translation>
+        <translation>திங்கள்</translation>
     </message>
     <message>
         <location filename="../qml/components/Alarm.qml" line="98"/>
@@ -39,7 +39,7 @@
         <location filename="../qml/components/Alarm.qml" line="104"/>
         <location filename="../qml/components/Alarm.qml" line="104"/>
         <source>Wed</source>
-        <translation>அறிவன்</translation>
+        <translation>புதன்</translation>
     </message>
     <message>
         <location filename="../qml/components/Alarm.qml" line="110"/>
@@ -57,13 +57,13 @@
         <location filename="../qml/components/Alarm.qml" line="122"/>
         <location filename="../qml/components/Alarm.qml" line="122"/>
         <source>Sat</source>
-        <translation>காரி</translation>
+        <translation>சனி</translation>
     </message>
     <message>
         <location filename="../qml/components/Alarm.qml" line="128"/>
         <location filename="../qml/components/Alarm.qml" line="128"/>
         <source>Sun</source>
-        <translation>சூரியன்</translation>
+        <translation>ஞாயிறு</translation>
     </message>
 </context>
 <context>
@@ -97,7 +97,7 @@
     <message>
         <location filename="../qml/pages/AnalysisPage.qml" line="100"/>
         <source>HRV</source>
-        <translation>HRV</translation>
+        <translation>இதயத்துடிப்பு மாறுபாடு</translation>
     </message>
     <message>
         <location filename="../qml/pages/AnalysisPage.qml" line="118"/>
@@ -107,7 +107,7 @@
     <message>
         <location filename="../qml/pages/AnalysisPage.qml" line="51"/>
         <source>BPM</source>
-        <translation>பிபிஎம்</translation>
+        <translation>ஒரு நிமிடத்திற்கு துடிப்புக்கள்</translation>
     </message>
 </context>
 <context>
@@ -115,7 +115,7 @@
     <message>
         <location filename="../qml/pages/AuthKeyDialog.qml" line="18"/>
         <source>Enter auth key</source>
-        <translation>அங்கீகார விசையை உள்ளிடவும்</translation>
+        <translation>அதிகாரமளிக்கும் சாவியை உள்ளிடவும்</translation>
     </message>
 </context>
 <context>
@@ -137,7 +137,7 @@
     <message>
         <location filename="../qml/pages/BipFirmwarePage.qml" line="49"/>
         <source>Send file</source>
-        <translation>கோப்பு அனுப்பவும்</translation>
+        <translation>கோப்பு அனுப்பு</translation>
     </message>
     <message>
         <location filename="../qml/pages/BipFirmwarePage.qml" line="9"/>
@@ -168,7 +168,7 @@
     <message>
         <location filename="../qml/pages/BipFirmwarePage.qml" line="22"/>
         <source>Select a file to install.</source>
-        <translation>நிறுவ ஒரு கோப்பைத் தேர்ந்தெடுக்கவும்.</translation>
+        <translation>நிறுவுவதற்கு ஒரு கோப்பைத் தேர்ந்தெடுக்கவும்.</translation>
     </message>
 </context>
 <context>
@@ -184,7 +184,7 @@
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="18"/>
         <source>Refresh</source>
-        <translation>புதுப்பிப்பு</translation>
+        <translation>புத்துணர்வூட்டு</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="38"/>
@@ -195,19 +195,19 @@
         <location filename="../qml/pages/DebugInfo.qml" line="43"/>
         <location filename="../qml/pages/DebugInfo.qml" line="374"/>
         <source>Serial No: </source>
-        <translation>சீரியல் எண்: </translation>
+        <translation>வரிசை எண்: </translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="48"/>
         <location filename="../qml/pages/DebugInfo.qml" line="377"/>
         <source>Hardware Rev: </source>
-        <translation>வன்பொருள் ரெவ்: </translation>
+        <translation>வன்பொருள் திருத்தம்: </translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="53"/>
         <location filename="../qml/pages/DebugInfo.qml" line="380"/>
         <source>Software Rev: </source>
-        <translation>மென்பொருள் ரெவ்: </translation>
+        <translation>மென்பொருள் திருத்தம்: </translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="72"/>
@@ -218,7 +218,7 @@
         <location filename="../qml/pages/DebugInfo.qml" line="77"/>
         <location filename="../qml/pages/DebugInfo.qml" line="383"/>
         <source>GPS Ver: </source>
-        <translation>சி.பி.எச் பார்க்க: </translation>
+        <translation>உ.நி.அ(GPS)பதிப்பு : </translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="270"/>
@@ -228,7 +228,7 @@
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="210"/>
         <source>Hello from Amazfish app. This is a long message sent over BLE!</source>
-        <translation>Amazfish பயன்பாட்டிலிருந்து வணக்கம். இது BLE மூலம் அனுப்பப்பட்ட நீண்ட செய்தி!</translation>
+        <translation>வணக்கம் ,அமாஸ்பிஸ் செயலியில் இருந்து அழைக்கிறோம். இது நீலப்பல் குறைந்த ஆற்றல் மூலம் அனுப்பப்பட்ட நீண்ட செய்தி!</translation>
     </message>
     <message>
         <source>Test Email</source>
@@ -246,12 +246,12 @@
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="312"/>
         <source>Fetch Data</source>
-        <translation>தரவைப் பெறவும்</translation>
+        <translation>தரவைக் கொண்டுவா</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="330"/>
         <source>Test Popup</source>
-        <translation>சோதனை பாப்அப்</translation>
+        <translation>சோதனை மேலெழுந்து-தோன்றல்</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="8"/>
@@ -273,7 +273,7 @@
         <location filename="../qml/pages/DebugInfo.qml" line="63"/>
         <location filename="../qml/pages/DebugInfo.qml" line="392"/>
         <source>Firmware Rev: </source>
-        <translation>ஃபார்ம்வேர் ரெவ்: </translation>
+        <translation>சாதன மென்பொருள் பதிப்பு: </translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="68"/>
@@ -289,12 +289,12 @@
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="206"/>
         <source>Alert</source>
-        <translation>முன்னறிவிப்பு</translation>
+        <translation>எச்சரிக்கை</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="216"/>
         <source>SMS Message (Ubuntu Touch)</source>
-        <translation>எச்எம்எச் செய்தி (உபுண்டு டச்)</translation>
+        <translation>குறுஞ்செய்தி (உபுண்டு தொடுகை)</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="226"/>
@@ -309,7 +309,7 @@
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="237"/>
         <source>Telegram message</source>
-        <translation>தந்தி செய்தி</translation>
+        <translation>டெலிகிராம் செய்தி</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="244"/>
@@ -319,7 +319,7 @@
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="251"/>
         <source>Slack message</source>
-        <translation>மந்தமான செய்தி</translation>
+        <translation>சிலாக் செய்தி</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="338"/>
@@ -329,17 +329,17 @@
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="348"/>
         <source>Update Calendar</source>
-        <translation>காலெண்டரைப் புதுப்பிக்கவும்</translation>
+        <translation>நாள்காட்டியைப் புதுப்பிக்கவும்</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="361"/>
         <source>Music Control</source>
-        <translation>இசை கட்டுப்பாடு</translation>
+        <translation>இசைக் கட்டுப்பாடு</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="321"/>
         <source>Request Screenshot</source>
-        <translation>திரை சாட்டைக் கோருங்கள்</translation>
+        <translation>திரைப்பிடிப்பு கோரவும்</translation>
     </message>
     <message>
         <location filename="../qml/pages/DebugInfo.qml" line="208"/>
@@ -389,7 +389,7 @@
     <message>
         <location filename="../qml/pages/FirstPage.qml" line="26"/>
         <source>Pair with watch</source>
-        <translation>கடிகாரத்துடன் இணை</translation>
+        <translation>கடிகாரத்துடன் இணைசேர்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FirstPage.qml" line="39"/>
@@ -404,17 +404,17 @@
     <message>
         <location filename="../qml/pages/FirstPage.qml" line="46"/>
         <source>Connect to watch</source>
-        <translation>பார்க்க இணைக்கவும்</translation>
+        <translation>கடிகாரத்துடன் இணைக்கவும்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FirstPage.qml" line="58"/>
         <source>Enable service on boot</source>
-        <translation>துவக்கத்தில் சேவையை இயக்கவும்</translation>
+        <translation>துவக்கும்போது சேவையை இயக்கவும்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FirstPage.qml" line="181"/>
         <source>Sleep</source>
-        <translation>தூங்கு</translation>
+        <translation>உறக்கம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FirstPage.qml" line="234"/>
@@ -424,20 +424,20 @@
     <message>
         <location filename="../qml/pages/FirstPage.qml" line="260"/>
         <source>SpO₂</source>
-        <translation>எச்பிஓ₂</translation>
+        <translation>இரத்தம் உயிர்வாயு செறிவூட்டல் அளவு</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FirstPage.qml" line="275"/>
+        <location filename="../qml/pages/FirstPage.qml" line="284"/>
         <source>Stress</source>
-        <translation>தகைவு</translation>
+        <translation>அழுத்தம்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FirstPage.qml" line="290"/>
+        <location filename="../qml/pages/FirstPage.qml" line="299"/>
         <source>Data</source>
-        <translation>தகவல்கள்</translation>
+        <translation>தரவு</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FirstPage.qml" line="304"/>
+        <location filename="../qml/pages/FirstPage.qml" line="313"/>
         <source>Battery</source>
         <translation>மின்கலம்</translation>
     </message>
@@ -450,7 +450,8 @@
         <translation type="obsolete">பை</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FirstPage.qml" line="312"/>
+        <location filename="../qml/pages/FirstPage.qml" line="269"/>
+        <location filename="../qml/pages/FirstPage.qml" line="321"/>
         <source>%1%</source>
         <translation>% 1%</translation>
     </message>
@@ -466,7 +467,7 @@
     <message>
         <location filename="../qml/pages/FirstPage.qml" line="207"/>
         <source>%1 bpm</source>
-        <translation>%1 பிபிஎம்</translation>
+        <translation>%1 ஒரு நிமிடத்தில் இதயத்துடிப்பு</translation>
     </message>
     <message>
         <source>Service</source>
@@ -477,7 +478,7 @@
         <translation type="vanished">துவக்கத்தில் இயக்கு</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FirstPage.qml" line="327"/>
+        <location filename="../qml/pages/FirstPage.qml" line="336"/>
         <source>Install File</source>
         <translation>கோப்பை நிறுவவும்</translation>
     </message>
@@ -487,7 +488,7 @@
     <message>
         <location filename="../qml/pages/FitPubSettingsPage.qml" line="8"/>
         <source>FitPub settings</source>
-        <translation>பிட்பப் அமைப்புக்கள்</translation>
+        <translation>பிட்பப் செயலி அமைப்புக்கள்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitPubSettingsPage.qml" line="15"/>
@@ -497,7 +498,7 @@
     <message>
         <location filename="../qml/pages/FitPubSettingsPage.qml" line="30"/>
         <source>Instance URL:</source>
-        <translation>தனித்த வலத்தளமுகவரி URL:</translation>
+        <translation>சந்தர்ப்பம் உ.வ.இ(URL):</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitPubSettingsPage.qml" line="37"/>
@@ -535,12 +536,12 @@
     <message>
         <location filename="../qml/pages/FitPubUploadPage.qml" line="31"/>
         <source>Description</source>
-        <translation>விவரம்</translation>
+        <translation>விரிவுரை</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitPubUploadPage.qml" line="38"/>
         <source>Activity description for FitPub</source>
-        <translation>பிட்பப் க்கான செயல்பாட்டு விளக்கம்</translation>
+        <translation>பிட்பப் க்கான செயல்பாட்டு விரிவுரை</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitPubUploadPage.qml" line="46"/>
@@ -570,7 +571,7 @@
     <message>
         <location filename="../qml/pages/FitPubUploadPage.qml" line="105"/>
         <source>Authentication failed: </source>
-        <translation>உறுதிப்படுத்தல் தோல்விய்ற்றது: </translation>
+        <translation>உறுதிப்படுத்தல் தோல்வியுற்றது: </translation>
     </message>
     <message>
         <location filename="../qml/pages/FitPubUploadPage.qml" line="122"/>
@@ -585,7 +586,7 @@
     <message>
         <location filename="../qml/pages/FitPubUploadPage.qml" line="153"/>
         <source>Updating activity metadata...</source>
-        <translation>செயல்பாட்டு மெட்டாதரவு புதிப்பிக்கப்படுகிறது...</translation>
+        <translation>செயல்பாட்டு மெட்டா தரவு புதுப்பிக்கப்படுகிறது...</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitPubUploadPage.qml" line="163"/>
@@ -603,7 +604,7 @@
     <message>
         <location filename="../qml/pages/FitTrackeeSettingsPage.qml" line="26"/>
         <source>FitTrackee settings</source>
-        <translation>FitTrackee அமைப்புகள்</translation>
+        <translation>பிட் ட்ராக்கி அமைப்புகள்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeSettingsPage.qml" line="33"/>
@@ -613,17 +614,17 @@
     <message>
         <location filename="../qml/pages/FitTrackeeSettingsPage.qml" line="33"/>
         <source>Login</source>
-        <translation>புகுபதிவு</translation>
+        <translation>உள்நுழைவு</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeSettingsPage.qml" line="70"/>
         <source>Base URL:</source>
-        <translation>அடிப்படை URL:</translation>
+        <translation>அடிப்படை உ.வ.இ(URL):</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeSettingsPage.qml" line="79"/>
         <source>Client ID:</source>
-        <translation>வாங்கி ஐடி:</translation>
+        <translation>வாடிக்கையாளர் அடையாளம்:</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeSettingsPage.qml" line="87"/>
@@ -641,12 +642,12 @@
     <message>
         <location filename="../qml/pages/FitTrackeeUploadPage.qml" line="27"/>
         <source>FitTrackee Upload</source>
-        <translation>FitTrackee பதிவேற்றம்</translation>
+        <translation>பிட் ட்ராக்கி பதிவேற்றம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeUploadPage.qml" line="44"/>
         <source>Activity name for FitTrackee</source>
-        <translation>FitTrackee க்கான செயல்பாட்டு பெயர்</translation>
+        <translation>பிட் ட்ராக்கி க்கான செயல்பாட்டு பெயர்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeUploadPage.qml" line="45"/>
@@ -656,17 +657,17 @@
     <message>
         <location filename="../qml/pages/FitTrackeeUploadPage.qml" line="49"/>
         <source>Description</source>
-        <translation>விவரம்</translation>
+        <translation>விரிவுரை</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeUploadPage.qml" line="56"/>
         <source>Activity description for FitTrackee</source>
-        <translation>FitTrackee க்கான செயல்பாட்டு விளக்கம்</translation>
+        <translation>பிட் ட்ராக்கி க்கான செயல்பாட்டு விளக்கம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeUploadPage.qml" line="64"/>
         <source>Type (FitTrackee)</source>
-        <translation>வகை (FitTrackee)</translation>
+        <translation>வகை (பிட் ட்ராக்கி)</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeUploadPage.qml" line="69"/>
@@ -676,7 +677,7 @@
     <message>
         <location filename="../qml/pages/FitTrackeeUploadPage.qml" line="73"/>
         <source>Upload</source>
-        <translation>பதிவேற்றவும்</translation>
+        <translation>பதிவேற்றம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/FitTrackeeUploadPage.qml" line="110"/>
@@ -713,18 +714,18 @@
     <message>
         <location filename="../qml/pages/HeartratePage.qml" line="40"/>
         <source>%1 bpm</source>
-        <translation>%1 பிபிஎம்</translation>
+        <translation>%1 ஒரு நிமிடத்திற்கு இதயத்துடிப்பு</translation>
     </message>
     <message>
         <location filename="../qml/pages/HeartratePage.qml" line="75"/>
         <location filename="../qml/pages/HeartratePage.qml" line="78"/>
         <source>BPM</source>
-        <translation>பிபிஎம்</translation>
+        <translation>ஒரு நிமிடத்திற்கு இதயத்துடிப்பு</translation>
     </message>
     <message>
         <location filename="../qml/pages/HeartratePage.qml" line="97"/>
         <source>Relaxed</source>
-        <translation>நிதானமாக</translation>
+        <translation>தளர்வாக</translation>
     </message>
     <message>
         <location filename="../qml/pages/HeartratePage.qml" line="106"/>
@@ -749,7 +750,7 @@
     <message>
         <location filename="../qml/pages/HeartratePage.qml" line="142"/>
         <source>VO2 Max</source>
-        <translation>Vo2 அதிகபட்சம்</translation>
+        <translation>உச்ச உயிர்க்காற்று பயன்படுத்தியது(Vo2)</translation>
     </message>
 </context>
 <context>
@@ -774,7 +775,7 @@
         <location filename="../qml/tools/JSTools.js" line="304"/>
         <location filename="../qml/tools/JSTools.js" line="305"/>
         <source>Pace</source>
-        <translation>விரைவு</translation>
+        <translation>நடை வேகம்</translation>
     </message>
     <message>
         <location filename="../qml/tools/JSTools.js" line="92"/>
@@ -832,7 +833,7 @@
     <message>
         <location filename="../qml/pages/PaiDataPage.qml" line="45"/>
         <source>%1 min</source>
-        <translation>% 1 மணித்துளி</translation>
+        <translation>% 1 நிமிடம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/PaiDataPage.qml" line="62"/>
@@ -865,7 +866,7 @@
     <message>
         <location filename="../qml/pages/PairDevicePage.qml" line="29"/>
         <source>Bluetooth adapter is not available</source>
-        <translation>ஊடலை அடாப்டர் கிடைக்கவில்லை</translation>
+        <translation>நீலப்பல் இணைப்பான் கிடைக்கவில்லை</translation>
     </message>
     <message>
         <location filename="../qml/pages/PairDevicePage.qml" line="210"/>
@@ -875,17 +876,17 @@
     <message>
         <location filename="../qml/pages/PairDevicePage.qml" line="231"/>
         <source>Stop scanning</source>
-        <translation>வருடு செய்வதை நிறுத்துங்கள்</translation>
+        <translation>தேடலை நிறுத்துங்கள்</translation>
     </message>
     <message>
         <location filename="../qml/pages/PairDevicePage.qml" line="232"/>
         <source>Scan for devices</source>
-        <translation>சாதனங்களை வருடு செய்யவும்</translation>
+        <translation>சாதனங்களுக்கு தேடவும்</translation>
     </message>
     <message>
         <location filename="../qml/pages/PairDevicePage.qml" line="246"/>
         <source>Scanning for devices…</source>
-        <translation>சாதனங்களை வருடு செய்கிறது…</translation>
+        <translation>சாதனங்களுக்கு தேடுகிறது…</translation>
     </message>
     <message>
         <location filename="../qml/pages/PairDevicePage.qml" line="248"/>
@@ -916,7 +917,7 @@
     <message>
         <location filename="../qml/pages/Settings-alarms.qml" line="8"/>
         <source>Alarms</source>
-        <translation>அலாரங்கள்</translation>
+        <translation>எழுப்பொலிகள்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-alarms.qml" line="57"/>
@@ -926,130 +927,129 @@
     <message>
         <location filename="../qml/pages/Settings-alarms.qml" line="19"/>
         <source>Alarm 1</source>
-        <translation>அலாரம் 1</translation>
+        <translation>எழுப்பொலி1</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-alarms.qml" line="25"/>
         <source>Alarm 2</source>
-        <translation>அலாரம் 2</translation>
+        <translation>எழுப்பொலி 2</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-alarms.qml" line="33"/>
         <source>Alarm 3</source>
-        <translation>அலாரம் 3</translation>
+        <translation>எழுப்பொலி 3</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-alarms.qml" line="40"/>
         <source>Alarm 4</source>
-        <translation>அலாரம் 4</translation>
+        <translation>எழுப்பொலி 4</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-alarms.qml" line="47"/>
         <source>Alarm 5</source>
-        <translation>அலாரம் 5</translation>
+        <translation>எழுப்பொலி 5</translation>
     </message>
 </context>
 <context>
     <name>Settings-app</name>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="102"/>
+        <location filename="../qml/pages/Settings-app.qml" line="38"/>
         <source>Notify on connect</source>
-        <translation>இணைப்பில் அறிவிக்கவும்</translation>
+        <translation>இணைத்தவுடன் அறிவிக்கவும்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="238"/>
+        <location filename="../qml/pages/Settings-app.qml" line="174"/>
         <source>Save Settings</source>
         <translation>அமைப்புகளை சேமிக்கவும்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="144"/>
+        <location filename="../qml/pages/Settings-app.qml" line="80"/>
         <source>Sync activity data each hour</source>
         <translation>ஒவ்வொரு மணி நேரமும் செயல்பாட்டு தரவை ஒத்திசைக்கவும்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-app.qml" line="8"/>
         <source>Application Settings</source>
-        <translation>பயன்பாட்டு அமைப்புகள்</translation>
+        <translation>செயலி அமைப்புகள்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="28"/>
         <source>BT Adapter</source>
-        <translation>பி.டி அடாப்டர்</translation>
+        <translation type="vanished">நீலப்பல் இணைப்பான்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="86"/>
+        <location filename="../qml/pages/Settings-app.qml" line="22"/>
         <source>Notifications</source>
         <translation>அறிவிப்புகள்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="110"/>
+        <location filename="../qml/pages/Settings-app.qml" line="46"/>
         <source>Low battery notification</source>
-        <translation>குறைந்த பேட்டரி அறிவிப்பு</translation>
+        <translation>மின்கலம் குறைவு அறிவிப்பு</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="118"/>
+        <location filename="../qml/pages/Settings-app.qml" line="54"/>
         <source>Navigation notifications</source>
         <translation>வழிசெலுத்தல் அறிவிப்புகள்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="134"/>
+        <location filename="../qml/pages/Settings-app.qml" line="70"/>
         <source>Simulate event reminder support</source>
-        <translation>நிகழ்வு நினைவூட்டல் ஆதரவை உருவகப்படுத்துங்கள்</translation>
+        <translation>நிகழ்வு நினைவூட்டல் ஆதரவை பாவணையாகச் செய்யுங்கள்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="138"/>
+        <location filename="../qml/pages/Settings-app.qml" line="74"/>
         <source>Refresh rates</source>
         <translation>விகிதங்களை புதுப்பிக்கவும்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="155"/>
+        <location filename="../qml/pages/Settings-app.qml" line="91"/>
         <source>Refresh weather every (%1) minutes</source>
         <translation>ஒவ்வொரு (%1) நிமிடங்களுக்கும் வானிலை புதுப்பிக்கவும்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="164"/>
+        <location filename="../qml/pages/Settings-app.qml" line="100"/>
         <source>Refresh calendar every (%1) minutes</source>
-        <translation>ஒவ்வொரு (%1) நிமிடங்களுக்கும் காலெண்டரைப் புதுப்பிக்கவும்</translation>
+        <translation>ஒவ்வொரு (%1) நிமிடங்களுக்கும் நாள்காட்டியைப் புதுப்பிக்கவும்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="169"/>
+        <location filename="../qml/pages/Settings-app.qml" line="105"/>
         <source>Amazfish Service</source>
-        <translation>அமாச்ஃபிச் பணி</translation>
+        <translation>அமாசுபிசு சேவை</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="176"/>
+        <location filename="../qml/pages/Settings-app.qml" line="112"/>
         <source>Start service on boot</source>
-        <translation>துவக்கத்தில் சேவையைத் தொடங்கவும்</translation>
+        <translation>துவக்கும்போது சேவையைத் தொடங்கவும்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="190"/>
+        <location filename="../qml/pages/Settings-app.qml" line="126"/>
         <source>Start/Stop the Amazfish Background Service</source>
-        <translation>அமாச்ஃபிச் பின்னணி சேவையைத் தொடங்க/நிறுத்துங்கள்</translation>
+        <translation>அமாசுபிசு பின்னணி சேவையைத் தொடங்கவும்/நிறுத்தவும்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="207"/>
+        <location filename="../qml/pages/Settings-app.qml" line="143"/>
         <source>Start</source>
         <translation>தொடங்கு</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="216"/>
+        <location filename="../qml/pages/Settings-app.qml" line="152"/>
         <source>Stop</source>
         <translation>நிறுத்து</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="226"/>
+        <location filename="../qml/pages/Settings-app.qml" line="162"/>
         <source>Button Actions</source>
         <translation>பொத்தான் செயல்கள்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="126"/>
+        <location filename="../qml/pages/Settings-app.qml" line="62"/>
         <source>Transliterate notifications</source>
         <translation>மொழிபெயர்ப்பு அறிவிப்புகள்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Settings-app.qml" line="94"/>
+        <location filename="../qml/pages/Settings-app.qml" line="30"/>
         <source>Set silent profile on connect</source>
-        <translation>இணைப்பில் அமைதியான சுயவிவரத்தை அமைக்கவும்</translation>
+        <translation>இணைக்கும்போது அமைதியான சுயவிவரத்தை அமைக்கவும்</translation>
     </message>
 </context>
 <context>
@@ -1097,17 +1097,17 @@
     <message>
         <location filename="../qml/pages/Settings-button-action.qml" line="82"/>
         <source>Volume Up</source>
-        <translation>தொகுதி</translation>
+        <translation>ஒலி அளவு கூட்டு</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-button-action.qml" line="83"/>
         <source>Volume Down</source>
-        <translation>தொகுதி கீழே</translation>
+        <translation>ஒலி அளவு குறை</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-button-action.qml" line="84"/>
         <source>Custom Script</source>
-        <translation>தனிப்பயன் ச்கிரிப்ட்</translation>
+        <translation>தனிப்பயன் உரை</translation>
     </message>
 </context>
 <context>
@@ -1120,7 +1120,7 @@
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="24"/>
         <source>en_US</source>
-        <translation>மற்றும்_ச்</translation>
+        <translation>en_US</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="25"/>
@@ -1190,7 +1190,7 @@
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="28"/>
         <source>ru_RU</source>
-        <translation>_ரு போன்றவை</translation>
+        <translation>ru_RU</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="20"/>
@@ -1200,27 +1200,27 @@
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="29"/>
         <source>de_DE</source>
-        <translation>of</translation>
+        <translation>de_DE</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="30"/>
         <source>it_IT</source>
-        <translation>it_it</translation>
+        <translation>it_IT</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="31"/>
         <source>fr_FR</source>
-        <translation>Fr_fr</translation>
+        <translation>fr_FR</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="32"/>
         <source>tr_TR</source>
-        <translation>Tr_tr</translation>
+        <translation>tr_TR</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="33"/>
         <source>nl_NL</source>
-        <translation>nl_nl</translation>
+        <translation>nl_NL</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="86"/>
@@ -1230,12 +1230,12 @@
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="104"/>
         <source>Huami Display Items</source>
-        <translation>உவாமாம் காட்சி உருப்படிகள்</translation>
+        <translation>குவாமி காட்சி உருப்படிகள்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-device.qml" line="96"/>
         <source>Realtime HRM measurement</source>
-        <translation>நிகழ்நேர HRM அளவீட்டு</translation>
+        <translation>நிகழ்நேர மனிதவள மேலாண்மை(HRM) அளவீடு</translation>
     </message>
 </context>
 <context>
@@ -1243,7 +1243,7 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="10"/>
         <source>Huami Display Items</source>
-        <translation>உவாமி காட்சி உருப்படிகள்</translation>
+        <translation>குவாமி காட்சி உருப்படிகள்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="16"/>
@@ -1288,7 +1288,7 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="76"/>
         <source>Alarms</source>
-        <translation>அலாரங்கள்</translation>
+        <translation>எச்சரிக்கைகள்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="78"/>
@@ -1298,7 +1298,7 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="82"/>
         <source>Mute Phone</source>
-        <translation>முடக்கு தொலைபேசி</translation>
+        <translation>தொலைபேசியை அமைதியாக்கு</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="86"/>
@@ -1308,7 +1308,7 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="87"/>
         <source>Activity</source>
-        <translation>செய்கைப்பாடு</translation>
+        <translation>செயல்பாடு</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="88"/>
@@ -1318,7 +1318,7 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="90"/>
         <source>PAI</source>
-        <translation>பை</translation>
+        <translation>தனிப்பட்ட செயல்பாட்டு நுண்ணறிவு(PAI)</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="91"/>
@@ -1328,12 +1328,12 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="93"/>
         <source>Stress</source>
-        <translation>தகைவு</translation>
+        <translation>அழுத்தம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="94"/>
         <source>Period</source>
-        <translation>காலசுழற்சி</translation>
+        <translation>காலவரை</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="105"/>
@@ -1353,17 +1353,17 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="80"/>
         <source>Timer</source>
-        <translation>நேரங்குறிகருவி</translation>
+        <translation>காலம்காட்டி</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="77"/>
         <source>Take Photo</source>
-        <translation>புகைப்படம் எடு</translation>
+        <translation>ஒளிப்படம் எடு</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="79"/>
         <source>Stopwatch</source>
-        <translation>ச்டாப்வாட்ச்</translation>
+        <translation>நிறுத்து கைக்கடிகாரம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="81"/>
@@ -1373,17 +1373,17 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="83"/>
         <source>NFC</source>
-        <translation>NFC</translation>
+        <translation>அருகமை களத் தொடர்பு(NFC)</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="85"/>
         <source>Watch Face</source>
-        <translation>வாட்ச் ஃபேச்</translation>
+        <translation>கைக்கடிகார முகப்பு</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="92"/>
         <source>Timer/Stopwatch</source>
-        <translation>டைமர்/ச்டாப்வாட்ச்</translation>
+        <translation>காலம்காட்டி/நிறுத்து கைக்கடிகாரம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="95"/>
@@ -1393,12 +1393,12 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="96"/>
         <source>Sleep</source>
-        <translation>தூங்கு</translation>
+        <translation>உறக்கம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="97"/>
         <source>SpO2</source>
-        <translation>SpO2</translation>
+        <translation>இரத்த ஆக்சிசன் செறிவூட்டல் சதவீதம்(SpO2)</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="98"/>
@@ -1408,12 +1408,12 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="99"/>
         <source>Widgets</source>
-        <translation>நிரல்பலகை</translation>
+        <translation>விரித்துப்பெறுநிரல்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="100"/>
         <source>Breathing</source>
-        <translation>சுவாசம்</translation>
+        <translation>சுவாசித்தல்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="101"/>
@@ -1453,7 +1453,7 @@
     <message>
         <location filename="../qml/pages/Settings-huami-shortcuts.qml" line="109"/>
         <source>Flashlight</source>
-        <translation>ஒளிரும் விளக்கு</translation>
+        <translation>ஒளிமின்னல் விளக்கு</translation>
     </message>
 </context>
 <context>
@@ -1476,19 +1476,19 @@
     <message>
         <location filename="../qml/pages/Settings-menu.qml" line="66"/>
         <source>Application Settings</source>
-        <translation>பயன்பாட்டு அமைப்புகள்</translation>
+        <translation>செயலி அமைப்புகள்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-menu.qml" line="46"/>
         <location filename="../qml/pages/Settings-menu.qml" line="67"/>
         <source>Alarms</source>
-        <translation>அலாரங்கள்</translation>
+        <translation>எழுப்பொலிகள்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-menu.qml" line="37"/>
         <location filename="../qml/pages/Settings-menu.qml" line="74"/>
         <source>Donate</source>
-        <translation>நன்கொடை</translation>
+        <translation>நன்கொடை வழங்கவும்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-menu.qml" line="33"/>
@@ -1510,7 +1510,7 @@
     <message>
         <location filename="../qml/pages/Settings-menu.qml" line="71"/>
         <source>FitTrackee</source>
-        <translation>பொருத்தும்கண்காணி</translation>
+        <translation>உடல்தகுதிகண்காணி(FitTrackee)</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-menu.qml" line="72"/>
@@ -1520,7 +1520,7 @@
     <message>
         <location filename="../qml/pages/Settings-menu.qml" line="73"/>
         <source>Debug Info</source>
-        <translation>பிழைத்திருத்த செய்தி</translation>
+        <translation>பிழைத்திருத்த தகவல்</translation>
     </message>
 </context>
 <context>
@@ -1576,7 +1576,7 @@
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="76"/>
         <source>Height (cm): </source>
-        <translation>உயரம் (முதல்வர்): </translation>
+        <translation>உயரம் (செமீ): </translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="84"/>
@@ -1586,7 +1586,7 @@
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="94"/>
         <source>Wear Location</source>
-        <translation>இருப்பிடத்தை அணியுங்கள்</translation>
+        <translation>தேய்மானம் ஏற்படும் இடம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="97"/>
@@ -1601,7 +1601,7 @@
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="113"/>
         <source>Display on lift wrist</source>
-        <translation>லிப்ட் மணிக்கட்டில் காண்பி</translation>
+        <translation>உயர்த்திய மணிக்கட்டில் காண்பி</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="177"/>
@@ -1611,17 +1611,17 @@
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="184"/>
         <source>Alert on fitness goal</source>
-        <translation>உடற்பயிற்சி இலக்கு குறித்த எச்சரிக்கை</translation>
+        <translation>உடல்தகுதி இலக்கு குறித்த எச்சரிக்கை</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="194"/>
         <source>Use HRM for Sleep Detection</source>
-        <translation>தூக்கத்தைக் கண்டறிவதற்கு HRM ஐப் பயன்படுத்தவும்</translation>
+        <translation>தூக்கத்தைக் கண்டறிவதற்கு இதயத்துடிப்பு அளவீடு(HRM) ஐப் பயன்படுத்தவும்</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="204"/>
         <source>All day HRM interval (minutes): </source>
-        <translation>நாள் முழுவதும் HRM இடைவெளி (நிமிடங்கள்): </translation>
+        <translation>நாள் முழுவதும் இதயத்துடிப்பு அளவீடு(HRM) இடைவெளி (நிமிடங்கள்): </translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="209"/>
@@ -1631,7 +1631,7 @@
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="22"/>
         <source>Personal data</source>
-        <translation>தனிப்பட்ட செய்தி</translation>
+        <translation>தனிப்பட்ட தரவு</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="8"/>
@@ -1646,7 +1646,7 @@
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="188"/>
         <source>Heartrate usage</source>
-        <translation>இதய துடிப்பு பயன்பாடு</translation>
+        <translation>இதயதுடிப்பு பயன்பாடு</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="116"/>
@@ -1656,12 +1656,12 @@
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="117"/>
         <source>On</source>
-        <translation>ஆன்</translation>
+        <translation>இணை</translation>
     </message>
     <message>
         <location filename="../qml/pages/Settings-user.qml" line="118"/>
         <source>Schedule</source>
-        <translation>அட்டவணை</translation>
+        <translation>நேரஅட்டவணை</translation>
     </message>
 </context>
 <context>
@@ -1669,18 +1669,18 @@
     <message>
         <location filename="../qml/pages/SleepPage.qml" line="70"/>
         <source>Sleep Summary</source>
-        <translation>தூக்க சுருக்கம்</translation>
+        <translation>உறக்க உரைச்சுருக்கம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/SleepPage.qml" line="9"/>
         <source>Sleep</source>
-        <translation>தூங்கு</translation>
+        <translation>உறக்கம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/SleepPage.qml" line="74"/>
         <source>MM/dd</source>
         <extracomment>Format for day on the sleep summary graph</extracomment>
-        <translation>மாத/நாள்</translation>
+        <translation>12/07</translation>
     </message>
     <message>
         <location filename="../qml/pages/SleepPage.qml" line="75"/>
@@ -1713,23 +1713,28 @@
     <message>
         <location filename="../qml/pages/Spo2DataPage.qml" line="16"/>
         <source>Download SPO2</source>
-        <translation>SPO2 ஐப் பதிவிறக்கவும்</translation>
+        <translation>இரத்த ஆக்சிசன் செறிவூட்டலை(SPO2) ஐப் பதிவிறக்கவும்</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Spo2DataPage.qml" line="56"/>
+        <location filename="../qml/pages/Spo2DataPage.qml" line="33"/>
+        <source>%1%</source>
+        <translation type="unfinished">% 1%</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/Spo2DataPage.qml" line="55"/>
         <source>Normal SPO2</source>
-        <translation>இயல்பான SPO2</translation>
+        <translation>இயல்பான இரத்த ஆக்சிசன் செறிவூட்டல்(SPO2)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Spo2DataPage.qml" line="60"/>
-        <location filename="../qml/pages/Spo2DataPage.qml" line="81"/>
+        <location filename="../qml/pages/Spo2DataPage.qml" line="59"/>
+        <location filename="../qml/pages/Spo2DataPage.qml" line="80"/>
         <source>%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../qml/pages/Spo2DataPage.qml" line="77"/>
+        <location filename="../qml/pages/Spo2DataPage.qml" line="76"/>
         <source>Sleep SPO2</source>
-        <translation>தூக்கம் SPO2</translation>
+        <translation>உறக்க இரத்த ஆக்சிசன் செறிவூட்டல் (SPO2)</translation>
     </message>
 </context>
 <context>
@@ -1808,7 +1813,7 @@
     <message>
         <location filename="../qml/pages/SportPage.qml" line="374"/>
         <source>Send to FitTrackee</source>
-        <translation>FitTrackeeக்கு அனுப்பவும்</translation>
+        <translation>பிட் ட்ராக்க்கி(FitTrackee))க்கு அனுப்பவும்</translation>
     </message>
     <message>
         <location filename="../qml/pages/SportPage.qml" line="387"/>
@@ -2008,7 +2013,7 @@
     <message>
         <location filename="../qml/pages/StravaSettingsPage.qml" line="36"/>
         <source>Login</source>
-        <translation>புகுபதிவு</translation>
+        <translation>உள்நுழைவு</translation>
     </message>
     <message>
         <location filename="../qml/pages/StravaSettingsPage.qml" line="89"/>
@@ -2026,12 +2031,15 @@
 
 Changes to the Strava API access mean that it costs to provide this integration.
 Please consider making a donation if you use this functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>தயவுசெய்து கவனிக்கவும்:
+
+ச்ட்ராவா ஏபிஐ(API) அணுகல் என்பது இந்த ஒன்றிணைப்பை வழங்குவதற்கு செலவாகும்.
+இந்த செயல்பாட்டை நீங்கள் பயன்படுத்தினால் தயவு செய்து நன்கொடை வழங்குவதற்கு பரிசீலிக்கவும்.</translation>
     </message>
     <message>
         <location filename="../qml/pages/StravaSettingsPage.qml" line="112"/>
         <source>Donate</source>
-        <translation type="unfinished">நன்கொடை</translation>
+        <translation>நன்கொடை வழங்கு</translation>
     </message>
     <message>
         <location filename="../qml/pages/StravaSettingsPage.qml" line="56"/>
@@ -2060,12 +2068,12 @@ Please consider making a donation if you use this functionality.</source>
     <message>
         <location filename="../qml/pages/StravaUploadPage.qml" line="48"/>
         <source>Description</source>
-        <translation>விவரம்</translation>
+        <translation>விரிவுரை</translation>
     </message>
     <message>
         <location filename="../qml/pages/StravaUploadPage.qml" line="55"/>
         <source>Activity description for Strava</source>
-        <translation>ச்ட்ராவாவிற்கான செயல்பாட்டு விளக்கம்</translation>
+        <translation>ச்ட்ராவாவிற்கான செயல்பாட்டு விரிவுரை</translation>
     </message>
     <message>
         <location filename="../qml/pages/StravaUploadPage.qml" line="63"/>
@@ -2085,7 +2093,7 @@ Please consider making a donation if you use this functionality.</source>
     <message>
         <location filename="../qml/pages/StravaUploadPage.qml" line="76"/>
         <source>Upload</source>
-        <translation>பதிவேற்றும்</translation>
+        <translation>பதிவேற்றம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/StravaUploadPage.qml" line="105"/>
@@ -2093,12 +2101,15 @@ Please consider making a donation if you use this functionality.</source>
 
 Changes to the Strava API access mean that it costs to provide this integration.
 Please consider making a donation if you use this functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>தயவுசெய்து கவனிக்கவும்:
+
+ச்ட்ராவா ஏபிஐ(API) அணுகல் என்பது இந்த ஒன்றிணைப்பை வழங்குவதற்கு செலவாகும்.
+இந்த செயல்பாட்டை நீங்கள் பயன்படுத்தினால் தயவு செய்து நன்கொடை வழங்குவதற்கு பரிசீலிக்கவும்.</translation>
     </message>
     <message>
         <location filename="../qml/pages/StravaUploadPage.qml" line="110"/>
         <source>Donate</source>
-        <translation type="unfinished">நன்கொடை</translation>
+        <translation>நன்கொடை வழங்கு</translation>
     </message>
     <message>
         <location filename="../qml/pages/StravaUploadPage.qml" line="153"/>
@@ -2113,7 +2124,7 @@ Please consider making a donation if you use this functionality.</source>
     <message>
         <location filename="../qml/pages/StravaUploadPage.qml" line="233"/>
         <source>TCX uploaded...</source>
-        <translation>டி.சி.எக்ச் பதிவேற்றப்பட்டது ...</translation>
+        <translation>பயிற்று மையம் எக்ஸ்.எம்.எல்(TCX ) பதிவேற்றப்பட்டது ...</translation>
     </message>
     <message>
         <location filename="../qml/pages/StravaUploadPage.qml" line="268"/>
@@ -2132,7 +2143,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/pages/StressDataPage.qml" line="9"/>
         <location filename="../qml/pages/StressDataPage.qml" line="76"/>
         <source>Stress</source>
-        <translation>தகைவு</translation>
+        <translation>அழுத்தம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/StressDataPage.qml" line="25"/>
@@ -2153,7 +2164,7 @@ Please consider making a donation if you use this functionality.</source>
     <message>
         <location filename="../qml/pages/StressDataPage.qml" line="107"/>
         <source>Relaxed</source>
-        <translation>நிதானமாக</translation>
+        <translation>தளர்வான</translation>
     </message>
     <message>
         <location filename="../qml/pages/StressDataPage.qml" line="115"/>
@@ -2173,7 +2184,7 @@ Please consider making a donation if you use this functionality.</source>
     <message>
         <location filename="../qml/pages/StressDataPage.qml" line="143"/>
         <source>Stress Summary</source>
-        <translation>அழுத்த சுருக்கம்</translation>
+        <translation>அழுத்த உரைச்சுருக்கம்</translation>
     </message>
     <message>
         <location filename="../qml/pages/StressDataPage.qml" line="174"/>
@@ -2193,13 +2204,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="5"/>
         <location filename="../qml/components/Translation.js" line="5"/>
         <source>Activity</source>
-        <translation>செய்கைப்பாடு</translation>
+        <translation>செயல்பாடு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="6"/>
         <location filename="../qml/components/Translation.js" line="6"/>
         <source>Light Sleep</source>
-        <translation>லேசான தூக்கம்</translation>
+        <translation>லேசான உறக்கம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="7"/>
@@ -2217,13 +2228,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="9"/>
         <location filename="../qml/components/Translation.js" line="9"/>
         <source>Running</source>
-        <translation>ஓடுகிறது</translation>
+        <translation>ஓட்டம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="10"/>
         <location filename="../qml/components/Translation.js" line="10"/>
         <source>Walking</source>
-        <translation>நடைபயிற்சி</translation>
+        <translation>நடை</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="11"/>
@@ -2235,19 +2246,19 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="12"/>
         <location filename="../qml/components/Translation.js" line="12"/>
         <source>Cycling</source>
-        <translation>சைக்கிள் ஓட்டுதல்</translation>
+        <translation>மிதிவண்டி ஓட்டம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="13"/>
         <location filename="../qml/components/Translation.js" line="13"/>
         <source>Treadmill</source>
-        <translation>டிரெட்மில்</translation>
+        <translation>நடை இயந்திரம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="14"/>
         <location filename="../qml/components/Translation.js" line="14"/>
         <source>Exercise</source>
-        <translation>பயிற்சிபாடம்</translation>
+        <translation>உடற்பயிற்சி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="15"/>
@@ -2259,7 +2270,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="16"/>
         <location filename="../qml/components/Translation.js" line="16"/>
         <source>Indoor Cycling</source>
-        <translation>உட்புற சைக்கிள் ஓட்டுதல்</translation>
+        <translation>உள்ளரங்க மிதிவண்டி ஓட்டம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="17"/>
@@ -2271,13 +2282,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="18"/>
         <location filename="../qml/components/Translation.js" line="18"/>
         <source>Jump Rope</source>
-        <translation>சம்ப் கயிறு</translation>
+        <translation>குதித்தல் கயிறு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="19"/>
         <location filename="../qml/components/Translation.js" line="19"/>
         <source>Yoga</source>
-        <translation>யோகா</translation>
+        <translation>ஒன்றிணைப்பு(உடலும்,உள்ளமும்)</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="20"/>
@@ -2289,13 +2300,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="21"/>
         <location filename="../qml/components/Translation.js" line="21"/>
         <source>Rowing Machine</source>
-        <translation>ரோயிங் மெசின்</translation>
+        <translation>துடுப்புவழித்தல் இயந்திரம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="22"/>
         <location filename="../qml/components/Translation.js" line="22"/>
         <source>Cricket</source>
-        <translation>கிரிக்கெட்</translation>
+        <translation>மட்டைப்பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="23"/>
@@ -2307,13 +2318,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="24"/>
         <location filename="../qml/components/Translation.js" line="24"/>
         <source>Ping Pong</source>
-        <translation>பிங் பாங்</translation>
+        <translation>மேசைப்பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="25"/>
         <location filename="../qml/components/Translation.js" line="25"/>
         <source>Badmington</source>
-        <translation>பேட்மிங்டன்</translation>
+        <translation>பூப்பந்து/இறகுப்பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="26"/>
@@ -2325,7 +2336,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="27"/>
         <location filename="../qml/components/Translation.js" line="27"/>
         <source>Hiking</source>
-        <translation>நடைபயணம்</translation>
+        <translation>மலையேற்றம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="28"/>
@@ -2337,13 +2348,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="29"/>
         <location filename="../qml/components/Translation.js" line="29"/>
         <source>REM Sleep</source>
-        <translation>REM தூக்கம்</translation>
+        <translation>விரைவான கண் அசைவு உறக்கம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="30"/>
         <location filename="../qml/components/Translation.js" line="30"/>
         <source>Sleep Any</source>
-        <translation>எதுவானாலும் தூங்கு</translation>
+        <translation>கொஞ்சம் தூக்கம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="31"/>
@@ -2361,37 +2372,37 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="33"/>
         <location filename="../qml/components/Translation.js" line="33"/>
         <source>Indoor Track</source>
-        <translation>Indoor மின்தடம்</translation>
+        <translation>உள்ளரங்க ஓடுகளம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="34"/>
         <location filename="../qml/components/Translation.js" line="34"/>
         <source>Handcycling</source>
-        <translation>கை சைக்கிள் ஓட்டுதல்</translation>
+        <translation>கை மிதிவண்டி ஓட்டம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="35"/>
         <location filename="../qml/components/Translation.js" line="35"/>
         <source>E Bike</source>
-        <translation>இ பைக்</translation>
+        <translation>மின் இருசக்கரவாகனம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="36"/>
         <location filename="../qml/components/Translation.js" line="36"/>
         <source>Bike Commute</source>
-        <translation>பைக் பயணம்</translation>
+        <translation>இருசக்கர வாகனப் பயணம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="37"/>
         <location filename="../qml/components/Translation.js" line="37"/>
         <source>Handcycling Indoor</source>
-        <translation>ஏண்ட்சைக்ளிங் உட்புறம்</translation>
+        <translation>உள்ளரங்க கை மிதிவண்டி ஓட்டம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="38"/>
         <location filename="../qml/components/Translation.js" line="38"/>
         <source>Transition</source>
-        <translation>மாற்றம்</translation>
+        <translation>நிலைமாற்றம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="39"/>
@@ -2403,37 +2414,37 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="40"/>
         <location filename="../qml/components/Translation.js" line="40"/>
         <source>Stair Stepper</source>
-        <translation>படிக்கட்டு ச்டெப்பர்</translation>
+        <translation>படிஏறு பயிற்சி இயந்திரம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="41"/>
         <location filename="../qml/components/Translation.js" line="41"/>
         <source>Pilates</source>
-        <translation>பைலேட்ச்</translation>
+        <translation>பைலேட்ச் உடல் பயிற்சி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="42"/>
         <location filename="../qml/components/Translation.js" line="42"/>
         <source>Pool Swim</source>
-        <translation>குளம் நீச்சல்</translation>
+        <translation>குளத்தில் நீச்சல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="43"/>
         <location filename="../qml/components/Translation.js" line="43"/>
         <source>Tennis</source>
-        <translation>டென்னிச்</translation>
+        <translation>வலைப்பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="44"/>
         <location filename="../qml/components/Translation.js" line="44"/>
         <source>Platform Tennis</source>
-        <translation>பிளாட்ஃபார்ம் டென்னிச்</translation>
+        <translation>மேடை வலைப்பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="45"/>
         <location filename="../qml/components/Translation.js" line="45"/>
         <source>Table Tennis</source>
-        <translation>டேபிள் டென்னிச்</translation>
+        <translation>மேசைப் பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="46"/>
@@ -2451,13 +2462,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="48"/>
         <location filename="../qml/components/Translation.js" line="48"/>
         <source>Cardio</source>
-        <translation>கார்டியோ</translation>
+        <translation>இதய இயக்கப் பயிற்சி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="49"/>
         <location filename="../qml/components/Translation.js" line="49"/>
         <source>Breathwork</source>
-        <translation>மூச்சுத்திணறல்</translation>
+        <translation>மூச்சுப்பயிற்சி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="50"/>
@@ -2469,7 +2480,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="51"/>
         <location filename="../qml/components/Translation.js" line="51"/>
         <source>XC Classic Ski</source>
-        <translation>XC கிளாசிக் ச்கை</translation>
+        <translation>குறுக்கு நாட்டு பாரம்பரிய பனிச்சறுக்கு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="52"/>
@@ -2481,13 +2492,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="53"/>
         <location filename="../qml/components/Translation.js" line="53"/>
         <source>Snowboarding</source>
-        <translation>பனிச்சறுக்காட்டை</translation>
+        <translation>பலகைப்பனிச்சறுக்கு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="54"/>
         <location filename="../qml/components/Translation.js" line="54"/>
         <source>Rowing</source>
-        <translation>படகோட்டுதல்</translation>
+        <translation>துடுப்பு படகோட்டுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="55"/>
@@ -2505,25 +2516,25 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="57"/>
         <location filename="../qml/components/Translation.js" line="57"/>
         <source>Paddling</source>
-        <translation>துடுப்பு</translation>
+        <translation>துடுப்பு வழித்தல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="58"/>
         <location filename="../qml/components/Translation.js" line="58"/>
         <source>Flying</source>
-        <translation>பறக்கும்</translation>
+        <translation>பறத்தல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="59"/>
         <location filename="../qml/components/Translation.js" line="59"/>
         <source>Motorcycling</source>
-        <translation>மின்னோடி சைக்கிள்</translation>
+        <translation>இருசக்கரவாகனம் ஓட்டுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="60"/>
         <location filename="../qml/components/Translation.js" line="60"/>
         <source>Boating</source>
-        <translation>படகு சவாரி</translation>
+        <translation>படகு ஓட்டுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="61"/>
@@ -2535,13 +2546,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="62"/>
         <location filename="../qml/components/Translation.js" line="62"/>
         <source>Golf</source>
-        <translation>கோல்ஃப்</translation>
+        <translation>குழிபந்தாட்டம்(Golf)</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="63"/>
         <location filename="../qml/components/Translation.js" line="63"/>
         <source>Hang Gliding</source>
-        <translation>ஏங் க்ளைடிங்</translation>
+        <translation>தொங்கு விமானம் இயக்குதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="64"/>
@@ -2559,7 +2570,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="66"/>
         <location filename="../qml/components/Translation.js" line="66"/>
         <source>Inline Skating</source>
-        <translation>இன்லைன் ச்கேட்டிங்</translation>
+        <translation>ஒற்றை வரிசை சக்கர சறுக்கு விளையாட்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="67"/>
@@ -2571,13 +2582,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="68"/>
         <location filename="../qml/components/Translation.js" line="68"/>
         <source>Climb Indoor</source>
-        <translation>உட்புறத்தில் ஏறுங்கள்</translation>
+        <translation>உள்ளரங்க ஏறுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="69"/>
         <location filename="../qml/components/Translation.js" line="69"/>
         <source>Bouldering</source>
-        <translation>போல்டரிங்</translation>
+        <translation>பாறை ஏறும் விளையாட்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="70"/>
@@ -2589,91 +2600,91 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="71"/>
         <location filename="../qml/components/Translation.js" line="71"/>
         <source>Sail Expedition</source>
-        <translation>பாய்மரப் பயணம்</translation>
+        <translation>பாய்மர சாகசப் பயணம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="72"/>
         <location filename="../qml/components/Translation.js" line="72"/>
         <source>Ice Skating</source>
-        <translation>ஐச் ச்கேட்டிங்</translation>
+        <translation>உறைபனிச் சறுக்கு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="73"/>
         <location filename="../qml/components/Translation.js" line="73"/>
         <source>Sky Diving</source>
-        <translation>ச்கை டைவிங்</translation>
+        <translation>வானத்திலிருந்து குதித்தல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="74"/>
         <location filename="../qml/components/Translation.js" line="74"/>
         <source>Snowshoe</source>
-        <translation>ச்னோசூ</translation>
+        <translation>பனிக்காலணி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="75"/>
         <location filename="../qml/components/Translation.js" line="75"/>
         <source>Snowmobiling</source>
-        <translation>ச்னோமொபைலிங்</translation>
+        <translation>பனிஊர்திச்சவாரி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="76"/>
         <location filename="../qml/components/Translation.js" line="76"/>
         <source>Stand Up Paddleboarding</source>
-        <translation>பேடில்போர்டிங் எழுந்து நிற்கவும்</translation>
+        <translation>நின்றுகொண்டு துடுப்புப்பலகை ஓட்டுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="77"/>
         <location filename="../qml/components/Translation.js" line="77"/>
         <source>Surfing</source>
-        <translation>சர்ஃபிங்</translation>
+        <translation>அலைச்சறுக்கு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="78"/>
         <location filename="../qml/components/Translation.js" line="78"/>
         <source>Wakeboarding</source>
-        <translation>வேக்போர்டிங்</translation>
+        <translation>நீர்ச்சறுக்கு குதித்தல் சாகசம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="79"/>
         <location filename="../qml/components/Translation.js" line="79"/>
         <source>Water Skiing</source>
-        <translation>வாட்டர் ச்கீயிங்</translation>
+        <translation>நீர்ச்சறுக்கு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="80"/>
         <location filename="../qml/components/Translation.js" line="80"/>
         <source>Kayaking</source>
-        <translation>கயாக்கிங்</translation>
+        <translation>ஒற்றைத் துடுப்பு சிறுபடகோட்டம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="81"/>
         <location filename="../qml/components/Translation.js" line="81"/>
         <source>Rafting</source>
-        <translation>ராஃப்டிங்</translation>
+        <translation>கட்டுமரப்பயணம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="82"/>
         <location filename="../qml/components/Translation.js" line="82"/>
         <source>Windsurfing</source>
-        <translation>விண்ட்சர்ஃபிங்</translation>
+        <translation>பாய்மரபலகைச்சறுக்கு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="83"/>
         <location filename="../qml/components/Translation.js" line="83"/>
         <source>Kitesurfing</source>
-        <translation>கைட்சர்ஃபிங்</translation>
+        <translation>பட்டம் உதவியுடன் பலகைச் அலைச்சறுக்கு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="84"/>
         <location filename="../qml/components/Translation.js" line="84"/>
         <source>Tactical</source>
-        <translation>தந்திரமான</translation>
+        <translation>தந்திரமான செயல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="85"/>
         <location filename="../qml/components/Translation.js" line="85"/>
         <source>Jumpmaster</source>
-        <translation>சம்ப்மாச்டர்</translation>
+        <translation>விமானத்திலிருந்து குதிக்கும் சாகச விளையாட்டின் அனைத்தும் அறிந்தவர்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="86"/>
@@ -2691,7 +2702,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="88"/>
         <location filename="../qml/components/Translation.js" line="88"/>
         <source>Baseball</source>
-        <translation>பேச்பால்</translation>
+        <translation>தளப்பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="89"/>
@@ -2703,13 +2714,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="90"/>
         <location filename="../qml/components/Translation.js" line="90"/>
         <source>Softball Slow Pitch</source>
-        <translation>சாஃப்ட்பால் ச்லோ பிட்ச்</translation>
+        <translation>மென்பந்து மெது வீச்சு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="91"/>
         <location filename="../qml/components/Translation.js" line="91"/>
         <source>Shooting</source>
-        <translation>படப்பிடிப்பு</translation>
+        <translation>சுடுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="92"/>
@@ -2733,31 +2744,31 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="95"/>
         <location filename="../qml/components/Translation.js" line="95"/>
         <source>Health Snapshot</source>
-        <translation>எல்த் ச்னாப்சாட்</translation>
+        <translation>உடல்நலம் படப்பிடிப்பு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="96"/>
         <location filename="../qml/components/Translation.js" line="96"/>
         <source>Marine</source>
-        <translation>கடற்சார</translation>
+        <translation>கடல் சார்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="97"/>
         <location filename="../qml/components/Translation.js" line="97"/>
         <source>HIIT</source>
-        <translation>HIIT</translation>
+        <translation>அதிக தீவிரதன்மை இடைவெளி பயிற்சி(HIIT)</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="98"/>
         <location filename="../qml/components/Translation.js" line="98"/>
         <source>Video Gaming</source>
-        <translation>வீடியோ கேமிங்</translation>
+        <translation>காணொலி விளையாட்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="99"/>
         <location filename="../qml/components/Translation.js" line="99"/>
         <source>Racket</source>
-        <translation>ராக்கெட்</translation>
+        <translation>பந்து அடிக்கும் மட்டை</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="100"/>
@@ -2769,43 +2780,43 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="101"/>
         <location filename="../qml/components/Translation.js" line="101"/>
         <source>Padel</source>
-        <translation>விழுந்தது</translation>
+        <translation>பந்து மட்டை விளையாட்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="102"/>
         <location filename="../qml/components/Translation.js" line="102"/>
         <source>Squash</source>
-        <translation>ச்குவாச்</translation>
+        <translation>சுவர்பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="103"/>
         <location filename="../qml/components/Translation.js" line="103"/>
         <source>Racquetball</source>
-        <translation>ராக்கெட்பால்</translation>
+        <translation>வலை இல்லா மட்டைப்பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="104"/>
         <location filename="../qml/components/Translation.js" line="104"/>
         <source>Push Walk Speed</source>
-        <translation>புச் நடை விரைவு</translation>
+        <translation>விரைவு நடைவண்டி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="105"/>
         <location filename="../qml/components/Translation.js" line="105"/>
         <source>Indoor Push Walk Speed</source>
-        <translation>உட்புற புச் நடை விரைவு</translation>
+        <translation>உள்ளரங்க விரைவு நடைவண்டி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="106"/>
         <location filename="../qml/components/Translation.js" line="106"/>
         <source>Push Run Speed</source>
-        <translation>புச் ரன் விரைவு</translation>
+        <translation>விரைவு தள்ளிஓடுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="107"/>
         <location filename="../qml/components/Translation.js" line="107"/>
         <source>Indoor Push Run Speed</source>
-        <translation>உட்புற புச் ரன் விரைவு</translation>
+        <translation>உள்ளரங்க விரைவு தள்ளி ஓடுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="108"/>
@@ -2817,19 +2828,19 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="109"/>
         <location filename="../qml/components/Translation.js" line="109"/>
         <source>Para Sport</source>
-        <translation>விளையாட்டுக்காக</translation>
+        <translation>மாற்றுத்திறனாளிகளுக்கான விளையாட்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="110"/>
         <location filename="../qml/components/Translation.js" line="110"/>
         <source>Disc Golf</source>
-        <translation>வட்டு கோல்ஃப்</translation>
+        <translation>பறக்கும் வட்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="111"/>
         <location filename="../qml/components/Translation.js" line="111"/>
         <source>Ultimate Disc</source>
-        <translation>அல்டிமேட் டிச்க்</translation>
+        <translation>உச்ச பறக்கும் வட்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="112"/>
@@ -2847,13 +2858,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="114"/>
         <location filename="../qml/components/Translation.js" line="114"/>
         <source>Hockey</source>
-        <translation>ஆக்கி</translation>
+        <translation>வளைகோல் பந்து</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="115"/>
         <location filename="../qml/components/Translation.js" line="115"/>
         <source>Lacrosse</source>
-        <translation>லாக்ரோச்</translation>
+        <translation>நீண்ட கைப்பிடி வலைப்பந்து(Lacrosse)</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="116"/>
@@ -2913,7 +2924,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="125"/>
         <location filename="../qml/components/Translation.js" line="125"/>
         <source>Kickboxing</source>
-        <translation>கிக் பாக்சிங்</translation>
+        <translation>உதை குத்துசண்டை</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="126"/>
@@ -2955,7 +2966,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="132"/>
         <location filename="../qml/components/Translation.js" line="132"/>
         <source>Cross Country Running</source>
-        <translation>கிராச் கன்ட்ரி ரன்னிங்</translation>
+        <translation>நாட்டுப்புற குறுக்கு ஓட்டம்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="133"/>
@@ -2967,7 +2978,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="134"/>
         <location filename="../qml/components/Translation.js" line="134"/>
         <source>Fencing</source>
-        <translation>ஃபென்சிங்</translation>
+        <translation>வாள்வீச்சு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="135"/>
@@ -2985,13 +2996,13 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="137"/>
         <location filename="../qml/components/Translation.js" line="137"/>
         <source>Horizontal Bar</source>
-        <translation>கிடைமட்ட பட்டை</translation>
+        <translation>கிடைமட்ட தண்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="138"/>
         <location filename="../qml/components/Translation.js" line="138"/>
         <source>Parallel Bar</source>
-        <translation>இணை பட்டை</translation>
+        <translation>இணை தண்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="139"/>
@@ -3009,25 +3020,25 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="141"/>
         <location filename="../qml/components/Translation.js" line="141"/>
         <source>Sit Ups</source>
-        <translation>சிட் அப்ச்</translation>
+        <translation>உட்கார்தல் எழுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="142"/>
         <location filename="../qml/components/Translation.js" line="142"/>
         <source>Fitness Gaming</source>
-        <translation>ஃபிட்னச் கேமிங்</translation>
+        <translation>உடல்தகுதி விளையாட்டு</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="143"/>
         <location filename="../qml/components/Translation.js" line="143"/>
         <source>Aerobic Exercise</source>
-        <translation>ஏரோபிக் உடற்பயிற்சி</translation>
+        <translation>நடன உடற்பயிற்சி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="144"/>
         <location filename="../qml/components/Translation.js" line="144"/>
         <source>Rolling</source>
-        <translation>உருளும்</translation>
+        <translation>உருளுதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="145"/>
@@ -3039,7 +3050,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="146"/>
         <location filename="../qml/components/Translation.js" line="146"/>
         <source>Gymnastics</source>
-        <translation>சிம்னாச்டிக்ச்</translation>
+        <translation>சீருடற்பயிற்சி</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="147"/>
@@ -3051,7 +3062,7 @@ Please consider making a donation if you use this functionality.</source>
         <location filename="../qml/components/Translation.js" line="148"/>
         <location filename="../qml/components/Translation.js" line="148"/>
         <source>Push Ups</source>
-        <translation>புச் அப்கள்</translation>
+        <translation>கை வலுவினால் உடலை மேலே எழுப்புதல்</translation>
     </message>
     <message>
         <location filename="../qml/components/Translation.js" line="149"/>

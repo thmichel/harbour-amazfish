@@ -34,8 +34,6 @@ void GarminGfdiStatusMessage::parse(const QByteArray& data)
     // This handles Status / Response MEssages from the watch.
     // Not all below messages are expected, but for debugging we notify for all
     quint16 originalMessageType = u16le(data.constData(),0);
-    QByteArray response_payload;
-    QByteArray gfdi;
 
     bool handled = false;
 

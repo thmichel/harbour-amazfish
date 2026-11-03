@@ -9,7 +9,6 @@
 #include <algorithm>
 #include <KDb.h>
 #include <QtNetwork>
-#include <QtXml/QtXml>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 #define endl Qt::endl
@@ -21,19 +20,6 @@ BangleJSDevice::BangleJSDevice(const QString &pairedName, QObject *parent) : Abs
     connect(this, &QBLEDevice::propertiesChanged, this, &BangleJSDevice::onPropertiesChanged, Qt::UniqueConnection);
 
     m_manager = new QNetworkAccessManager(this);
-}
-
-void BangleJSDevice::pair()
-{
-    qDebug() << Q_FUNC_INFO;
-
-    m_needsAuth = false;
-    m_pairing = true;
-    //disconnectFromDevice();
-    setConnectionState("pairing");
-    emit connectionStateChanged();
-
-    QBLEDevice::pair();
 }
 
 Amazfish::Features BangleJSDevice::supportedFeatures() const
@@ -628,7 +614,7 @@ void BangleJSDevice::handleRxJson(const QJsonObject &json)
             return;
         }
         QList<QString> trksListQStr;
-        for (const QJsonValue &v : trksList) {
+        for (const QJsonValue &v : std::as_const(trksList)) {
             trksListQStr << v.toString();
         }
 
@@ -1375,7 +1361,7 @@ void BangleJSDevice::actTrksList(const QList<QString> &available)
     qDebug() << "filesToDelete" << filesToDelete;
     if (!filesToDelete.isEmpty()) {
         QStringList quoted;
-        for (const QString &f : filesToDelete) {
+        for (const QString &f : std::as_const(filesToDelete)) {
             quoted << QStringLiteral("\"") + f + QStringLiteral("\"");
         }
 

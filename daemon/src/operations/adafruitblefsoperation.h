@@ -4,7 +4,9 @@
 #include "abstractoperation.h"
 #include "abstractdevice.h"
 #include "abstractfirmwareinfo.h"
+
 #include <future>
+#include <QThread>
 
 class AdafruitBleFsService;
 class BleFsWorker;
@@ -17,7 +19,7 @@ public:
     ~AdafruitBleFsOperation();
     bool handleMetaData(const QByteArray &meta) override;
     void handleData(const QByteArray &data) override;
-    void start(QBLEService *service) override;
+    void start() override;
     bool characteristicChanged(const QString &characteristic, const QByteArray &value) override;
 
     struct File {        

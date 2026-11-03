@@ -87,7 +87,7 @@ void HuamiFetcher::setNotifications(bool control, bool data)
     m_device->setActivityNotifications(control, data);
 }
 
-void HuamiFetcher::writeControl(const QByteArray value)
+void HuamiFetcher::writeControl(const QByteArray &value)
 {
     qDebug() << Q_FUNC_INFO;
     m_device->writeActivityControl(value);
@@ -144,7 +144,7 @@ void HuamiFetcher::triggerNextOperation()
     }
 
     if (m_currentOperation) {
-        m_currentOperation->start(0);
+        m_currentOperation->start();
         setBusy(true);
 
         return;

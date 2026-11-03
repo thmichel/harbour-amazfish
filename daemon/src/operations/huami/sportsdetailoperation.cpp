@@ -1,12 +1,13 @@
 #include "sportsdetailoperation.h"
-
-#include <QDebug>
-#include <QDataStream>
-
 #include "mibandservice.h"
 #include "typeconversion.h"
 #include "amazfishconfig.h"
 #include "huami/huamifetcher.h"
+
+#include <QDebug>
+#include <QDataStream>
+#include <QDir>
+#include <QStandardPaths>
 
 SportsDetailOperation::SportsDetailOperation(HuamiFetcher *fetcher, KDbConnection *conn, const ActivitySummary &summary, AbstractActivityDetailParser *parser, bool isZeppOs) :  AbstractFetchOperation(fetcher, isZeppOs), m_summary(summary), m_parser(parser), m_conn(conn)
 {
@@ -19,7 +20,7 @@ SportsDetailOperation::~SportsDetailOperation()
     delete m_parser;
 }
 
-void SportsDetailOperation::start(QBLEService *service)
+void SportsDetailOperation::start()
 {
     qDebug() << Q_FUNC_INFO;
     setStartDate(m_summary.startTime());

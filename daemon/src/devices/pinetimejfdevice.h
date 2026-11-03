@@ -13,7 +13,6 @@ class PinetimeJFDevice : public AbstractDevice
 public:
     explicit PinetimeJFDevice(const QString &pairedName, QObject *parent = 0);
 
-    void pair() override;
     Amazfish::Features supportedFeatures() const override;
     Amazfish::DataTypes supportedDataTypes() const override;
     QString deviceType() const override;
@@ -41,8 +40,8 @@ public:
     //Weather
     void sendWeather(CurrentWeather *weather) override;
 
-    virtual void applyDeviceSetting(Amazfish::Settings s);
-    virtual void immediateAlert(int level) override;
+    void applyDeviceSetting(Amazfish::Settings s) override;
+    void immediateAlert(int level) override;
 
 protected:
     void onPropertiesChanged(QString interface, QVariantMap map, QStringList list);

@@ -21,17 +21,18 @@ QString NeoDevice::deviceType() const
 
 Amazfish::Features NeoDevice::supportedFeatures() const
 {
-    return Amazfish::Feature::FEATURE_HRM |
-            Amazfish::Feature::FEATURE_WEATHER |
-            Amazfish::Feature::FEATURE_ACTIVITY |
-            Amazfish::Feature::FEATURE_STEPS |
-            Amazfish::Feature::FEATURE_ALARMS |
-            Amazfish::Feature::FEATURE_ALERT;
+    return Amazfish::Feature::FEATURE_HRM
+        | Amazfish::Feature::FEATURE_WEATHER
+        | Amazfish::Feature::FEATURE_STEPS
+        | Amazfish::Feature::FEATURE_ALARMS
+        | Amazfish::Feature::FEATURE_ALERT;
 }
 
 Amazfish::DataTypes NeoDevice::supportedDataTypes() const
 {
-    return Amazfish::DataType::TYPE_ACTIVITY | Amazfish::DataType::TYPE_HEART_RATE;
+    return Amazfish::DataType::TYPE_ACTIVITY
+        | Amazfish::DataType::TYPE_HEART_RATE
+        | Amazfish::DataType::TYPE_SLEEP;
 }
 
 void NeoDevice::serviceEvent(uint8_t event)

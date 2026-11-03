@@ -18,7 +18,9 @@
 #include "amazfishconfig.h"
 #include "realtimeactivitysample.h"
 #include "qble/qblelocalapplication.h"
-#include <QtXml/QtXml>
+
+#include <QDomDocument>
+#include <QDBusReply>
 
 namespace {
 size_t GetMtuForCharacteristic(QString path, const char* characteristicUUID)
@@ -54,20 +56,6 @@ PinetimeJFDevice::PinetimeJFDevice(const QString &pairedName, QObject *parent) :
 {
     qDebug() << Q_FUNC_INFO << pairedName;
     connect(this, &QBLEDevice::propertiesChanged, this, &PinetimeJFDevice::onPropertiesChanged, Qt::UniqueConnection);
-}
-
-void PinetimeJFDevice::pair()
-{
-    qDebug() << Q_FUNC_INFO;
-
-    m_needsAuth = true;
-    m_pairing = true;
-    disconnectFromDevice();
-    setConnectionState("pairing");
-    emit connectionStateChanged();
-
-    QBLEDevice::pair();
-
 }
 
 Amazfish::Features PinetimeJFDevice::supportedFeatures() const
@@ -377,7 +365,7 @@ void PinetimeJFDevice::startDownload()
             DfuOperation *operation = dynamic_cast<DfuOperation*>(fw->currentOperation());
             if (operation) {
                 emit message(tr("Sending file..."));
-                operation->start(fw);
+                operation->start();
             } else {
                 emit message(tr("No file selected"));
             }
@@ -390,7 +378,7 @@ void PinetimeJFDevice::startDownload()
             AdafruitBleFsOperation *operation = dynamic_cast<AdafruitBleFsOperation*>(s->currentOperation());
             if (operation) {
                 emit message(tr("Sending file..."));
-                operation->start(s);
+                operation->start();
             } else {
                 emit message(tr("No file selected"));
             }

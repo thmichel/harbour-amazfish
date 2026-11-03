@@ -6,11 +6,9 @@
 #include "garmingfdimessage.h"
 #include "garminspo2message.h"
 #include "garminhrmmessage.h"
-#include "garminhrvmessage.h"
 #include "garminstepsmessage.h"
 #include "amazfishconfig.h"
 #include "garmindevicestatusmessage.h"
-#include "garminnotificationsubscriptionmessage.h"
 #include "fit/garminweathermessage.h"
 
 #include <QtCore/QStringList>
@@ -21,8 +19,7 @@
 #include <QDataStream>
 #include <QObject>
 #include <QMutex>
-
-
+#include <QDBusReply>
 
 const char* CommunicatorV2::BASE_UUID                   = "6a4e%1-667b-11e3-949a-0800200c9a66";
 const char* CommunicatorV2::UUID_SERVICE_GARMIN_ML_GFDI = "6a4e2800-667b-11e3-949a-0800200c9a66";
@@ -180,7 +177,6 @@ bool CommunicatorV2::initializeDevice() {
         connect(mState->characteristicReceive.data(),&QBLECharacteristic::characteristicRead,this,&CommunicatorV2::onCharacteristicChanged);
         if (mIsMlProtocol) {
             const QByteArray closeAll = createCloseAllServicesMessage();
-            QString errorMsg;
             // write async to avoid timing issues on reconnect
             mState->characteristicSend->writeAsync(closeAll);
         }
@@ -778,9 +774,6 @@ void CommunicatorV2::registerServices() {
     {
         qDebug() << "Garmin: No device configured";
     }
-
-    QString errorMsg;
-
 
     registerService(Service::GFDI, false); // reliable implemantation is broken, use unreliable for now
 

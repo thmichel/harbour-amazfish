@@ -1,5 +1,4 @@
 #include "asteroidosdevice.h"
-
 #include "batteryservice.h"
 #include "asteroidtimeservice.h"
 #include "asteroidweatherservice.h"
@@ -7,8 +6,8 @@
 #include "asteroidmediaservice.h"
 #include "asteroidscreenshotservice.h"
 
-#include <QtXml/QtXml>
-
+#include <QDir>
+#include <QStandardPaths>
 
 AsteroidOSDevice::AsteroidOSDevice(const QString &pairedName, QObject *parent) : AbstractDevice(pairedName, parent)
 {
@@ -65,22 +64,7 @@ void AsteroidOSDevice::incomingCallEnded()
 
 }
 
-
-void AsteroidOSDevice::pair()
-{
-    qDebug() << Q_FUNC_INFO;
-
-    m_needsAuth = true;
-    m_pairing = true;
-    //disconnectFromDevice();
-    setConnectionState("pairing");
-    emit connectionStateChanged();
-
-    QBLEDevice::pair();
-}
-
-
-void AsteroidOSDevice::onPropertiesChanged(QString interface, QVariantMap map, QStringList list)
+void AsteroidOSDevice::onPropertiesChanged(const QString &interface, QVariantMap map, const QStringList &list)
 {
     qDebug() << Q_FUNC_INFO << interface << map << list;
 
@@ -126,7 +110,7 @@ void AsteroidOSDevice::initialise()
     setConnectionState("connected");
     parseServices();
 
-    AsteroidNotificationService *notification = qobject_cast<AsteroidNotificationService*>(service(AsteroidNotificationService::UUID_SERVICE_NOTIFICATION));
+    const AsteroidNotificationService *notification = qobject_cast<AsteroidNotificationService*>(service(AsteroidNotificationService::UUID_SERVICE_NOTIFICATION));
     if (notification) {
 //        notification->enableNotification(AsteroidNotificationService::UUID_CHARACTERISTIC_ALERT_NOTIFICATION_EVENT);
 //        connect(alert, &AlertNotificationService::serviceEvent, this, &PinetimeJFDevice::serviceEvent, Qt::UniqueConnection);

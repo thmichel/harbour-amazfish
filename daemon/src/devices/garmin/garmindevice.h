@@ -19,7 +19,7 @@ class GarminDevice : public AbstractDevice
     Q_OBJECT
 public:
     explicit GarminDevice(const QString &pairedName, QObject *parent = 0);
-    QBLEService *drv_createService(const QString &uuid, const QString &path);
+    QBLEService *drv_createService(const QString &uuid, const QString &path) override;
 
     Amazfish::Features supportedFeatures() const override;
     Amazfish::DataTypes supportedDataTypes() const override;
@@ -48,9 +48,9 @@ private:
     int mSteps = 0;
 
     void initialise();
-    virtual void pair() override;
     virtual void refreshInformation() override;
 
+    QString mPreferredService;
     QSharedPointer<GarminNotificationHandler> mNotificationHandler;
     QSharedPointer<ProtobufHandler> mProtobufHandler;
     QSharedPointer<CommunicatorV2> mCommunicator;

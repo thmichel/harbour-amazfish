@@ -5,6 +5,8 @@
 #include "abstractoperation.h"
 #include "dfuworker.h"
 
+#include <QThread>
+
 class DfuService;
 class AbstractFirmwareInfo;
 class DfuOperation : public QObject, public AbstractOperation
@@ -15,7 +17,7 @@ public:
     ~DfuOperation();
     bool handleMetaData(const QByteArray &meta) override;
     void handleData(const QByteArray &data) override;
-    void start(QBLEService *service) override;
+    void start() override;
     bool characteristicChanged(const QString &characteristic, const QByteArray &value) override;
 
 protected:

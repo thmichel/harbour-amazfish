@@ -1,9 +1,9 @@
 #ifndef HUAMIFETCHER_H
 #define HUAMIFETCHER_H
 
-
 #include "abstractfetchoperation.h"
 #include "amazfish.h"
+#include <QTimer>
 
 class HuamiDevice;
 
@@ -19,7 +19,7 @@ public:
     void fetchData(const QByteArray &value);
 
     void setNotifications(bool control, bool data);
-    void writeControl(const QByteArray value);
+    void writeControl(const QByteArray &value);
     void message(const QString &string);
     void jumpQueue(AbstractFetchOperation* operation);
     void reset();

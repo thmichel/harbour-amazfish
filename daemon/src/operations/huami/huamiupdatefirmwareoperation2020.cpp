@@ -4,6 +4,8 @@
 #include "mibandservice.h"
 #include "huami/huamifirmwareinfo.h"
 
+#include <QThread>
+
 constexpr uint8_t HuamiUpdateFirmwareOperation2020::COMMAND_REQUEST_PARAMETERS;
 constexpr uint8_t HuamiUpdateFirmwareOperation2020::COMMAND_START_FILE;
 constexpr uint8_t HuamiUpdateFirmwareOperation2020::COMMAND_SEND_FIRMWARE_INFO;
@@ -99,13 +101,13 @@ bool HuamiUpdateFirmwareOperation2020::handleMetaData(const QByteArray &value)
     return true;
 }
 
-void HuamiUpdateFirmwareOperation2020::start(QBLEService *service)
+void HuamiUpdateFirmwareOperation2020::start()
 {
     if (m_info->type() != AbstractFirmwareInfo::Invalid) {
         m_service->enableNotification(BipFirmwareService::UUID_CHARACTERISTIC_FIRMWARE);
         requestParameters();
     } else {
-        service->message(QObject::tr("File does not seem to be supported"));
+        m_service->message(QObject::tr("File does not seem to be supported"));
     }
 }
 
@@ -219,5 +221,9 @@ void HuamiUpdateFirmwareOperation2020::sendTransferComplete() {
 }
 
 void HuamiUpdateFirmwareOperation2020::sendFinalize() {
+    // The watch confirms finalizing only after processing the data: about 40 s
+    // for A-GPS on an Amazfit GTS. Waiting the usual 10 s cancelled the
+    // operation before that reply.
+    m_timeoutMs = 120000;
     m_service->writeValue(BipFirmwareService::UUID_CHARACTERISTIC_FIRMWARE, UCHAR_TO_BYTEARRAY(COMMAND_FINALIZE_UPDATE));
 }
