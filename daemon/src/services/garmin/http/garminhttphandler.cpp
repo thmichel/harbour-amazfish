@@ -6,9 +6,11 @@
 
 #include <QUrl>
 #include <QJsonObject>
+#include <QJsonDocument>
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QUrlQuery>
 
 // Helper function
 QByteArray zlibCompress(const QByteArray &data, int level = Z_DEFAULT_COMPRESSION)

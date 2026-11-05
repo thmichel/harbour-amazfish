@@ -1,6 +1,8 @@
 #include "garminhttprequest.h"
 #include "garminjson.h"
-#include "QJsonObject"
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QUrlQuery>
 
 GarminHttpRequest::GarminHttpRequest(RawRequest raw, quint16 msgId) :
     mRawRequest(raw), mMessageId(msgId)
