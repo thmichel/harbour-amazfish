@@ -37,7 +37,7 @@ const WeatherField CURRENT_FIELDS[] = {
     //{ 5, 1, FIT_BASE_UINT8 },    // precipitation_probability
     { 6, 1, FIT_BASE_SINT8 },    // temperature_feels_like
     { 7, 1, FIT_BASE_UINT8 },    // relative_humidity
-    { 8, 1, FIT_BASE_STRING},    // City
+    //{ 8, 1, FIT_BASE_STRING},    // City
     { 9, 4, FIT_BASE_UINT32 },   // observed_at_time
     { 10, 4, FIT_BASE_SINT32 },  // observed_location_lat
     { 11, 4, FIT_BASE_SINT32 },  // observed_location_long
@@ -50,14 +50,15 @@ const WeatherField CURRENT_FIELDS[] = {
 
 const WeatherField HOURLY_FIELDS[] = {
     { 0, 1, FIT_BASE_ENUM },     // weather_report
+    { 1, 1, FIT_BASE_SINT8 },    // temperature
     { 2, 1, FIT_BASE_ENUM },     // condition
-    //{ 3, 2, FIT_BASE_UINT16 },   // wind_direction
-    //{ 4, 2, FIT_BASE_UINT16 },   // wind_speed
+    { 3, 2, FIT_BASE_UINT16 },   // wind_direction
+    { 4, 2, FIT_BASE_UINT16 },   // wind_speed
     { 5, 1, FIT_BASE_UINT8 },    // precipitation_probability
+    { 6, 1, FIT_BASE_SINT8 },    // temperature_feels_like
     { 7, 1, FIT_BASE_UINT8 },    // relative_humidity
-    { 13, 1, FIT_BASE_SINT8 },   // high_temperature
-    { 14, 1, FIT_BASE_SINT8 },   // low_temperature
-    //{ 16, 4, FIT_BASE_FLOAT32 }, // uv_index
+    { 16, 4, FIT_BASE_FLOAT32 }, // uv_index
+    { 17, 1, FIT_BASE_ENUM },    // Air Quality
     { 18, 4, FIT_BASE_UINT32 },  // atmospheric_pressure
     { 253, 4, FIT_BASE_UINT32 }, // timestamp (always "now" - see appendDailyRecord)
 };
@@ -65,14 +66,15 @@ const WeatherField HOURLY_FIELDS[] = {
 const WeatherField DAILY_FIELDS[] = {
     { 0, 1, FIT_BASE_ENUM },     // weather_report
     { 2, 1, FIT_BASE_ENUM },     // condition
-    //{ 3, 2, FIT_BASE_UINT16 },   // wind_direction
-    //{ 4, 2, FIT_BASE_UINT16 },   // wind_speed
+    { 3, 2, FIT_BASE_UINT16 },   // wind_direction
+    { 4, 2, FIT_BASE_UINT16 },   // wind_speed
     { 5, 1, FIT_BASE_UINT8 },    // precipitation_probability
     { 7, 1, FIT_BASE_UINT8 },    // relative_humidity
     { 12, 1, FIT_BASE_ENUM },    // day_of_week
     { 13, 1, FIT_BASE_SINT8 },   // high_temperature
     { 14, 1, FIT_BASE_SINT8 },   // low_temperature
-    //{ 16, 4, FIT_BASE_FLOAT32 }, // uv_index
+    { 16, 4, FIT_BASE_FLOAT32 }, // uv_index
+    { 17, 1, FIT_BASE_ENUM },    // Air Quality
     { 18, 4, FIT_BASE_UINT32 },  // atmospheric_pressure
     { 253, 4, FIT_BASE_UINT32 }, // timestamp (always "now" - see appendDailyRecord)
 };
@@ -89,7 +91,7 @@ public:
     QByteArray encodeCurrentWeather(const CurrentWeather *weather);
     QByteArray encodeToday(const CurrentWeather *weather);
     QByteArray encodeDailyForecast(const CurrentWeather::Forecast forecast,quint8 localType);
-    QByteArray encodeHourlyForecast(const CurrentWeather::Forecast forecast,quint8 localType);
+    QByteArray encodeHourlyForecast(const CurrentWeather::Forecast forecast, quint8 localType);
     QByteArray generateDataPayload(const CurrentWeather *weather);
 };
 

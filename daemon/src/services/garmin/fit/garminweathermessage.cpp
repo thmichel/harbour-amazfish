@@ -58,10 +58,10 @@ QByteArray GarminWeatherMessage::generateRecordDefinitions() {
     qDebug() << Q_FUNC_INFO;
     int size = int(sizeof(CURRENT_FIELDS) / sizeof (CURRENT_FIELDS[0]));
     QByteArray message = generateRecordDefinition(0,CURRENT_FIELDS,size);
-    size = int(sizeof(HOURLY_FIELDS) / sizeof (HOURLY_FIELDS[0]));
-    message.append(generateRecordDefinition(1,HOURLY_FIELDS,size));
+    //size = int(sizeof(HOURLY_FIELDS) / sizeof (HOURLY_FIELDS[0]));
+    //message.append(generateRecordDefinition(1,HOURLY_FIELDS,size));
     size = int(sizeof(DAILY_FIELDS) / sizeof (DAILY_FIELDS[0]));
-    message.append(generateRecordDefinition(2,DAILY_FIELDS,size));
+    message.append(generateRecordDefinition(1,DAILY_FIELDS,size));
     return message;
 }
 
@@ -94,16 +94,17 @@ QByteArray GarminWeatherMessage::encodeDailyForecast(const CurrentWeather::Forec
     payload.append(localType);
     payload.append(REPORT_DAILY_FORECAST); // Daily Forecast
     payload.append(mapWeatherCode(forecast.weatherCode()));
-    payload.append(char(int(forecast.precipProbability())));
-    payload.append(char(forecast.humidity()));
-    payload.append(char(dayOfWeek));
-    payload.append(qint8(forecast.maxTemperature()-273.15));
-    payload.append(qint8(forecast.minTemperature()-273.15));
+    writeU16le(payload,windSpeedMmPerSec(forecast.windMaxSpeed()));
+    writeU16le(payload,quint16(forecast.windDirection()));
+    payload.append(qint8(forecast.precipProbability()));
+    payload.append(qint8(forecast.humidity()));
+    payload.append(qint8(dayOfWeek));
+    payload.append(quint8(forecast.maxTemperature()-273.15));
+    payload.append(quint8(forecast.minTemperature()-273.15));
+    writeFloat32(payload,0); //UV Index not part of forecast
+    payload.append(qint8(0)); // Air Quality not in forecast
     writeU32le(payload,forecast.pressure());
     writeU32le(payload, timestamp);
-    //writeU16le(payload,windSpeedMmPerSec(forecast.windMaxSpeed()));
-    //writeU16le(payload,quint16(forecast.windDirection()));
-    //writeFloat32(payload,0); //UV Index not part of forecast
     return payload;
 }
 
@@ -114,16 +115,17 @@ QByteArray GarminWeatherMessage::encodeHourlyForecast(const CurrentWeather::Fore
     quint32 garminTimestamp = forecast.dateTime() - GARMIN_TIME_OFFSET;
     payload.append(localType);
     payload.append(REPORT_HOURLY_FORECAST); // Daily Forecast
+    payload.append(quint8(forecast.minTemperature()-273.15)); // use as current temperature
     payload.append(mapWeatherCode(forecast.weatherCode()));
-    payload.append(char(int(forecast.precipProbability())));
-    payload.append(char(forecast.humidity()));
-    payload.append(qint8(forecast.maxTemperature()-273.15));
-    payload.append(qint8(forecast.minTemperature()-273.15));
+    writeU16le(payload,quint16(forecast.windDirection()));
+    writeU16le(payload,windSpeedMmPerSec(forecast.windMaxSpeed()));
+    payload.append(qint8(forecast.precipProbability()));
+    payload.append(quint8(forecast.minTemperature()-273.15)); // use as current temperature
+    payload.append(qint8(forecast.humidity()));
+    writeFloat32(payload,0); //UV Index not part of forecast
+    payload.append(qint8(0)); // Air Quality not in forecast
     writeU32le(payload,forecast.pressure());
     writeU32le(payload, garminTimestamp);
-    //writeU16le(payload,windSpeedMmPerSec(forecast.windMaxSpeed()));
-    //writeU16le(payload,quint16(forecast.windDirection()));
-    //writeFloat32(payload,0); //UV Index not part of forecast
     return payload;
 }
 
@@ -138,11 +140,10 @@ QByteArray GarminWeatherMessage::encodeCurrentWeather(const CurrentWeather *weat
     payload.append(mapWeatherCode(weather->weatherCode()));
     writeU16le(payload,quint16(weather->windDeg()));
     writeU16le(payload,windSpeedMmPerSec(weather->windSpeed()));
-    //payload.append(char(0xff)); // No precipPropability in CurrentWeather
     payload.append(char(qint8(weather->temperature()-273.15))); // feels like temperature
     payload.append(char(weather->humidity()));
-    payload.append(weather->city()->name().toUtf8());
-    payload.append(char(0));
+    //payload.append(weather->city()->name().toUtf8());
+    //payload.append(char(0));
     writeU32le(payload, timestamp);
     writeU32le(payload,degreesToSemicircles(weather->city()->latitude())); //latitude
     writeU32le(payload,degreesToSemicircles(weather->city()->longitude())); //longitude
@@ -159,12 +160,11 @@ QByteArray GarminWeatherMessage::generateDataPayload(const CurrentWeather *weath
 {
     qDebug() << Q_FUNC_INFO;
     QByteArray payload=encodeCurrentWeather(weather);
-    CurrentWeather::Forecast f;
 
     // "today" is always present (built from current-conditions fields, like
     // Gadgetbridge's todayDailyForecast), even when the API gave us no
     // future daily forecasts at all.
-    //quint64 current = QDateTime::currentMSecsSinceEpoch()/1000;
+    CurrentWeather::Forecast f;
     f.setMaxTemperature(weather->maxTemperature());
     f.setMinTemperature(weather->minTemperature());
     f.setWeatherCode(weather->weatherCode());
@@ -174,29 +174,16 @@ QByteArray GarminWeatherMessage::generateDataPayload(const CurrentWeather *weath
     f.setPrecipProbability(0);
     f.setDateTime(weather->dateTime());
 
-    // hourly forecasts are not present
-    // As the watch seems to need it, we provide the current weather as dirty workaround
-    // Currently amazfish does not provide hourly forecasts
-    for (int i =0; i < 6; ++i) {
-        f.setDateTime(f.dateTime()+3600);
-        payload.append(encodeHourlyForecast(f,1));
-    }
-
-    //Reset Forecast time
-    f.setDateTime(weather->dateTime());
-
     // Now add daily forecasts
-    QByteArray forecastPayload = encodeDailyForecast(f,2);
+    QByteArray forecastPayload = encodeDailyForecast(f,1);
     payload.append(forecastPayload);
-
 
     for (int i=0;i < weather->forecastCount()-1;++i) // last one seems duplicate, hence -1;
     {
-        if (i > 2) break; //Maximum two days forecast
+        if (i > 3) break; //Maximum 4 days forecast
         CurrentWeather::Forecast forecast = weather->forecast(i);
-        forecastPayload = encodeDailyForecast(forecast,2);
+        forecastPayload = encodeDailyForecast(forecast,1);
         payload.append(forecastPayload);
     }
-
     return payload;
 }
